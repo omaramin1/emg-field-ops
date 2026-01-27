@@ -1,32 +1,36 @@
-// Leaderboard data service - fetches from aminauragroup.com
-// Auto-syncs every Monday via cron
+// Leaderboard data service
+// Two leaderboards: Deals (current week) and Payroll (13-day lag)
 
 export interface RepData {
   id: string
   name: string
-  weeklyKwh: number  // Weekly kWh in thousands (e.g., 264 = 264k kWh)
-  rank: number
+  weeklyDeals: number // Current week deal submissions (real-time)
+  payrollKwh: number  // kWh hitting payroll this week (13-day lag)
   lastUpdated: string
 }
 
-// WEEKLY data pulled from aminauragroup.com - updated every Monday
+// DEALS LEADERBOARD - Current week submissions (Mon-Sun)
 // Last sync: 2026-01-27
-// Numbers are in thousands of kWh (k)
-export const LEADERBOARD_DATA: RepData[] = [
-  { id: '1', name: 'Yusuf K.', weeklyKwh: 247, rank: 1, lastUpdated: '2026-01-27' },
-  { id: '2', name: 'Syed N.', weeklyKwh: 237, rank: 2, lastUpdated: '2026-01-27' },
-  { id: '3', name: 'Haseeb U.', weeklyKwh: 152, rank: 3, lastUpdated: '2026-01-27' },
-  { id: '4', name: 'Jamar J.', weeklyKwh: 136, rank: 4, lastUpdated: '2026-01-27' },
-  { id: '5', name: 'Vernon T.', weeklyKwh: 97, rank: 5, lastUpdated: '2026-01-27' },
-  { id: '6', name: 'Parion M.', weeklyKwh: 82, rank: 6, lastUpdated: '2026-01-27' },
+export const DEALS_LEADERBOARD: RepData[] = [
+  { id: '1', name: 'Yusuf K.', weeklyDeals: 21, payrollKwh: 247, lastUpdated: '2026-01-27' },
+  { id: '2', name: 'Syed N.', weeklyDeals: 16, payrollKwh: 237, lastUpdated: '2026-01-27' },
+  { id: '3', name: 'Jamar J.', weeklyDeals: 13, payrollKwh: 136, lastUpdated: '2026-01-27' },
+  { id: '4', name: 'Parion M.', weeklyDeals: 13, payrollKwh: 82, lastUpdated: '2026-01-27' },
+  { id: '5', name: 'Vernon T.', weeklyDeals: 12, payrollKwh: 97, lastUpdated: '2026-01-27' },
 ]
 
-// Calculate deals from weekly kWh (reverse the projection formula)
-// weeklyKwh (in k) * 1000 = actual kWh
-// kWh = deals * 0.70 * 0.90 * 10000 = deals * 6300
-// deals = kWh / 6300
-export const kwhToDeals = (weeklyKwhInK: number): number => {
-  return Math.round((weeklyKwhInK * 1000) / 6300)
+// Get leaderboard sorted by deals (current week activity)
+export const getDealsLeaderboard = (): RepData[] => {
+  return [...DEALS_LEADERBOARD].sort((a, b) => b.weeklyDeals - a.weeklyDeals)
+}
+
+// Get leaderboard sorted by payroll kWh (what's hitting paychecks)
+export const getPayrollLeaderboard = (): RepData[] => {
+  return [...DEALS_LEADERBOARD].sort((a, b) => b.payrollKwh - a.payrollKwh)
+}
+
+export const getLastSyncDate = (): string => {
+  return DEALS_LEADERBOARD[0]?.lastUpdated || 'Never'
 }
 
 // Trip qualifier: 120k kWh/week × 30 weeks
@@ -35,15 +39,7 @@ export const TRIP_QUALIFIER = {
   weeksRequired: 30,
 }
 
-export const getWeeklyLeaderboard = (): RepData[] => {
-  return LEADERBOARD_DATA.sort((a, b) => b.weeklyKwh - a.weeklyKwh)
-}
-
-export const getLastSyncDate = (): string => {
-  return LEADERBOARD_DATA[0]?.lastUpdated || 'Never'
-}
-
-// Check if rep hit trip qualifier this week
-export const hitTripQualifier = (weeklyKwh: number): boolean => {
-  return weeklyKwh >= TRIP_QUALIFIER.weeklyTarget
+// Check if rep hit trip qualifier this week (based on payroll kWh)
+export const hitTripQualifier = (payrollKwh: number): boolean => {
+  return payrollKwh >= TRIP_QUALIFIER.weeklyTarget
 }

@@ -1,5 +1,5 @@
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
-import { Home, Map, Trophy, DollarSign, BookOpen } from 'lucide-react'
+import { Home, Map, Trophy, MapPin, BookOpen } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 // Pages
@@ -11,6 +11,8 @@ import ReferencePage from './pages/Reference'
 import DoorPage from './pages/Door'
 import AchievementsPage from './pages/Achievements'
 import AnalyticsPage from './pages/Analytics'
+import ZonesPage from './pages/Zones'
+import LogPage from './pages/Log'
 
 export default function App() {
   const location = useLocation()
@@ -50,6 +52,8 @@ export default function App() {
           <Route path="/reference" element={<ReferencePage />} />
           <Route path="/achievements" element={<AchievementsPage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/zones" element={<ZonesPage />} />
+          <Route path="/log" element={<LogPage />} />
         </Routes>
       </main>
 
@@ -67,9 +71,9 @@ export default function App() {
             <Trophy />
             <span>Rank</span>
           </NavLink>
-          <NavLink to="/earnings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <DollarSign />
-            <span>Earnings</span>
+          <NavLink to="/zones" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+            <MapPin />
+            <span>Zones</span>
           </NavLink>
           <NavLink to="/reference" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
             <BookOpen />

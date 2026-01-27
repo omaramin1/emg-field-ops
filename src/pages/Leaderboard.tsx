@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Zap, FileCheck, Activity, Trophy, Target } from 'lucide-react'
-import { getWeeklyLeaderboard, kwhToDeals, TRIP_QUALIFIER, hitTripQualifier, getLastSyncDate } from '../services/leaderboard'
+import { Zap, FileCheck, Activity, DollarSign } from 'lucide-react'
+import { getDealsLeaderboard, getPayrollLeaderboard, getLastSyncDate, TRIP_QUALIFIER, hitTripQualifier } from '../services/leaderboard'
 
-type MetricType = 'kwh' | 'deals'
+type BoardType = 'deals' | 'payroll'
 
 interface LiveActivity {
   id: string
@@ -13,25 +13,27 @@ interface LiveActivity {
 }
 
 export default function LeaderboardPage() {
-  const [metric, setMetric] = useState<MetricType>('kwh')
+  const [board, setBoard] = useState<BoardType>('deals')
   const [showLive, setShowLive] = useState(true)
   
-  // Get real data from aminauragroup.com
-  const weeklyData = getWeeklyLeaderboard()
+  // Get data based on selected board
+  const dealsData = getDealsLeaderboard()
+  const payrollData = getPayrollLeaderboard()
+  const currentData = board === 'deals' ? dealsData : payrollData
   const lastSync = getLastSyncDate()
   
   // Live activity feed - simulated for now
   const [liveActivity, setLiveActivity] = useState<LiveActivity[]>([
-    { id: '1', repName: 'Derrick G.', action: 'deal', address: '142 Oak St', timestamp: new Date(Date.now() - 2 * 60000) },
-    { id: '2', repName: 'Zander M.', action: 'door', timestamp: new Date(Date.now() - 5 * 60000) },
-    { id: '3', repName: 'Marissa H.', action: 'deal', address: '88 Pine Ave', timestamp: new Date(Date.now() - 8 * 60000) },
-    { id: '4', repName: 'Jeffrey M.', action: 'callback', address: '23 Elm Dr', timestamp: new Date(Date.now() - 12 * 60000) },
-    { id: '5', repName: 'Ashley W.', action: 'deal', address: '156 Oak St', timestamp: new Date(Date.now() - 15 * 60000) },
+    { id: '1', repName: 'Yusuf K.', action: 'deal', address: '142 Oak St', timestamp: new Date(Date.now() - 2 * 60000) },
+    { id: '2', repName: 'Syed N.', action: 'door', timestamp: new Date(Date.now() - 5 * 60000) },
+    { id: '3', repName: 'Jamar J.', action: 'deal', address: '88 Pine Ave', timestamp: new Date(Date.now() - 8 * 60000) },
+    { id: '4', repName: 'Vernon T.', action: 'callback', address: '23 Elm Dr', timestamp: new Date(Date.now() - 12 * 60000) },
+    { id: '5', repName: 'Parion M.', action: 'deal', address: '156 Oak St', timestamp: new Date(Date.now() - 15 * 60000) },
   ])
 
   // Simulate live updates
   useEffect(() => {
-    const names = weeklyData.map(r => r.name)
+    const names = dealsData.map(r => r.name)
     const actions: ('deal' | 'door' | 'callback')[] = ['deal', 'door', 'door', 'door', 'callback']
     
     const interval = setInterval(() => {
@@ -46,7 +48,7 @@ export default function LeaderboardPage() {
     }, 15000)
 
     return () => clearInterval(interval)
-  }, [weeklyData])
+  }, [dealsData])
 
   const getRankEmoji = (rank: number) => {
     if (rank === 1) return '🥇'
@@ -86,15 +88,15 @@ export default function LeaderboardPage() {
   }
 
   // Team totals
-  const teamTotalKwh = weeklyData.reduce((sum, r) => sum + r.weeklyKwh, 0)
-  const teamTotalDeals = weeklyData.reduce((sum, r) => sum + kwhToDeals(r.weeklyKwh), 0)
-  const tripQualifiers = weeklyData.filter(r => hitTripQualifier(r.weeklyKwh)).length
+  const teamTotalDeals = dealsData.reduce((sum, r) => sum + r.weeklyDeals, 0)
+  const teamTotalKwh = payrollData.reduce((sum, r) => sum + r.payrollKwh, 0)
+  const tripQualifiers = payrollData.filter(r => hitTripQualifier(r.payrollKwh)).length
 
   return (
     <div className="page">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <div style={{ fontSize: '1.5rem', fontWeight: 600 }}>
-          🏆 Weekly Leaderboard
+          🏆 Leaderboard
         </div>
         <button
           onClick={() => setShowLive(!showLive)}
@@ -190,10 +192,10 @@ export default function LeaderboardPage() {
           padding: '0.75rem',
           textAlign: 'center'
         }}>
-          <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--warning)' }}>
-            {teamTotalKwh}k
+          <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent)' }}>
+            {teamTotalDeals}
           </div>
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Team kWh</div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Payroll Deals</div>
         </div>
         <div style={{ 
           background: 'var(--bg-secondary)', 
@@ -201,10 +203,10 @@ export default function LeaderboardPage() {
           padding: '0.75rem',
           textAlign: 'center'
         }}>
-          <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--accent)' }}>
-            {teamTotalDeals}
+          <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--warning)' }}>
+            {teamTotalKwh}k
           </div>
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Est. Deals</div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Payroll kWh</div>
         </div>
         <div style={{ 
           background: 'var(--bg-secondary)', 
@@ -219,14 +221,14 @@ export default function LeaderboardPage() {
         </div>
       </div>
 
-      {/* Metric Toggle */}
+      {/* Board Toggle */}
       <div style={{ 
         display: 'flex', 
         gap: '0.5rem',
         marginBottom: '1rem'
       }}>
         <button
-          onClick={() => setMetric('kwh')}
+          onClick={() => setBoard('deals')}
           style={{
             flex: 1,
             display: 'flex',
@@ -234,64 +236,59 @@ export default function LeaderboardPage() {
             justifyContent: 'center',
             gap: '0.5rem',
             padding: '0.75rem',
-            background: metric === 'kwh' ? 'var(--warning)' : 'var(--bg-secondary)',
+            background: board === 'deals' ? 'var(--accent)' : 'var(--bg-secondary)',
             border: 'none',
             borderRadius: '0.75rem',
             color: 'var(--text-primary)',
-            fontWeight: metric === 'kwh' ? 600 : 400,
-          }}
-        >
-          <Zap size={18} />
-          kWh
-        </button>
-        <button
-          onClick={() => setMetric('deals')}
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem',
-            padding: '0.75rem',
-            background: metric === 'deals' ? 'var(--accent)' : 'var(--bg-secondary)',
-            border: 'none',
-            borderRadius: '0.75rem',
-            color: 'var(--text-primary)',
-            fontWeight: metric === 'deals' ? 600 : 400,
+            fontWeight: board === 'deals' ? 600 : 400,
           }}
         >
           <FileCheck size={18} />
           Deals
         </button>
+        <button
+          onClick={() => setBoard('payroll')}
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            padding: '0.75rem',
+            background: board === 'payroll' ? 'var(--warning)' : 'var(--bg-secondary)',
+            border: 'none',
+            borderRadius: '0.75rem',
+            color: 'var(--text-primary)',
+            fontWeight: board === 'payroll' ? 600 : 400,
+          }}
+        >
+          <DollarSign size={18} />
+          Payroll
+        </button>
       </div>
 
-      {/* Trip Qualifier Banner */}
+      {/* Board Description */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(168, 85, 247, 0.05) 100%)',
-        border: '1px solid rgba(168, 85, 247, 0.3)',
+        background: board === 'deals' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(251, 191, 36, 0.1)',
+        border: `1px solid ${board === 'deals' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(251, 191, 36, 0.2)'}`,
         borderRadius: '0.75rem',
         padding: '0.75rem 1rem',
         marginBottom: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem'
       }}>
-        <Target size={20} style={{ color: '#a855f7' }} />
-        <div>
-          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#a855f7' }}>
-            Trip Qualifier: {TRIP_QUALIFIER.weeklyTarget}k kWh/week
-          </div>
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-            Hit it {TRIP_QUALIFIER.weeksRequired} weeks to earn the trip
-          </div>
+        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: board === 'deals' ? 'var(--accent)' : 'var(--warning)' }}>
+          {board === 'deals' ? '📝 Payroll Deals' : '💰 Payroll kWh'}
+        </div>
+        <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+          {board === 'deals' 
+            ? 'Deals hitting payroll this week (Mon-Sun)' 
+            : 'kWh hitting payroll this week (Mon-Sun)'}
         </div>
       </div>
 
       {/* Rankings */}
       <div className="card">
-        {weeklyData.map((rep, index) => {
-          const deals = kwhToDeals(rep.weeklyKwh)
-          const onTripPace = hitTripQualifier(rep.weeklyKwh)
+        {currentData.map((rep, index) => {
+          const onTripPace = hitTripQualifier(rep.payrollKwh)
           
           return (
             <div 
@@ -321,25 +318,25 @@ export default function LeaderboardPage() {
               </div>
               <div style={{ textAlign: 'right' }}>
                 <div className="leaderboard-value" style={{ 
-                  color: metric === 'kwh' ? 'var(--warning)' : 'var(--accent)',
+                  color: board === 'deals' ? 'var(--accent)' : 'var(--warning)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'flex-end',
                   gap: '0.25rem'
                 }}>
-                  {metric === 'kwh' ? (
+                  {board === 'deals' ? (
                     <>
-                      <Zap size={14} />
-                      {rep.weeklyKwh}k
+                      {rep.weeklyDeals} deals
                     </>
                   ) : (
                     <>
-                      {deals} deals
+                      <Zap size={14} />
+                      {rep.payrollKwh}k
                     </>
                   )}
                 </div>
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                  {metric === 'kwh' ? `~${deals} deals` : `${rep.weeklyKwh}k kWh`}
+                  {board === 'deals' ? `${rep.payrollKwh}k kWh` : `${rep.weeklyDeals} deals`}
                 </div>
               </div>
             </div>
@@ -354,9 +351,7 @@ export default function LeaderboardPage() {
         fontSize: '0.75rem',
         marginTop: '1rem' 
       }}>
-        Data from aminauragroup.com · Last sync: {lastSync}
-        <br />
-        <span style={{ color: 'var(--accent)' }}>Auto-updates every Monday</span>
+        Last sync: {lastSync}
       </div>
     </div>
   )

@@ -7,8 +7,8 @@ import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating,
 import { createKnock, subscribeToKnocks, getTodaysKnocks, KnockResult } from '../lib/knocks'
 import { KnockRecord } from '../lib/supabase'
 
-// Mapbox token - using public token, replace with your own for production
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+// Mapbox token
+mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZW1nIiwiYSI6ImNta3g2cTFnODA3ZDIzZXBvYmw4OTFlbDAifQ.w0lybYlDpyRPBdCx5VOy2Q'
 
 // Result colors
 const RESULT_COLORS: Record<KnockResult, string> = {

@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Lightbulb, Shield, MapPin } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase, KnockRecord } from '../lib/supabase'
 
 type DoorOutcome = 'no_answer' | 'no' | 'yes' | 'callback' | 'skip'
 type Objection = 'not_interested' | 'scam' | 'spouse' | 'no_time' | 'already_have' | 'other'
@@ -21,7 +22,7 @@ export default function DoorPage() {
     total: 80
   }
 
-  const handleOutcome = (outcome: DoorOutcome) => {
+  const handleOutcome = async (outcome: DoorOutcome) => {
     if (outcome === 'yes') {
       setShowSignup(true)
     } else if (outcome === 'no') {
@@ -29,30 +30,64 @@ export default function DoorPage() {
       setShowObjection(true)
     } else {
       // Log outcome and go to next door
-      logDoorData(outcome)
+      await logDoorData(outcome)
       navigate('/door/next')
     }
   }
 
-  const handleObjectionSubmit = (objection: Objection) => {
+  const handleObjectionSubmit = async (objection: Objection) => {
     // Log with objection data for area intelligence
-    logDoorData('no', objection)
+    await logDoorData('no', objection)
     navigate('/door/next')
   }
 
-  const logDoorData = (outcome: DoorOutcome, objection?: Objection) => {
-    const doorData = {
-      doorId: id,
-      address: door.address,
-      outcome,
-      objection,
-      timestamp: new Date().toISOString(),
-      dayOfWeek: new Date().getDay(),
-      hourOfDay: new Date().getHours(),
-      // GPS would be captured here
+  const logDoorData = async (outcome: DoorOutcome, objection?: Objection) => {
+    // Map Door outcomes to KnockRecord results
+    const outcomeMap: Record<DoorOutcome, KnockRecord['result']> = {
+      'no_answer': 'not_home',
+      'no': 'not_interested',
+      'yes': 'signed_up',
+      'callback': 'callback',
+      'skip': 'wrong_address'
     }
-    console.log('Door data logged:', doorData)
-    // Would sync to backend
+
+    // Get current location
+    let lat = 0, lng = 0
+    try {
+      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
+      })
+      lat = pos.coords.latitude
+      lng = pos.coords.longitude
+    } catch (e) {
+      console.warn('Could not get location:', e)
+    }
+
+    const knockData = {
+      lat,
+      lng,
+      address: door.address,
+      result: outcomeMap[outcome],
+      notes: objection ? `Objection: ${objection}` : undefined,
+      canvasser_id: 'demo-user', // TODO: Get from auth
+      canvasser_name: 'Demo User',
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('knocks')
+        .insert([knockData])
+        .select()
+
+      if (error) {
+        console.error('Failed to save knock:', error)
+        // Still continue to next door even if save fails
+      } else {
+        console.log('Knock saved:', data)
+      }
+    } catch (e) {
+      console.error('Error saving knock:', e)
+    }
   }
 
   const handleSignupSubmit = () => {
