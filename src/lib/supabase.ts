@@ -6,10 +6,14 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+  console.warn('Missing Supabase environment variables - using demo mode')
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// Demo fallback for development
+const url = supabaseUrl || 'https://demo.supabase.co'
+const key = supabaseAnonKey || 'demo-key'
+
+export const supabase = createClient(url, key, {
   realtime: {
     params: {
       eventsPerSecond: 10
