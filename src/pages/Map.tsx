@@ -45,7 +45,7 @@ export default function MapPage() {
 
   // State
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('streets')
+  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('satellite')
   const [userPosition, setUserPosition] = useState<GPSPosition | null>(null)
   const [gpsStatus, setGpsStatus] = useState<'acquiring' | 'locked' | 'error'>('acquiring')
   const [knocks, setKnocks] = useState<KnockRecord[]>([])
@@ -83,19 +83,19 @@ export default function MapPage() {
       style: {
         version: 8,
         sources: {
-          'raster-tiles': {
+          'esri-satellite': {
             type: 'raster',
-            tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+            tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
             tileSize: 256,
-            attribution: '© OpenStreetMap'
+            attribution: '© Esri'
           }
         },
         layers: [{
-          id: 'simple-tiles',
+          id: 'satellite-tiles',
           type: 'raster',
-          source: 'raster-tiles',
+          source: 'esri-satellite',
           minzoom: 0,
-          maxzoom: 22
+          maxzoom: 19
         }]
       },
       center: [-76.3, 37.05], // Hampton, VA default
