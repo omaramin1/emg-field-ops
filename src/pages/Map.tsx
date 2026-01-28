@@ -47,6 +47,7 @@ export default function MapPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [filterResult, setFilterResult] = useState<KnockResult | 'all'>('all')
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
 
   // Demo canvasser UUID - replace with auth
   const canvasserId = '00000000-0000-0000-0000-000000000001'
@@ -264,9 +265,17 @@ export default function MapPage() {
         setShowAddKnock(false)
         setSelectedResult(null)
         setKnockNotes('')
+        // Show success toast
+        setToast({ message: `✓ ${RESULT_LABELS[selectedResult]} logged!`, type: 'success' })
+        setTimeout(() => setToast(null), 3000)
+      } else {
+        setToast({ message: '⚠️ Failed to save - try again', type: 'error' })
+        setTimeout(() => setToast(null), 4000)
       }
     } catch (e) {
       console.error('Failed to submit knock:', e)
+      setToast({ message: '⚠️ Error saving knock', type: 'error' })
+      setTimeout(() => setToast(null), 4000)
     } finally {
       setIsSubmitting(false)
     }
@@ -281,6 +290,27 @@ export default function MapPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 5rem)' }}>
+      {/* Toast Notification */}
+      {toast && (
+        <div style={{
+          position: 'fixed',
+          top: '1rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: toast.type === 'success' ? '#10b981' : '#ef4444',
+          color: 'white',
+          padding: '1rem 1.5rem',
+          borderRadius: '0.75rem',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+          zIndex: 1000,
+          fontSize: '1rem',
+          fontWeight: 600,
+          animation: 'slideDown 0.3s ease-out'
+        }}>
+          {toast.message}
+        </div>
+      )}
+
       {/* Header */}
       <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--bg-card)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
