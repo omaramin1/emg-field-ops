@@ -10,6 +10,7 @@ import { getDNKWithCoords } from '../data/doNotKnock'
 import { getRejectedDealsWithCoords, RejectedDeal } from '../data/rejectedDeals'
 import zones from '../data/zones.json'
 import { getZoneCentroid } from '../data/zoneCentroids'
+import { getLMIZones } from '../data/lmiAutoQualifyZones'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -185,12 +186,12 @@ export default function MapPage() {
     })
   }, [mapLoaded])
 
-  // Add Zone overlay circles
+  // Add LMI Auto-Qualify Zone overlay (Opportunity Zones in Dominion territory)
   useEffect(() => {
     if (!map.current || !mapLoaded) return
 
-    const sourceId = 'zones-source'
-    const layerId = 'zones-layer'
+    const sourceId = 'lmi-zones-source'
+    const layerId = 'lmi-zones-layer'
 
     // Remove existing layer/source if toggling off
     if (!showZones) {
@@ -199,32 +200,20 @@ export default function MapPage() {
       return
     }
 
-    // Build GeoJSON features for zones
-    const features: any[] = []
-    zones.forEach((zone: any) => {
-      const centroid = getZoneCentroid(zone.zip)
-      if (!centroid) return
-
-      // Color by tier
-      const color = zone.tier === '2-HIGH-OPP' ? '#3b82f6' : 
-                   zone.tier === '3-GROWTH' ? '#10b981' : '#f59e0b'
-
-      features.push({
-        type: 'Feature',
-        properties: {
-          zip: zone.zip,
-          city: zone.city,
-          tier: zone.tier,
-          score: zone.score,
-          gap: zone.gap,
-          color
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [centroid.lng, centroid.lat]
-        }
-      })
-    })
+    // Build GeoJSON features for LMI zones
+    const lmiZones = getLMIZones()
+    const features: any[] = lmiZones.map(zone => ({
+      type: 'Feature',
+      properties: {
+        tractId: zone.tractId,
+        name: zone.name,
+        city: zone.city
+      },
+      geometry: {
+        type: 'Point',
+        coordinates: [zone.lng, zone.lat]
+      }
+    }))
 
     // Add source
     if (!map.current.getSource(sourceId)) {
@@ -234,7 +223,7 @@ export default function MapPage() {
       })
     }
 
-    // Add circle layer
+    // Add circle layer - purple for LMI auto-qualify zones
     if (!map.current.getLayer(layerId)) {
       map.current.addLayer({
         id: layerId,
@@ -243,15 +232,15 @@ export default function MapPage() {
         paint: {
           'circle-radius': [
             'interpolate', ['linear'], ['zoom'],
-            8, 15,
-            12, 40,
-            16, 80
+            8, 8,
+            12, 25,
+            16, 50
           ],
-          'circle-color': ['get', 'color'],
-          'circle-opacity': 0.25,
-          'circle-stroke-color': ['get', 'color'],
+          'circle-color': '#8b5cf6', // Purple for OZ
+          'circle-opacity': 0.2,
+          'circle-stroke-color': '#8b5cf6',
           'circle-stroke-width': 2,
-          'circle-stroke-opacity': 0.8
+          'circle-stroke-opacity': 0.7
         }
       }, 'waterway-label') // Insert below labels
     }
@@ -263,11 +252,11 @@ export default function MapPage() {
         .setLngLat(e.lngLat)
         .setHTML(`
           <div style="padding: 8px; font-family: system-ui;">
-            <strong>${props.city}</strong>
-            <br>ZIP: ${props.zip}
-            <br>Tier: ${props.tier}
-            <br>Score: ${props.score}
-            <br>Gap: ${props.gap} deals
+            <strong style="color: #8b5cf6">🏠 LMI Auto-Qualify Zone</strong>
+            <br><strong>${props.name}</strong>
+            <br>${props.city}
+            <br><small style="color: #888">Tract: ${props.tractId}</small>
+            <br><small style="color: #10b981">✓ Customers here auto-qualify!</small>
           </div>
         `)
         .addTo(map.current!)
@@ -621,9 +610,9 @@ export default function MapPage() {
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button 
               onClick={() => setShowZones(!showZones)}
-              title={showZones ? 'Hide zones' : 'Show zones'}
+              title={showZones ? 'Hide LMI zones' : 'Show LMI auto-qualify zones'}
               style={{
-                background: showZones ? '#3b82f6' : 'var(--bg-secondary)',
+                background: showZones ? '#8b5cf6' : 'var(--bg-secondary)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 padding: '0.5rem 0.625rem',
@@ -632,7 +621,7 @@ export default function MapPage() {
                 fontWeight: 600
               }}
             >
-              🎯
+              🏠
             </button>
             <button 
               onClick={() => setShowOldDeals(!showOldDeals)}
