@@ -45,7 +45,7 @@ export default function MapPage() {
 
   // State
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('satellite')
+  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('streets')
   const [userPosition, setUserPosition] = useState<GPSPosition | null>(null)
   const [gpsStatus, setGpsStatus] = useState<'acquiring' | 'locked' | 'error'>('acquiring')
   const [knocks, setKnocks] = useState<KnockRecord[]>([])
@@ -90,6 +90,14 @@ export default function MapPage() {
 
     map.current.on('load', () => {
       setMapLoaded(true)
+    })
+
+    map.current.on('error', (e) => {
+      console.error('Map error:', e)
+      // Try to reload with streets style if satellite fails
+      if (mapStyle === 'satellite' && map.current) {
+        map.current.setStyle('mapbox://styles/mapbox/streets-v12')
+      }
     })
 
     // Add navigation controls
