@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating, formatAccuracy, requiresConfirmation, reverseGeocode } from '../lib/gps'
 import { createKnock, subscribeToKnocks, getTodaysKnocks, updateKnock, KnockResult } from '../lib/knocks'
 import { useAuthStore } from '../stores/authStore'
+import { getDNKWithCoords } from '../data/doNotKnock'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -99,6 +100,45 @@ export default function MapPage() {
         : 'mapbox://styles/mapbox/streets-v12'
     )
   }, [mapStyle, mapLoaded])
+
+  // Add Do Not Knock markers
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return
+
+    const dnkList = getDNKWithCoords()
+    
+    dnkList.forEach(dnk => {
+      if (!dnk.lat || !dnk.lng) return
+      
+      const el = document.createElement('div')
+      el.innerHTML = `
+        <div style="
+          width: 24px;
+          height: 24px;
+          background: #dc2626;
+          border: 2px solid white;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        ">🚫</div>
+      `
+      
+      new mapboxgl.Marker({ element: el })
+        .setLngLat([dnk.lng, dnk.lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+          <div style="padding: 8px; font-family: system-ui;">
+            <strong style="color: #dc2626">🚫 DO NOT KNOCK</strong>
+            ${dnk.name ? `<br><span>${dnk.name}</span>` : ''}
+            <br><small>${dnk.address}</small>
+            <br><small>${dnk.city}, ${dnk.state} ${dnk.zip}</small>
+          </div>
+        `))
+        .addTo(map.current!)
+    })
+  }, [mapLoaded])
 
   // Track if we've auto-centered yet
   const hasAutoCentered = useRef(false)
