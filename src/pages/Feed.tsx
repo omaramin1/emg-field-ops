@@ -1,37 +1,40 @@
 /**
- * Feed Page - Real-time team activity feed
- * Auto-updates when anyone logs a deal
+ * Feed Page - Real-time team chat + deal notifications
+ * Deals auto-post when logged, reps can chat
  */
 
 import { useState, useEffect, useRef } from 'react'
 import { useAuthStore } from '../stores/authStore'
 import { supabase, KnockRecord } from '../lib/supabase'
-import { Bell, Trophy, MapPin, Clock } from 'lucide-react'
+import { Trophy, MapPin, Clock, Send, MessageCircle } from 'lucide-react'
 
 interface FeedItem {
   id: string
-  type: 'deal' | 'milestone'
-  canvasser_name: string
+  type: 'deal' | 'message'
+  sender_name: string
+  sender_id?: string
   address?: string
   timestamp: string
-  message: string
+  text: string
 }
 
 export function Feed() {
   const { currentRep } = useAuthStore()
   const [feedItems, setFeedItems] = useState<FeedItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [newMessage, setNewMessage] = useState('')
+  const [isSending, setIsSending] = useState(false)
   const feedRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Load recent deals on mount
+  // Load recent deals and messages on mount
   useEffect(() => {
-    loadRecentDeals()
+    loadFeed()
   }, [])
 
   // Subscribe to real-time deal updates
   useEffect(() => {
-    const channel = supabase
+    const dealsChannel = supabase
       .channel('deals-feed')
       .on(
         'postgres_changes',
@@ -49,19 +52,45 @@ export function Feed() {
       )
       .subscribe()
 
+    // Subscribe to chat messages
+    const messagesChannel = supabase
+      .channel('messages-feed')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'feed_messages'
+        },
+        (payload) => {
+          const msg = payload.new as any
+          addMessageToFeed({
+            id: msg.id,
+            type: 'message',
+            sender_name: msg.sender_name,
+            sender_id: msg.sender_id,
+            timestamp: msg.created_at,
+            text: msg.message
+          })
+        }
+      )
+      .subscribe()
+
     return () => {
-      channel.unsubscribe()
+      dealsChannel.unsubscribe()
+      messagesChannel.unsubscribe()
     }
   }, [])
 
-  const loadRecentDeals = async () => {
+  const loadFeed = async () => {
     setIsLoading(true)
+    const items: FeedItem[] = []
     
     // Get today's deals
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
-    const { data, error } = await supabase
+    const { data: deals } = await supabase
       .from('knocks')
       .select('*')
       .eq('result', 'signed_up')
@@ -69,18 +98,45 @@ export function Feed() {
       .order('created_at', { ascending: false })
       .limit(50)
 
-    if (!error && data) {
-      const items: FeedItem[] = data.map(knock => ({
-        id: knock.id,
-        type: 'deal',
-        canvasser_name: knock.canvasser_name || 'Unknown Rep',
-        address: knock.address,
-        timestamp: knock.created_at,
-        message: `🎉 ${knock.canvasser_name || 'A rep'} closed a deal!`
-      }))
-      setFeedItems(items)
+    if (deals) {
+      deals.forEach(knock => {
+        items.push({
+          id: knock.id,
+          type: 'deal',
+          sender_name: knock.canvasser_name || 'Unknown Rep',
+          sender_id: knock.canvasser_id,
+          address: knock.address,
+          timestamp: knock.created_at,
+          text: '🎉 Closed a deal!'
+        })
+      })
     }
+
+    // Get today's messages
+    const { data: messages } = await supabase
+      .from('feed_messages')
+      .select('*')
+      .gte('created_at', today.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(50)
+
+    if (messages) {
+      messages.forEach(msg => {
+        items.push({
+          id: msg.id,
+          type: 'message',
+          sender_name: msg.sender_name,
+          sender_id: msg.sender_id,
+          timestamp: msg.created_at,
+          text: msg.message
+        })
+      })
+    }
+
+    // Sort by timestamp
+    items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
     
+    setFeedItems(items)
     setIsLoading(false)
   }
 
@@ -88,27 +144,67 @@ export function Feed() {
     const newItem: FeedItem = {
       id: knock.id,
       type: 'deal',
-      canvasser_name: knock.canvasser_name || 'Unknown Rep',
+      sender_name: knock.canvasser_name || 'Unknown Rep',
+      sender_id: knock.canvasser_id,
       address: knock.address,
       timestamp: knock.created_at,
-      message: `🎉 ${knock.canvasser_name || 'A rep'} closed a deal!`
+      text: '🎉 Closed a deal!'
     }
     
     setFeedItems(prev => [newItem, ...prev])
-    
-    // Scroll to top to show new item
+    scrollToTop()
+  }
+
+  const addMessageToFeed = (item: FeedItem) => {
+    setFeedItems(prev => [item, ...prev])
+    scrollToTop()
+  }
+
+  const scrollToTop = () => {
     if (feedRef.current) {
       feedRef.current.scrollTop = 0
     }
   }
 
   const playDealSound = () => {
-    // Play a celebration sound
     if (!audioRef.current) {
       audioRef.current = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdH2Onp+ZjHVmaX6Ok5+dmIpxZGd9kJugnZSGcWRqfZCbn5ySg3BkaX2RnZ+ckYNwZWl9kp6gnJKDcGVpfZOen5ySg3Blan6Tnp+bkYJwZWp+k56fm5GBcGZqfpSen5uRgXBman6UnZ+akYFwZmt+lJ2fmpGBcGZrfpSdn5qQgXBmbH6UnZ+aj4FwZmx+lJ2fmo+AcGdsfpSdn5qPgHBnbH6UnZ+ajoBwZ21+lJ2emo6AcGdtfpSdnpqOgHBnbX6UnZ6ajoB')
       audioRef.current.volume = 0.5
     }
     audioRef.current.play().catch(() => {})
+  }
+
+  const sendMessage = async () => {
+    if (!newMessage.trim() || !currentRep || isSending) return
+    
+    setIsSending(true)
+    
+    const { data, error } = await supabase
+      .from('feed_messages')
+      .insert({
+        message: newMessage.trim(),
+        sender_id: currentRep.id,
+        sender_name: currentRep.name
+      })
+      .select()
+      .single()
+
+    if (!error && data) {
+      setNewMessage('')
+    } else {
+      // If table doesn't exist, show message locally anyway
+      addMessageToFeed({
+        id: Date.now().toString(),
+        type: 'message',
+        sender_name: currentRep.name,
+        sender_id: currentRep.id,
+        timestamp: new Date().toISOString(),
+        text: newMessage.trim()
+      })
+      setNewMessage('')
+    }
+    
+    setIsSending(false)
   }
 
   const formatTime = (timestamp: string) => {
@@ -128,7 +224,7 @@ export function Feed() {
 
   return (
     <div style={{
-      minHeight: 'calc(100vh - 5rem)',
+      height: 'calc(100vh - 5rem)',
       background: 'var(--bg-primary)',
       display: 'flex',
       flexDirection: 'column'
@@ -151,12 +247,12 @@ export function Feed() {
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <Bell size={20} color="white" />
+          <MessageCircle size={20} color="white" />
         </div>
         <div>
-          <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>Team Feed</div>
+          <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>Team Chat</div>
           <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-            Live deal notifications
+            Deals + messages
           </div>
         </div>
       </div>
@@ -167,7 +263,9 @@ export function Feed() {
         style={{
           flex: 1,
           overflow: 'auto',
-          padding: '1rem'
+          padding: '1rem',
+          display: 'flex',
+          flexDirection: 'column-reverse'
         }}
       >
         {isLoading ? (
@@ -176,7 +274,7 @@ export function Feed() {
             padding: '3rem',
             color: 'var(--text-secondary)'
           }}>
-            Loading feed...
+            Loading...
           </div>
         ) : feedItems.length === 0 ? (
           <div style={{
@@ -185,43 +283,46 @@ export function Feed() {
             color: 'var(--text-secondary)'
           }}>
             <Trophy size={48} style={{ marginBottom: '1rem', opacity: 0.5 }} />
-            <div style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>No deals yet today</div>
-            <div style={{ fontSize: '0.875rem' }}>Be the first to close one! 🎯</div>
+            <div style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>No activity yet today</div>
+            <div style={{ fontSize: '0.875rem' }}>Close a deal or send a message! 🎯</div>
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column-reverse', gap: '0.75rem' }}>
             {feedItems.map(item => (
               <div
                 key={item.id}
                 style={{
-                  background: 'var(--bg-card)',
+                  background: item.type === 'deal' ? 'var(--bg-card)' : 'var(--bg-secondary)',
                   borderRadius: '0.75rem',
-                  padding: '1rem',
-                  borderLeft: '4px solid #10b981',
-                  animation: 'slideIn 0.3s ease-out'
+                  padding: '0.875rem',
+                  borderLeft: item.type === 'deal' ? '4px solid #10b981' : '4px solid var(--accent)',
                 }}
               >
                 <div style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-start',
-                  marginBottom: '0.5rem'
+                  marginBottom: '0.375rem'
                 }}>
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem'
                   }}>
-                    <Trophy size={18} color="#10b981" />
-                    <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
-                      {item.canvasser_name}
+                    {item.type === 'deal' ? (
+                      <Trophy size={16} color="#10b981" />
+                    ) : (
+                      <MessageCircle size={16} color="var(--accent)" />
+                    )}
+                    <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.9rem' }}>
+                      {item.sender_name}
                     </span>
-                    {item.canvasser_name === currentRep?.name && (
+                    {item.sender_id === currentRep?.id && (
                       <span style={{
                         background: 'var(--accent)',
                         color: 'white',
-                        fontSize: '0.65rem',
-                        padding: '0.15rem 0.4rem',
+                        fontSize: '0.6rem',
+                        padding: '0.1rem 0.3rem',
                         borderRadius: '0.25rem',
                         fontWeight: 600
                       }}>
@@ -234,19 +335,19 @@ export function Feed() {
                     alignItems: 'center',
                     gap: '0.25rem',
                     color: 'var(--text-secondary)',
-                    fontSize: '0.75rem'
+                    fontSize: '0.7rem'
                   }}>
-                    <Clock size={12} />
+                    <Clock size={10} />
                     {formatTime(item.timestamp)}
                   </div>
                 </div>
                 
                 <div style={{
-                  fontSize: '1rem',
+                  fontSize: '0.95rem',
                   color: 'var(--text-primary)',
-                  marginBottom: '0.5rem'
+                  marginLeft: '1.5rem'
                 }}>
-                  🎉 Closed a deal!
+                  {item.text}
                 </div>
                 
                 {item.address && (
@@ -255,9 +356,11 @@ export function Feed() {
                     alignItems: 'center',
                     gap: '0.25rem',
                     color: 'var(--text-secondary)',
-                    fontSize: '0.8rem'
+                    fontSize: '0.75rem',
+                    marginLeft: '1.5rem',
+                    marginTop: '0.25rem'
                   }}>
-                    <MapPin size={12} />
+                    <MapPin size={10} />
                     {item.address}
                   </div>
                 )}
@@ -267,44 +370,49 @@ export function Feed() {
         )}
       </div>
 
-      {/* Status Bar */}
+      {/* Message Input */}
       <div style={{
         padding: '0.75rem 1rem',
         background: 'var(--bg-secondary)',
         borderTop: '1px solid var(--bg-card)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '0.5rem',
-        fontSize: '0.75rem',
-        color: 'var(--text-secondary)'
+        gap: '0.75rem'
       }}>
-        <div style={{
-          width: '8px',
-          height: '8px',
-          background: '#10b981',
-          borderRadius: '50%',
-          animation: 'pulse 2s infinite'
-        }} />
-        Live — updates instantly when deals close
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Type a message..."
+          style={{
+            flex: 1,
+            padding: '0.75rem 1rem',
+            background: 'var(--bg-card)',
+            border: 'none',
+            borderRadius: '1.5rem',
+            color: 'var(--text-primary)',
+            fontSize: '0.9rem'
+          }}
+        />
+        <button
+          onClick={sendMessage}
+          disabled={!newMessage.trim() || isSending}
+          style={{
+            width: '44px',
+            height: '44px',
+            background: newMessage.trim() ? 'var(--accent)' : 'var(--bg-card)',
+            border: 'none',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: newMessage.trim() ? 'pointer' : 'default',
+            transition: 'background 0.2s'
+          }}
+        >
+          <Send size={18} color={newMessage.trim() ? 'white' : 'var(--text-secondary)'} />
+        </button>
       </div>
-
-      <style>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-      `}</style>
     </div>
   )
 }
