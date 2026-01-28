@@ -48,8 +48,8 @@ export default function MapPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [filterResult, setFilterResult] = useState<KnockResult | 'all'>('all')
 
-  // Mock canvasser ID - replace with auth
-  const canvasserId = 'demo-canvasser'
+  // Demo canvasser UUID - replace with auth
+  const canvasserId = '00000000-0000-0000-0000-000000000001'
   const canvasserName = 'Demo User'
 
   // Initialize map
@@ -90,6 +90,9 @@ export default function MapPage() {
     )
   }, [mapStyle, mapLoaded])
 
+  // Track if we've auto-centered yet
+  const hasAutoCentered = useRef(false)
+
   // Watch GPS position
   useEffect(() => {
     setGpsStatus('acquiring')
@@ -119,6 +122,16 @@ export default function MapPage() {
               .addTo(map.current)
           } else {
             userMarker.current.setLngLat([pos.lng, pos.lat])
+          }
+
+          // Auto-center on first GPS lock
+          if (!hasAutoCentered.current) {
+            hasAutoCentered.current = true
+            map.current.flyTo({
+              center: [pos.lng, pos.lat],
+              zoom: 18,
+              duration: 1500
+            })
           }
         }
       },
