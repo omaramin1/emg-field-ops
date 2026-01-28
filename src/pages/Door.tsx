@@ -91,7 +91,7 @@ export default function DoorPage() {
       address: door.address,
       result: outcomeMap[outcome],
       notes: objection ? `Objection: ${objection}` : undefined,
-      canvasser_id: 'demo-user', // TODO: Get from auth
+      canvasser_id: '00000000-0000-0000-0000-000000000001', // Demo UUID - TODO: Get from auth
       canvasser_name: 'Demo User',
     }
 
@@ -132,7 +132,7 @@ export default function DoorPage() {
           address: door.address,
           benefit_type: formData.benefit,
           account_number: formData.accountNumber,
-          canvasser_id: 'demo-user',
+          canvasser_id: '00000000-0000-0000-0000-000000000001', // Demo UUID
           canvasser_name: 'Demo User',
           lat: 0, // Will be captured from knock
           lng: 0,
