@@ -1,17 +1,47 @@
-import { useState, useEffect, useRef } from 'react'
-import { Plus, CheckCircle, Loader2, AlertCircle, X, Home, UserX, ThumbsDown, HelpCircle, Phone, MapPin } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api'
+import { Plus, CheckCircle, Loader2, X, Home, UserX, ThumbsDown, HelpCircle, Phone, MapPin, Navigation } from 'lucide-react'
 import { createKnock, subscribeToKnocks, getTodaysKnocks, KnockResult } from '../lib/knocks'
 import { useAuthStore } from '../stores/authStore'
-import { reverseGeocode, formatAccuracy, getAccuracyRating } from '../lib/gps'
+import { reverseGeocode } from '../lib/gps'
 
-const RESULT_OPTIONS: { result: KnockResult; label: string; icon: any; color: string; shortLabel: string }[] = [
-  { result: 'not_home', label: 'Not Home', shortLabel: 'Not Home', icon: Home, color: '#6b7280' },
-  { result: 'not_interested', label: 'Not Interested', shortLabel: 'No Interest', icon: ThumbsDown, color: '#ef4444' },
-  { result: 'signed_up', label: 'Signed Up!', shortLabel: 'SIGNED UP', icon: CheckCircle, color: '#10b981' },
-  { result: 'doesnt_qualify', label: "Doesn't Qualify", shortLabel: 'No Qualify', icon: UserX, color: '#f59e0b' },
-  { result: 'callback', label: 'Callback', shortLabel: 'Callback', icon: Phone, color: '#3b82f6' },
-  { result: 'wrong_address', label: 'Pending Enrollment', shortLabel: 'Pending', icon: HelpCircle, color: '#8b5cf6' },
+const GOOGLE_MAPS_API_KEY = 'AIzaSyA0Bf8ogR-QMUaHnA2SX_q8J9ONknHiuBU'
+
+const RESULT_OPTIONS: { result: KnockResult; label: string; icon: any; color: string; shortLabel: string; markerColor: string }[] = [
+  { result: 'not_home', label: 'Not Home', shortLabel: 'Not Home', icon: Home, color: '#6b7280', markerColor: '#9ca3af' },
+  { result: 'not_interested', label: 'Not Interested', shortLabel: 'No Interest', icon: ThumbsDown, color: '#ef4444', markerColor: '#f87171' },
+  { result: 'signed_up', label: 'Signed Up!', shortLabel: 'SIGNED UP', icon: CheckCircle, color: '#10b981', markerColor: '#34d399' },
+  { result: 'doesnt_qualify', label: "Doesn't Qualify", shortLabel: 'No Qualify', icon: UserX, color: '#f59e0b', markerColor: '#fbbf24' },
+  { result: 'callback', label: 'Callback', shortLabel: 'Callback', icon: Phone, color: '#3b82f6', markerColor: '#60a5fa' },
+  { result: 'wrong_address', label: 'Pending Enrollment', shortLabel: 'Pending', icon: HelpCircle, color: '#8b5cf6', markerColor: '#a78bfa' },
 ]
+
+const mapContainerStyle = {
+  width: '100%',
+  height: '100%',
+}
+
+const defaultCenter = { lat: 37.05, lng: -76.3 }
+
+const mapOptions: google.maps.MapOptions = {
+  disableDefaultUI: true,
+  zoomControl: false,
+  mapTypeControl: false,
+  streetViewControl: false,
+  fullscreenControl: false,
+  gestureHandling: 'greedy',
+  styles: [
+    { elementType: 'geometry', stylers: [{ color: '#1a1a2e' }] },
+    { elementType: 'labels.text.stroke', stylers: [{ color: '#1a1a2e' }] },
+    { elementType: 'labels.text.fill', stylers: [{ color: '#8b8b8b' }] },
+    { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#2d2d44' }] },
+    { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#9ca3af' }] },
+    { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0e4166' }] },
+    { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] },
+    { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#1a3a1a' }] },
+    { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+  ],
+}
 
 export default function MapEmbed() {
   const [position, setPosition] = useState<{ lat: number; lng: number; accuracy: number } | null>(null)
@@ -24,25 +54,37 @@ export default function MapEmbed() {
   const [isLoadingAddress, setIsLoadingAddress] = useState(false)
   const [knocks, setKnocks] = useState<any[]>([])
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [mapCenter, setMapCenter] = useState(defaultCenter)
+  const [isFollowing, setIsFollowing] = useState(true)
+  
   const watchId = useRef<number | null>(null)
+  const mapRef = useRef<google.maps.Map | null>(null)
 
   const { currentRep } = useAuthStore()
   const canvasserId = currentRep?.id || '00000000-0000-0000-0000-000000000001'
   const canvasserName = currentRep?.name || 'Unknown'
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+  })
 
   // Watch GPS
   useEffect(() => {
     setGpsStatus('acquiring')
     watchId.current = navigator.geolocation.watchPosition(
       (pos) => {
-        setPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy })
+        const newPos = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy }
+        setPosition(newPos)
         setGpsStatus('locked')
+        if (isFollowing) {
+          setMapCenter({ lat: newPos.lat, lng: newPos.lng })
+        }
       },
       (err) => { console.error('GPS error:', err); setGpsStatus('error') },
-      { enableHighAccuracy: true, maximumAge: 5000 }
+      { enableHighAccuracy: true, maximumAge: 3000, timeout: 10000 }
     )
     return () => { if (watchId.current) navigator.geolocation.clearWatch(watchId.current) }
-  }, [])
+  }, [isFollowing])
 
   // Load knocks & subscribe
   useEffect(() => { getTodaysKnocks().then(setKnocks) }, [])
@@ -54,6 +96,21 @@ export default function MapEmbed() {
     )
     return unsub
   }, [])
+
+  const onMapLoad = useCallback((map: google.maps.Map) => {
+    mapRef.current = map
+  }, [])
+
+  const onMapDrag = useCallback(() => {
+    setIsFollowing(false)
+  }, [])
+
+  const recenterMap = () => {
+    if (position && mapRef.current) {
+      mapRef.current.panTo({ lat: position.lat, lng: position.lng })
+      setIsFollowing(true)
+    }
+  }
 
   // Open knock mode
   const openKnockMode = async () => {
@@ -107,13 +164,38 @@ export default function MapEmbed() {
     signedUp: knocks.filter(k => k.result === 'signed_up').length,
   }
 
-  const mapUrl = position 
-    ? `https://www.google.com/maps?q=${position.lat},${position.lng}&z=18&output=embed`
-    : `https://www.google.com/maps?q=37.05,-76.3&z=15&output=embed`
+  const getMarkerIcon = (result: KnockResult): google.maps.Symbol => {
+    const opt = RESULT_OPTIONS.find(o => o.result === result)
+    const color = opt?.markerColor || '#9ca3af'
+    return {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: color,
+      fillOpacity: 0.9,
+      strokeColor: '#ffffff',
+      strokeWeight: 2,
+      scale: result === 'signed_up' ? 10 : 7,
+    }
+  }
+
+  if (loadError) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0f172a', color: '#ef4444' }}>
+        Map failed to load
+      </div>
+    )
+  }
+
+  if (!isLoaded) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0f172a', color: 'white' }}>
+        <Loader2 className="animate-spin" size={32} />
+      </div>
+    )
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 5rem)', background: '#0f172a' }}>
-      {/* Toast - top center */}
+      {/* Toast */}
       {toast && (
         <div style={{
           position: 'fixed', top: '1rem', left: '50%', transform: 'translateX(-50%)',
@@ -127,7 +209,7 @@ export default function MapEmbed() {
 
       {mode === 'map' ? (
         <>
-          {/* Mini status bar */}
+          {/* Status bar */}
           <div style={{ 
             padding: '0.5rem 1rem', 
             background: 'var(--bg-primary)', 
@@ -152,16 +234,81 @@ export default function MapEmbed() {
 
           {/* Map */}
           <div style={{ flex: 1, position: 'relative' }}>
-            <iframe
-              src={mapUrl}
-              style={{ width: '100%', height: '100%', border: 'none' }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={mapCenter}
+              zoom={18}
+              options={mapOptions}
+              onLoad={onMapLoad}
+              onDragStart={onMapDrag}
+            >
+              {/* User position marker */}
+              {position && (
+                <>
+                  <Circle
+                    center={{ lat: position.lat, lng: position.lng }}
+                    radius={position.accuracy}
+                    options={{
+                      fillColor: '#3b82f6',
+                      fillOpacity: 0.15,
+                      strokeColor: '#3b82f6',
+                      strokeOpacity: 0.3,
+                      strokeWeight: 1,
+                    }}
+                  />
+                  <Marker
+                    position={{ lat: position.lat, lng: position.lng }}
+                    icon={{
+                      path: google.maps.SymbolPath.CIRCLE,
+                      fillColor: '#3b82f6',
+                      fillOpacity: 1,
+                      strokeColor: '#ffffff',
+                      strokeWeight: 3,
+                      scale: 8,
+                    }}
+                    zIndex={1000}
+                  />
+                </>
+              )}
+
+              {/* Knock markers */}
+              {knocks.map((knock) => (
+                <Marker
+                  key={knock.id}
+                  position={{ lat: knock.lat, lng: knock.lng }}
+                  icon={getMarkerIcon(knock.result)}
+                  title={`${knock.result}${knock.address ? ` - ${knock.address}` : ''}`}
+                />
+              ))}
+            </GoogleMap>
+
+            {/* Recenter button */}
+            {!isFollowing && position && (
+              <button
+                onClick={recenterMap}
+                style={{
+                  position: 'absolute',
+                  bottom: '1rem',
+                  right: '1rem',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'var(--bg-card)',
+                  border: '2px solid var(--bg-secondary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#3b82f6',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                  zIndex: 100,
+                }}
+              >
+                <Navigation size={24} />
+              </button>
+            )}
           </div>
 
-          {/* BIG knock button - thumb friendly at bottom */}
+          {/* BIG knock button */}
           <div style={{ padding: '1rem', paddingBottom: '1.5rem', background: 'var(--bg-primary)' }}>
             <button
               onClick={openKnockMode}
@@ -188,9 +335,9 @@ export default function MapEmbed() {
           </div>
         </>
       ) : (
-        /* KNOCK MODE - Full screen, one-handed, fits viewport */
+        /* KNOCK MODE */
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0f172a', overflow: 'hidden' }}>
-          {/* Header with address & close */}
+          {/* Header */}
           <div style={{ 
             padding: '1rem', 
             background: 'var(--bg-secondary)',
@@ -229,7 +376,7 @@ export default function MapEmbed() {
             </div>
           </div>
 
-          {/* Result buttons - compact grid that fits on screen */}
+          {/* Result buttons */}
           <div style={{ 
             padding: '0.75rem',
             display: 'grid',
@@ -265,7 +412,7 @@ export default function MapEmbed() {
             ))}
           </div>
 
-          {/* Optional notes - compact */}
+          {/* Notes */}
           <div style={{ padding: '0.5rem 0.75rem 0.75rem', background: 'var(--bg-secondary)' }}>
             <input
               type="text"
