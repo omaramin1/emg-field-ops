@@ -12,6 +12,8 @@ export default function DoorPage() {
   const [showSignup, setShowSignup] = useState(false)
   const [showObjection, setShowObjection] = useState(false)
   const [selectedObjection, setSelectedObjection] = useState<Objection | null>(null)
+  const [saving, setSaving] = useState(false)
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   
   // Mock door data
   const door = {
@@ -23,6 +25,8 @@ export default function DoorPage() {
   }
 
   const handleOutcome = async (outcome: DoorOutcome) => {
+    if (saving) return // Prevent double-tap
+    
     if (outcome === 'yes') {
       setShowSignup(true)
     } else if (outcome === 'no') {
@@ -30,18 +34,31 @@ export default function DoorPage() {
       setShowObjection(true)
     } else {
       // Log outcome and go to next door
-      await logDoorData(outcome)
-      navigate('/door/next')
+      setSaving(true)
+      setSaveStatus('saving')
+      const success = await logDoorData(outcome)
+      setSaveStatus(success ? 'saved' : 'error')
+      // Brief delay to show status, then navigate
+      setTimeout(() => {
+        setSaving(false)
+        navigate('/door/next')
+      }, success ? 300 : 1000)
     }
   }
 
   const handleObjectionSubmit = async (objection: Objection) => {
-    // Log with objection data for area intelligence
-    await logDoorData('no', objection)
-    navigate('/door/next')
+    if (saving) return
+    setSaving(true)
+    setSaveStatus('saving')
+    const success = await logDoorData('no', objection)
+    setSaveStatus(success ? 'saved' : 'error')
+    setTimeout(() => {
+      setSaving(false)
+      navigate('/door/next')
+    }, success ? 300 : 1000)
   }
 
-  const logDoorData = async (outcome: DoorOutcome, objection?: Objection) => {
+  const logDoorData = async (outcome: DoorOutcome, objection?: Objection): Promise<boolean> => {
     // Map Door outcomes to KnockRecord results
     const outcomeMap: Record<DoorOutcome, KnockRecord['result']> = {
       'no_answer': 'not_home',
@@ -51,16 +68,21 @@ export default function DoorPage() {
       'skip': 'wrong_address'
     }
 
-    // Get current location
+    // Get current location with longer timeout
     let lat = 0, lng = 0
     try {
       const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
+        navigator.geolocation.getCurrentPosition(resolve, reject, { 
+          timeout: 10000,
+          enableHighAccuracy: true,
+          maximumAge: 30000 // Use cached position up to 30s old
+        })
       })
       lat = pos.coords.latitude
       lng = pos.coords.longitude
     } catch (e) {
       console.warn('Could not get location:', e)
+      // Continue anyway - location is nice to have but not required
     }
 
     const knockData = {
@@ -81,19 +103,56 @@ export default function DoorPage() {
 
       if (error) {
         console.error('Failed to save knock:', error)
-        // Still continue to next door even if save fails
+        return false
       } else {
         console.log('Knock saved:', data)
+        return true
       }
     } catch (e) {
       console.error('Error saving knock:', e)
+      return false
     }
   }
 
-  const handleSignupSubmit = () => {
-    // Submit signup
-    console.log('Signup submitted')
-    navigate('/door/next')
+  const handleSignupSubmit = async (formData: { name: string; phone: string; benefit: string; accountNumber: string }) => {
+    if (saving) return
+    setSaving(true)
+    setSaveStatus('saving')
+    
+    // First log the door as signed up
+    const knockSuccess = await logDoorData('yes')
+    
+    // Then save the signup details
+    try {
+      const { error } = await supabase
+        .from('signups')
+        .insert([{
+          customer_name: formData.name,
+          phone: formData.phone,
+          address: door.address,
+          benefit_type: formData.benefit,
+          account_number: formData.accountNumber,
+          canvasser_id: 'demo-user',
+          canvasser_name: 'Demo User',
+          lat: 0, // Will be captured from knock
+          lng: 0,
+        }])
+      
+      if (error) {
+        console.error('Failed to save signup:', error)
+        setSaveStatus('error')
+      } else {
+        setSaveStatus('saved')
+      }
+    } catch (e) {
+      console.error('Error saving signup:', e)
+      setSaveStatus('error')
+    }
+    
+    setTimeout(() => {
+      setSaving(false)
+      navigate('/door/next')
+    }, knockSuccess ? 500 : 1500)
   }
 
   if (showObjection) {
@@ -106,7 +165,7 @@ export default function DoorPage() {
   }
 
   if (showSignup) {
-    return <SignupForm address={door.address} onSubmit={handleSignupSubmit} onCancel={() => setShowSignup(false)} />
+    return <SignupForm address={door.address} onSubmit={handleSignupSubmit} onCancel={() => setShowSignup(false)} saving={saving} saveStatus={saveStatus} />
   }
 
   return (
@@ -124,28 +183,72 @@ export default function DoorPage() {
         </div>
       </div>
 
+      {/* Save Status Indicator */}
+      {saveStatus !== 'idle' && (
+        <div style={{
+          padding: '0.75rem',
+          marginBottom: '1rem',
+          borderRadius: '0.5rem',
+          textAlign: 'center',
+          background: saveStatus === 'saving' ? 'var(--bg-secondary)' : 
+                     saveStatus === 'saved' ? 'rgba(16, 185, 129, 0.2)' : 
+                     'rgba(239, 68, 68, 0.2)',
+          color: saveStatus === 'saving' ? 'var(--text-secondary)' : 
+                saveStatus === 'saved' ? '#10b981' : '#ef4444'
+        }}>
+          {saveStatus === 'saving' && '⏳ Saving...'}
+          {saveStatus === 'saved' && '✓ Saved!'}
+          {saveStatus === 'error' && '⚠️ Save failed - will retry'}
+        </div>
+      )}
+
       {/* Outcome Buttons */}
       <div className="door-buttons">
-        <button className="door-btn no-answer" onClick={() => handleOutcome('no_answer')}>
+        <button 
+          className="door-btn no-answer" 
+          onClick={() => handleOutcome('no_answer')}
+          disabled={saving}
+          style={{ opacity: saving ? 0.5 : 1 }}
+        >
           <span className="door-btn-icon">😶</span>
           <span>No Answer</span>
         </button>
-        <button className="door-btn no" onClick={() => handleOutcome('no')}>
+        <button 
+          className="door-btn no" 
+          onClick={() => handleOutcome('no')}
+          disabled={saving}
+          style={{ opacity: saving ? 0.5 : 1 }}
+        >
           <span className="door-btn-icon">❌</span>
           <span>Not Interested</span>
         </button>
-        <button className="door-btn yes" onClick={() => handleOutcome('yes')}>
+        <button 
+          className="door-btn yes" 
+          onClick={() => handleOutcome('yes')}
+          disabled={saving}
+          style={{ opacity: saving ? 0.5 : 1 }}
+        >
           <span className="door-btn-icon">✅</span>
           <span>Qualified!</span>
         </button>
       </div>
 
       <div className="door-buttons" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
-        <button className="door-btn callback" onClick={() => handleOutcome('callback')}>
+        <button 
+          className="door-btn callback" 
+          onClick={() => handleOutcome('callback')}
+          disabled={saving}
+          style={{ opacity: saving ? 0.5 : 1 }}
+        >
           <span className="door-btn-icon">🔄</span>
           <span>Callback</span>
         </button>
-        <button className="door-btn skip" onClick={() => handleOutcome('skip')}>
+        <button 
+          className="door-btn skip" 
+          onClick={() => handleOutcome('skip')}
+          disabled={saving}
+          style={{ opacity: saving ? 0.5 : 1 }}
+        >
           <span className="door-btn-icon">⏭️</span>
           <span>Skip</span>
         </button>
@@ -176,11 +279,15 @@ export default function DoorPage() {
 function SignupForm({ 
   address, 
   onSubmit, 
-  onCancel 
+  onCancel,
+  saving,
+  saveStatus
 }: { 
   address: string
-  onSubmit: () => void
-  onCancel: () => void 
+  onSubmit: (data: { name: string; phone: string; benefit: string; accountNumber: string }) => void
+  onCancel: () => void
+  saving: boolean
+  saveStatus: 'idle' | 'saving' | 'saved' | 'error'
 }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -194,11 +301,30 @@ function SignupForm({
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-        <button onClick={onCancel} style={{ background: 'none', color: 'var(--text-secondary)' }}>
+        <button onClick={onCancel} disabled={saving} style={{ background: 'none', color: 'var(--text-secondary)', opacity: saving ? 0.5 : 1 }}>
           <ArrowLeft size={24} />
         </button>
         <div style={{ fontSize: '1.25rem', fontWeight: 600 }}>New Signup</div>
       </div>
+
+      {/* Save Status */}
+      {saveStatus !== 'idle' && (
+        <div style={{
+          padding: '0.75rem',
+          marginBottom: '1rem',
+          borderRadius: '0.5rem',
+          textAlign: 'center',
+          background: saveStatus === 'saving' ? 'var(--bg-secondary)' : 
+                     saveStatus === 'saved' ? 'rgba(16, 185, 129, 0.2)' : 
+                     'rgba(239, 68, 68, 0.2)',
+          color: saveStatus === 'saving' ? 'var(--text-secondary)' : 
+                saveStatus === 'saved' ? '#10b981' : '#ef4444'
+        }}>
+          {saveStatus === 'saving' && '⏳ Saving signup...'}
+          {saveStatus === 'saved' && '✓ Signup saved!'}
+          {saveStatus === 'error' && '⚠️ Save failed - will retry'}
+        </div>
+      )}
 
       <div className="card">
         <div className="card-title">Customer Info</div>
@@ -313,13 +439,13 @@ function SignupForm({
 
       <button 
         className="btn btn-primary btn-large"
-        onClick={onSubmit}
-        disabled={!formData.name || !formData.phone || !formData.benefit}
+        onClick={() => onSubmit(formData)}
+        disabled={!formData.name || !formData.phone || !formData.benefit || saving}
         style={{
-          opacity: (!formData.name || !formData.phone || !formData.benefit) ? 0.5 : 1
+          opacity: (!formData.name || !formData.phone || !formData.benefit || saving) ? 0.5 : 1
         }}
       >
-        ✅ Submit Signup
+        {saving ? '⏳ Saving...' : '✅ Submit Signup'}
       </button>
     </div>
   )
