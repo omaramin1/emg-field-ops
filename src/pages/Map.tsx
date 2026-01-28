@@ -908,7 +908,7 @@ export default function MapPage() {
       </div>
 
       {/* Map */}
-      <div ref={mapContainer} style={{ flex: 1, position: 'relative' }}>
+      <div ref={mapContainer} style={{ flex: 1, position: 'relative', minHeight: '400px', background: '#e5e5e5' }}>
         {/* Map controls overlay */}
         <div style={{
           position: 'absolute',
