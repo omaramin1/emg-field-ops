@@ -11,6 +11,7 @@ import { getRejectedDealsWithCoords, RejectedDeal } from '../data/rejectedDeals'
 import zones from '../data/zones.json'
 import { getZoneCentroid } from '../data/zoneCentroids'
 import { getLMIZones } from '../data/lmiAutoQualifyZones'
+import { ACTIVE_DEALS, ActiveDeal } from '../data/activeDeals'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -65,6 +66,8 @@ export default function MapPage() {
   const [oldDeals, setOldDeals] = useState<KnockRecord[]>([])
   const [showOldDeals, setShowOldDeals] = useState(true)
   const [showZones, setShowZones] = useState(false)
+  const [showCompetitorDeals, setShowCompetitorDeals] = useState(true)
+  const [competitorDealsLoaded, setCompetitorDealsLoaded] = useState(false)
 
   // Get current rep from auth
   const { currentRep } = useAuthStore()
@@ -264,6 +267,110 @@ export default function MapPage() {
 
   }, [mapLoaded, showZones])
 
+  // Add Competitor Deals layer (gray pins - clustered for performance)
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return
+
+    const sourceId = 'competitor-deals-source'
+    const clusterLayerId = 'competitor-clusters'
+    const clusterCountLayerId = 'competitor-cluster-count'
+    const unclusteredLayerId = 'competitor-unclustered'
+
+    // Remove layers if toggle is off
+    if (!showCompetitorDeals) {
+      if (map.current.getLayer(clusterLayerId)) map.current.removeLayer(clusterLayerId)
+      if (map.current.getLayer(clusterCountLayerId)) map.current.removeLayer(clusterCountLayerId)
+      if (map.current.getLayer(unclusteredLayerId)) map.current.removeLayer(unclusteredLayerId)
+      if (map.current.getSource(sourceId)) map.current.removeSource(sourceId)
+      return
+    }
+
+    // Only load once
+    if (competitorDealsLoaded && map.current.getSource(sourceId)) return
+
+    // Load competitor deals from JSON
+    const loadCompetitorDeals = async () => {
+      try {
+        const response = await fetch('/data/competitor-deals.json')
+        if (!response.ok) return
+        
+        const deals = await response.json()
+        
+        // Convert to GeoJSON
+        const geojson: any = {
+          type: 'FeatureCollection',
+          features: deals.map((d: any) => ({
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [d.lng, d.lat] },
+            properties: { id: d.id, city: d.city, zip: d.zip }
+          }))
+        }
+
+        // Add source with clustering
+        if (map.current && !map.current.getSource(sourceId)) {
+          map.current.addSource(sourceId, {
+            type: 'geojson',
+            data: geojson,
+            cluster: true,
+            clusterMaxZoom: 14,
+            clusterRadius: 50
+          })
+
+          // Cluster circles - gray
+          map.current.addLayer({
+            id: clusterLayerId,
+            type: 'circle',
+            source: sourceId,
+            filter: ['has', 'point_count'],
+            paint: {
+              'circle-color': '#6b7280',
+              'circle-radius': ['step', ['get', 'point_count'], 15, 50, 20, 200, 25, 1000, 35],
+              'circle-opacity': 0.7,
+              'circle-stroke-width': 2,
+              'circle-stroke-color': '#fff'
+            }
+          })
+
+          // Cluster count labels
+          map.current.addLayer({
+            id: clusterCountLayerId,
+            type: 'symbol',
+            source: sourceId,
+            filter: ['has', 'point_count'],
+            layout: {
+              'text-field': '{point_count_abbreviated}',
+              'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+              'text-size': 12
+            },
+            paint: { 'text-color': '#ffffff' }
+          })
+
+          // Unclustered points - small gray dots
+          map.current.addLayer({
+            id: unclusteredLayerId,
+            type: 'circle',
+            source: sourceId,
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+              'circle-color': '#9ca3af',
+              'circle-radius': 5,
+              'circle-opacity': 0.6,
+              'circle-stroke-width': 1,
+              'circle-stroke-color': '#fff'
+            }
+          })
+
+          setCompetitorDealsLoaded(true)
+          console.log(`Loaded ${deals.length} competitor deals`)
+        }
+      } catch (e) {
+        console.error('Failed to load competitor deals:', e)
+      }
+    }
+
+    loadCompetitorDeals()
+  }, [mapLoaded, showCompetitorDeals, competitorDealsLoaded])
+
   // Track if we've auto-centered yet
   const hasAutoCentered = useRef(false)
 
@@ -321,12 +428,22 @@ export default function MapPage() {
   // Load existing knocks and historical deals
   useEffect(() => {
     const loadKnocks = async () => {
-      const [todaysKnocks, historicalDeals] = await Promise.all([
-        getTodaysKnocks(),
-        getHistoricalDeals()
-      ])
+      const todaysKnocks = await getTodaysKnocks()
       setKnocks(todaysKnocks)
-      setOldDeals(historicalDeals)
+      
+      // Load Omar's deals from static data (converted from weekly_sales.csv)
+      // These show as yellow pins for approved deals
+      const convertedDeals = ACTIVE_DEALS.map(deal => ({
+        id: `active-${deal.id}`,
+        lat: deal.lat,
+        lng: deal.lng,
+        address: deal.address,
+        created_at: deal.saleDate || '2026-01-01',
+        canvasser_name: deal.repName,
+        result: 'signed_up',
+        notes: deal.status === 'Payable' ? '✓ Approved' : '⏳ Pending',
+      })) as any[]
+      setOldDeals(convertedDeals)
     }
     loadKnocks()
   }, [])
@@ -608,6 +725,21 @@ export default function MapPage() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button 
+              onClick={() => setShowCompetitorDeals(!showCompetitorDeals)}
+              title={showCompetitorDeals ? 'Hide competitor deals' : 'Show competitor deals (gray)'}
+              style={{
+                background: showCompetitorDeals ? '#6b7280' : 'var(--bg-secondary)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.5rem 0.625rem',
+                color: 'white',
+                fontSize: '0.7rem',
+                fontWeight: 600
+              }}
+            >
+              👥
+            </button>
             <button 
               onClick={() => setShowZones(!showZones)}
               title={showZones ? 'Hide LMI zones' : 'Show LMI auto-qualify zones'}

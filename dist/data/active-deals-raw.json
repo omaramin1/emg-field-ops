@@ -1,0 +1,4362 @@
+[
+  {
+    "id": 1,
+    "customerName": "Test Testtt",
+    "address": "3293 Lynde St, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-22",
+    "status": "Sent",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 2,
+    "customerName": "Zashanti Williams",
+    "address": "3087 Fireside Rd, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 3,
+    "customerName": "Asia Saunders",
+    "address": "3000 Parkside Dr, 1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 5,
+    "customerName": "Pattie W Wilkins",
+    "address": "420 Pine St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Jared DeLong",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 7,
+    "customerName": "Phyllish Edney",
+    "address": "3112 Welcome Rd, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 8,
+    "customerName": "Infinity Highter",
+    "address": "2112 Farmer Ln, 1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Nicholas Grant",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 9,
+    "customerName": "Ida M Threat",
+    "address": "309 Maryland Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Jared DeLong",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 10,
+    "customerName": "Laroune Francis",
+    "address": "4154 Williamson St, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 11,
+    "customerName": "Taliyah Scott",
+    "address": "3056 Parkside Drive, 1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Nicholas Grant",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 12,
+    "customerName": "Tammy Stocks",
+    "address": "1561 Campostella Rd, # Trlr 22h, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 13,
+    "customerName": "Edith E Brown",
+    "address": "220 Carriage Run Ct # A, # A, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Jared DeLong",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 14,
+    "customerName": "Sha\u2019dai Inman",
+    "address": "3000 Parkside Dr, #3, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 15,
+    "customerName": "Alejandro Alonzo",
+    "address": "1561 Campostella Rd, # Trlr 104 Premise 344042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 16,
+    "customerName": "Claudio Leon",
+    "address": "1561 Campostella Rd, # Trlr 191, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 17,
+    "customerName": "Floyd Tennessee",
+    "address": "209 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 18,
+    "customerName": "Willie R Bourn",
+    "address": "75 Ellington St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 19,
+    "customerName": "Alexis Trival",
+    "address": "2913 Parkside Dr, E, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 20,
+    "customerName": "Robert Moody",
+    "address": "89 Ellington St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Carli Wittkowski",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 21,
+    "customerName": "Rafael Dejesus",
+    "address": "1561 Campostella Rd, # Trlr 147 Premise 305042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 22,
+    "customerName": "Debra Walker",
+    "address": "101 Louis St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Carli Wittkowski",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 23,
+    "customerName": "Michael Moody",
+    "address": "91 Elligton St, Windsor, VA, 23487",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 24,
+    "customerName": "Darcy Moeves",
+    "address": "1561 Campostella Rd, # Trlr 181, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 25,
+    "customerName": "Juan Lopez",
+    "address": "205 Park Ave, Apt A, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 26,
+    "customerName": "Beverly J Jacson",
+    "address": "512 Southampton St, #n, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 28,
+    "customerName": "Sarah Yeattes",
+    "address": "52 West Dr, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Danilo Mango",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 29,
+    "customerName": "Kimberly Brown",
+    "address": "508 Southampton St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 30,
+    "customerName": "Orlando Gomez Mogollon",
+    "address": "1561 Campostella Rd, # Trlr 118, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 31,
+    "customerName": "Marlene S Brown",
+    "address": "507 Southampton St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 32,
+    "customerName": "Crystal L Mangrum",
+    "address": "109 Louis St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Carli Wittkowski",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 35,
+    "customerName": "Orine Atkins",
+    "address": "24 Easter St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Isabella  Cutrie",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 36,
+    "customerName": "Barbara Ann Waller",
+    "address": "501 Suiter St #i, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Isabella  Cutrie",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 37,
+    "customerName": "Savion Sivels",
+    "address": "3012 Parkside Dr, 2, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 38,
+    "customerName": "Tabitha B Hicks",
+    "address": "117 Louis St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 39,
+    "customerName": "Destiny Richardson",
+    "address": "512 Southampton St, #p, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 40,
+    "customerName": "Test Test",
+    "address": "123 Main St, Chesapeake, VA, 23325",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Ahmad  Amin ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 41,
+    "customerName": "Eugenia Jimenez Arce",
+    "address": "1561 Campostella Rd, Trlr 173 Premise 298042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 42,
+    "customerName": "Tieisha Rogers",
+    "address": "3065 Parkside Dr Apt 4, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 43,
+    "customerName": "Ariena Lara",
+    "address": "1008 West Harbour Dr, Chester, VA, 23836",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Zaytije Mercer",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 44,
+    "customerName": "Latoya Wilson",
+    "address": "3100 Border Rd, #1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 46,
+    "customerName": "Katherine Pittman",
+    "address": "208 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 47,
+    "customerName": "James Killebrew",
+    "address": "3053 Parkside Dr, 3, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Nicholas Grant",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 48,
+    "customerName": "Dail White",
+    "address": "1561 Campostella Rd, # Trlr 112 Premise 335042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 49,
+    "customerName": "April Knox",
+    "address": "3109 Border Rd, 2, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Nicholas Grant",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 50,
+    "customerName": "Carol Allen",
+    "address": "1524 Longdale Dr Apt 202, 202, Norfolk, VA, 23518",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Yaseen Abdulrahmaan ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 51,
+    "customerName": "Alyssa Gregory",
+    "address": "401 Harbour North Dr, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Alexander  Stewart ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 52,
+    "customerName": "Nandi Williams",
+    "address": "3073 Parkside Dr, 1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 53,
+    "customerName": "Lewis A King",
+    "address": "16 Easter St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Isabella  Cutrie",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 54,
+    "customerName": "April N Thompson",
+    "address": "418 Southampton St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 55,
+    "customerName": "Shamon Whitfield",
+    "address": "113 Louis St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 56,
+    "customerName": "Eugenia Jimenez Arce",
+    "address": "1561 Campostella Rd, # Trlr 173 Premise 298042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 57,
+    "customerName": "Maria Alvarado",
+    "address": "1000 W Harbor Dr, Chester, VA, 23836",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Zaytije Mercer",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 58,
+    "customerName": "Roxina Talley",
+    "address": "501 Southampton St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 59,
+    "customerName": "Koteen Bradshaw",
+    "address": "3204 Border Rd, #1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 60,
+    "customerName": "Nevaeh Torres",
+    "address": "1561 Campostella Rd, # Trlr 167, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 61,
+    "customerName": "Virginia Rueda",
+    "address": "1561 Campostella Rd, # Trlr 135 Premise 317042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 62,
+    "customerName": "Amy Sheffield",
+    "address": "411 Southampton St, Courtland, VA, 23837",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 63,
+    "customerName": "Aaron A Sammy",
+    "address": "4159 Williamson St, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 64,
+    "customerName": "Test Tester",
+    "address": "3293 Lynde St, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 66,
+    "customerName": "Lashonta Sumner",
+    "address": "2108 Farmer Ln, #2, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 67,
+    "customerName": "Shirley Squire",
+    "address": "401 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 68,
+    "customerName": "Dashawn Mcclenny",
+    "address": "1561 Campostella Rd, # Trlr 148 Premise 304042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 69,
+    "customerName": "Eileen Mendiola",
+    "address": "1540 Dungee St, #perm, Norfolk, VA, 23504",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 70,
+    "customerName": "Samuel Harward",
+    "address": "1561 Campostella Rd, # Trlr 22a, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 71,
+    "customerName": "Audrey Ravas",
+    "address": "416 Harbour North Dr, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Alexander  Stewart ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 72,
+    "customerName": "Regina Henderson",
+    "address": "802 Harbour North Dr, 802, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Alexander  Stewart ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 73,
+    "customerName": "Mary Harrison",
+    "address": "490 Easter St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 74,
+    "customerName": "Nicaury Veloz",
+    "address": "4163 Williamson St, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 75,
+    "customerName": "Mary Marin Molina",
+    "address": "1561 Campostella Rd, # Trlr 111 Premise 336042000, Chesapeake, VA, 23320",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 76,
+    "customerName": "Jorge Luis Gonzales Rosales",
+    "address": "512 Southampton St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 77,
+    "customerName": "Tanizia Williams",
+    "address": "2224 Farmer Ln, 3, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 79,
+    "customerName": "Anthony Reyes",
+    "address": "4179 Williamson St, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 81,
+    "customerName": "Edwin L Krantz",
+    "address": "462 Easter St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 82,
+    "customerName": "Dymond Franklin",
+    "address": "171 Easter St, Emporia, VA, 23847",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 83,
+    "customerName": "Erick Ruiz",
+    "address": "1016 W Harbour Dr, Chester, VA, 23836",
+    "saleDate": "2026-01-21",
+    "status": "Sent",
+    "repName": "Zaytije Mercer",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 87,
+    "customerName": "Antonia White",
+    "address": "801 Walker Ave, Norfolk, VA, 23523",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 89,
+    "customerName": "Doretha Allen",
+    "address": "230 Zion Blvd, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 91,
+    "customerName": "Vanessa Williamson",
+    "address": "202 Astrio St, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 93,
+    "customerName": "Alberto Castanon",
+    "address": "200 Low Ground Rd, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 96,
+    "customerName": "Alexia Ellsworth",
+    "address": "223 Meherrin Ln, #d, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 98,
+    "customerName": "Sheila Wright",
+    "address": "507 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 99,
+    "customerName": "Alvaro Diaz Carranza",
+    "address": "2651 King Ct, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Nicholas Grant",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 100,
+    "customerName": "Willie Rivers",
+    "address": "1008 E Liberty St, Norfolk, VA, 23523",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 102,
+    "customerName": "Betty Ridout",
+    "address": "403 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 105,
+    "customerName": "Shaquaya # Robinson",
+    "address": "618 Beech St, #4, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 108,
+    "customerName": "Shadonna Webb",
+    "address": "603 Park Ave, # E, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 109,
+    "customerName": "Richard Young",
+    "address": "1018 Berkeley Ave, #1a, Norfolk, VA, 23523",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Aiman Ibrahim",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 110,
+    "customerName": "Johnny E Lowery",
+    "address": "237 Harrji St, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 115,
+    "customerName": "Yasmin Jones",
+    "address": "250 Wadlow St, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 117,
+    "customerName": "Linda Carrington",
+    "address": "1008 Berkeley Avenue, Ext A, Norfolk, VA, 23523",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Alexander  Stewart ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 120,
+    "customerName": "Burnette Rose",
+    "address": "513 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 121,
+    "customerName": "David Whack",
+    "address": "2023 Timber Ln, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Markell Hill",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 124,
+    "customerName": "Gladys Johnson",
+    "address": "2002 Plow Ln, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Lejohn Windn",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 126,
+    "customerName": "Alvin Jackson",
+    "address": "127 Carroll St, A, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Kiley Eastin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 127,
+    "customerName": "Lawrence Tiller",
+    "address": "511 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 128,
+    "customerName": "Daisy A Wyche",
+    "address": "400 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 129,
+    "customerName": "Cynthia Bowden",
+    "address": "200 Page St, Crewe, VA, 23930",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 133,
+    "customerName": "Sandra Hines",
+    "address": "501 Broad St, # B, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 135,
+    "customerName": "Verashell Foreman",
+    "address": "2112 Shady Ln, # 1, Chesapeake, VA, 23324",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Michael Scotford",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 137,
+    "customerName": "Robert Jones",
+    "address": "306 Grove Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 143,
+    "customerName": "Elzibeth Thomas",
+    "address": "412 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 144,
+    "customerName": "Janice M Moody",
+    "address": "209 Zion Blvd, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 146,
+    "customerName": "Rashad Atkins",
+    "address": "267 Wadlow St, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 149,
+    "customerName": "Ever D Garza",
+    "address": "312 Park Ave, Emporia, VA, 23847",
+    "saleDate": "2026-01-20",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 150,
+    "customerName": "Derian S Palmer",
+    "address": "122 Carroll St, # E Apt E, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "15567.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 151,
+    "customerName": "Mildred Person",
+    "address": "218 Turner St, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "5751.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 154,
+    "customerName": "William Taylor",
+    "address": "404 Walnut Ln, Waverly, VA, 23890",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "17898.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 155,
+    "customerName": "Tenia Oliver",
+    "address": "219 Meherrin Ln, Apt #d, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "1854.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 156,
+    "customerName": "Theresa Tucker",
+    "address": "114 Carroll St, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "33703.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 157,
+    "customerName": "Christian Robinson",
+    "address": "303 W End Blvd, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "20138.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 159,
+    "customerName": "Joy Mallory",
+    "address": "234 Zion Blvd #perm, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "30966.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 160,
+    "customerName": "Rebecca A Thomas",
+    "address": "226 Zion Blvd, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "24859.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 161,
+    "customerName": "Jessica R Samuels",
+    "address": "102 Russell Ln, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "25652.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 162,
+    "customerName": "Deloris Hayes",
+    "address": "212 Meherrin Ln #b, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "10520.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 164,
+    "customerName": "Marlon Jefferson",
+    "address": "502 Broad St # F, Apt F, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "12434.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 166,
+    "customerName": "Elizabeth C Cook",
+    "address": "227 Turner St, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "33713.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 167,
+    "customerName": "Margaret Eason",
+    "address": "227 Zion Blvd, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "21438.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 168,
+    "customerName": "Hillerson Joseph Peterson Ii",
+    "address": "309 West End Blvd, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "16421.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 170,
+    "customerName": "Tonya Matthews",
+    "address": "225 Grahm St, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "23569.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 172,
+    "customerName": "Rebecca Miller",
+    "address": "429 Elm St, Waverly, VA, 23890",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "36445.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 176,
+    "customerName": "Cesar Cruz",
+    "address": "502 Broad St #d, Apt D, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "14625.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 177,
+    "customerName": "Jacqueline L Holmes",
+    "address": "300 Bethune Square, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "8329.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 179,
+    "customerName": "Timothy Parham",
+    "address": "534 W Main St, Waverly, VA, 23890",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "29327.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 181,
+    "customerName": "Tylisha Smith",
+    "address": "714 Carver Cir, # F, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "7843.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 182,
+    "customerName": "Kiarra Feggins",
+    "address": "241 Evan\u2019s St, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "22043.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 184,
+    "customerName": "Nathan Cain Jr",
+    "address": "739 Halifax St, Emporia, VA, 23847",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "39891.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 185,
+    "customerName": "Chiquita Ellis",
+    "address": "105 Hortons Cir, Waverly, VA, 23890",
+    "saleDate": "2026-01-19",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "14126.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 187,
+    "customerName": "Jesus M Ruiz",
+    "address": "6623 Wagon Dr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-18",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "22525.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 188,
+    "customerName": "Timonthy Coleman",
+    "address": "11530 Pasture Ln, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-18",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "9160.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 189,
+    "customerName": "Dawn Schiebel",
+    "address": "11538 Pasture Ln, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-18",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "29662.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 194,
+    "customerName": "Jeffrey E Johnson",
+    "address": "11619, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-18",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "21919.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 196,
+    "customerName": "Donna Ferrer",
+    "address": "6624 Wagon Dr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-18",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "15584.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 197,
+    "customerName": "Brandi Washington",
+    "address": "244 North Charlotte Ave, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "12664.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 198,
+    "customerName": "David Bell",
+    "address": "216 Elkin Cir, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "9160.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 199,
+    "customerName": "Maria Puentes",
+    "address": "1600 6th St Se, Lot # 22, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17509.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 200,
+    "customerName": "Alexzadrea Scheer",
+    "address": "211 S Forest Ave, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "20161.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 201,
+    "customerName": "Rigoberto Aparico-hernandez",
+    "address": "1600 6th St Se # Lot A, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "8872.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 204,
+    "customerName": "Aidan Whitney",
+    "address": "1000 Winchester Rd, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "30091.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 206,
+    "customerName": "Dennis Toney",
+    "address": "1736 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "14516.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 209,
+    "customerName": "Alden Hough",
+    "address": "1482 Monterey Dr, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "8139.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 210,
+    "customerName": "Shawn Moubry",
+    "address": "199 N Bath Ave, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "4691.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 211,
+    "customerName": "Maria Tomas Manuel",
+    "address": "1600 6th St, Se# Lot 29, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "22035.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 212,
+    "customerName": "Ramiro Roque Roman",
+    "address": "1649 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "24268.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 213,
+    "customerName": "Jaffer Khan",
+    "address": "408 Garrett St # F, Apt F, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "16457.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 214,
+    "customerName": "Oscar Lopez",
+    "address": "1603 Townwood Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "8689.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 216,
+    "customerName": "Gabriel Sanchez",
+    "address": "1600 6th St Se, Lot # 12, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "11288.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 217,
+    "customerName": "Jorge Arellano",
+    "address": "1627 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "27634.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 220,
+    "customerName": "Elizabeth Moore",
+    "address": "157 N Bath Ave, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "31406.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 222,
+    "customerName": "Zachary A Blatter",
+    "address": "506 Druid Ave, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "8845.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 224,
+    "customerName": "Alenjandra Abundio Alonso",
+    "address": "1685 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "6633.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 225,
+    "customerName": "Cathy Pugh",
+    "address": "950 E 11th St, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "13032.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 227,
+    "customerName": "Ramona Chairez",
+    "address": "1675 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "28554.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 228,
+    "customerName": "Ashley Hearl",
+    "address": "191 N Bath Ave, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-17",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "10815.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 232,
+    "customerName": "William E Harrington",
+    "address": "11526 Ranch Dr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "8289.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 233,
+    "customerName": "Evetta L Williams",
+    "address": "6601wagondr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "18008.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 234,
+    "customerName": "Marlyn A Bradley",
+    "address": "6532 Wagon Dr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "19924.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 235,
+    "customerName": "Jose Busso",
+    "address": "4612 Harrison Rd, Fredericksburg, VA, 22408",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "38948.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 236,
+    "customerName": "Oscar R Vigil Escobar",
+    "address": "1655 Crenshaw Ct, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "29210.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 241,
+    "customerName": "Dahali Sanchez",
+    "address": "1606 Townwood Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "12531.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 242,
+    "customerName": "Myra Kemmy",
+    "address": "11529ranchdr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "14558.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 244,
+    "customerName": "Darlenne Mejia",
+    "address": "1643 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "21019.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 245,
+    "customerName": "Alec Valsamis",
+    "address": "11509ranchdr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "23024.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 254,
+    "customerName": "Lucille B Taylor",
+    "address": "1624 Townwood Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "5662.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 255,
+    "customerName": "Daiquandra Roundtree",
+    "address": "414 Garret St, #e, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "13816.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 257,
+    "customerName": "Linda Jones",
+    "address": "11522ranchdr, Fredericksburg, VA, 22407",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "16991.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 258,
+    "customerName": "Terina Arslan",
+    "address": "410 Garrett St, Apt C, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "20708.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 260,
+    "customerName": "Maria Garcia",
+    "address": "1600 Se 6th St Se, Lot # 42, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-16",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "26762.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 262,
+    "customerName": "Harold W Nycum",
+    "address": "263 E 29th St, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "7364.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 263,
+    "customerName": "Pamela Messersmith",
+    "address": "420 Mistletoe St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "21030.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 265,
+    "customerName": "Ruby Richerson",
+    "address": "307 Heveners Ln, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "26709.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 266,
+    "customerName": "Alice Dorey",
+    "address": "233 E 41st St, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "14031.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 270,
+    "customerName": "Jane Garrett",
+    "address": "262 E 30th St, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 275,
+    "customerName": "Claudia Fortune",
+    "address": "2934 Locust Ave, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 276,
+    "customerName": "Keily Dubon",
+    "address": "605 St Matthew St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "10263.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 277,
+    "customerName": "Guiovani Leon Cruz",
+    "address": "412 Morningside Dr, Lexington, VA, 24450",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "32484.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 278,
+    "customerName": "Martin Borisov",
+    "address": "322 Walnut St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "8673.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 279,
+    "customerName": "Gwen Jamerson",
+    "address": "205 E 40th St, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17402.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 280,
+    "customerName": "John Michael Ed Rappold",
+    "address": "428 Morningside Dr, Lexington, VA, 24450",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "2538.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 281,
+    "customerName": "Charles Hurley",
+    "address": "275 E 30th St, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "28319.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 284,
+    "customerName": "Iasia Crittendon",
+    "address": "1306 St James St, Alexandria, VA, 22303",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 285,
+    "customerName": "Louise Jackson",
+    "address": "1150 Arlington St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "3821.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 287,
+    "customerName": "Natalya Egbert",
+    "address": "118 W 28th St., Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "8137.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 289,
+    "customerName": "Cynthia M Lipscomb",
+    "address": "305 E 40th St, Buena Vista, VA, 24416",
+    "saleDate": "2026-01-15",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "36113.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 292,
+    "customerName": "Sydney Poole",
+    "address": "753 Madison Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "3532.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 294,
+    "customerName": "Najia Sadat",
+    "address": "400 Garrett St, #b, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "8701.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 297,
+    "customerName": "Quadrina Bunting",
+    "address": "1208 Covel St, Norfolk, VA, 23523",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 298,
+    "customerName": "Daniel Sparks",
+    "address": "1500 Grady Ave #12, Premise 36482100, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "13021.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 299,
+    "customerName": "Nicole Zapertova",
+    "address": "1500 Grady Ave #2, Premise 28482100, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "13859.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 301,
+    "customerName": "Sallie King",
+    "address": "403 Garrett St, #a, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "9254.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 302,
+    "customerName": "Donna L Booker",
+    "address": "210 Saponi Ln Unit 4, 4, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "3124.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 303,
+    "customerName": "Kristal Brook",
+    "address": "1324 Church St, Norfolk, VA, 23504",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Shibela  Goins",
+    "kWh": "9977.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 304,
+    "customerName": "Omar Kababi",
+    "address": "402 Garrett  St, Apt B, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "9160.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 305,
+    "customerName": "Vinayak Dewan",
+    "address": "1410 Grady Ave, 7, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "5689.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 306,
+    "customerName": "Sara Rhodes",
+    "address": "6161 Willow Pl, 104, Bealeton, VA, 22712",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "8874.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 307,
+    "customerName": "Norman L Grooms",
+    "address": "800 Runnel Ct # 3, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "2855.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 312,
+    "customerName": "William Scaring",
+    "address": "11162 Willow Dr, Apt 62n, Bealeton, VA, 22712",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "9592.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 313,
+    "customerName": "Sherry Peters",
+    "address": "629 Lake Edward Dr, 103, Virginia Beach, VA, 23462",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "5513.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 317,
+    "customerName": "Selena Silverio",
+    "address": "11164 Willow Dr, N, Bealeton, VA, 22712",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "9244.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 318,
+    "customerName": "Mursal Zamani",
+    "address": "412 Garrett St, Apt C, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "13236.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 320,
+    "customerName": "Norman Frizzle",
+    "address": "11176 Crest Ln, Bealeton, VA, 22712",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "19805.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 321,
+    "customerName": "Paula Granados",
+    "address": "826 Cabell Ave #h, Apt H, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "1545.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 322,
+    "customerName": "Semaje Smith",
+    "address": "400 Garrett St, #d, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "10139.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 324,
+    "customerName": "Mallorie Bryant",
+    "address": "403 Garrett St, #b, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "5981.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 325,
+    "customerName": "George Mhil",
+    "address": "412 Garrett St, Apt D, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "10541.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 326,
+    "customerName": "Reynalda A Aguilar",
+    "address": "6756 Willowbrook Dr, Bealeton, VA, 22712",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "24487.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 327,
+    "customerName": "Tshitshabo J Mutombo",
+    "address": "1110 Gordon Ave #b, Apt B, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "4884.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 328,
+    "customerName": "Jacob Miller",
+    "address": "200 Saponi Ln, 1, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "9160.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 330,
+    "customerName": "Dorita E Wood-acquaye",
+    "address": "923 Page St, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "3553.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 331,
+    "customerName": "Shafiqullah Gojar",
+    "address": "412 Garrett St #e, Apt E, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "18711.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 332,
+    "customerName": "Eric Willersdorf",
+    "address": "608 Cabell Ave #c, Apt C, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "2565.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 334,
+    "customerName": "Tabbatha Payne",
+    "address": "405 Garrett St, #f, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "9265.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 336,
+    "customerName": "Tracey Weaver",
+    "address": "230 Saponi, 8, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-14",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "4575.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 338,
+    "customerName": "Vernon Walter",
+    "address": "1303 Yacht Basin Dr, Colonial Heights, VA, 23834",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "21212.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 339,
+    "customerName": "Meredith Shelton",
+    "address": "705 Prospect Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "2936.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 340,
+    "customerName": "John W Wharton Jr",
+    "address": "716 Montrose Ave, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "6586.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 343,
+    "customerName": "Ingrid Carolina Ordonez Aleman",
+    "address": "1687 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "14784.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 344,
+    "customerName": "Mark Parker",
+    "address": "38 N Old Church St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "8228.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 347,
+    "customerName": "Janice Clements",
+    "address": "1418 Minor Ridge Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "2858.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 349,
+    "customerName": "Justin Brinkley",
+    "address": "906 Avon St, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "4629.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 350,
+    "customerName": "Anya Shepelavey",
+    "address": "1422 Minor Ridge Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "2405.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 352,
+    "customerName": "April A Terry",
+    "address": "738 Prospect Ave # E, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "12645.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 354,
+    "customerName": "Adriana Alanso Aguilar",
+    "address": "1694 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "17411.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 356,
+    "customerName": "Amanda Brooks",
+    "address": "1000 Montrose Ave # B, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "3650.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 359,
+    "customerName": "Tonya D Cooper",
+    "address": "804 Prospect Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "12873.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 360,
+    "customerName": "Dahmonique Robinson",
+    "address": "5 S Old Church St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "16832.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 361,
+    "customerName": "Ana Judith Morales Lara",
+    "address": "616 Montrose Ave, #a, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "17015.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 363,
+    "customerName": "Isaac Abundio",
+    "address": "1734 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "12662.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 364,
+    "customerName": "Nickie Williams",
+    "address": "808 Prospect Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "14572.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 365,
+    "customerName": "Ashleah Pippins",
+    "address": "9019 Chesapeake Blvd, B1, Norfolk, VA, 23503",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Yaseen Abdulrahmaan ",
+    "kWh": "8393.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 366,
+    "customerName": "Bianca Portesous",
+    "address": "2713 Hurley Ave, Norfolk, VA, 23513",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Shibela  Goins",
+    "kWh": "7543.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 367,
+    "customerName": "Joseph Reyes",
+    "address": "910 Blenheim Ave, Base, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "1785.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 368,
+    "customerName": "Jerushia Harper",
+    "address": "28 N Old Church St, Petersburg, VA, 23803",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "14561.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 372,
+    "customerName": "Francelia Bernal Ocampo",
+    "address": "1716 Crenshaw Ct, Charlottesville, VA, 22901",
+    "saleDate": "2026-01-13",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 377,
+    "customerName": "Mary Swift V",
+    "address": "739 Orangedale Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "18953.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 378,
+    "customerName": "Fatima Cruz",
+    "address": "11956 Coffman Cir, Lot 141, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "17560.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 380,
+    "customerName": "Michele Hensley",
+    "address": "11750 Thomas St Lot 433, 433, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "10414.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 381,
+    "customerName": "Claudette Finney",
+    "address": "819 Walker Ave, Norfolk, VA, 23523",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "1643.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 382,
+    "customerName": "Kristin Blair",
+    "address": "1010 Blenheim Ave, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "7433.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 383,
+    "customerName": "Fatou Fall",
+    "address": "5570 E Virginia Beach Blvd, 132, Norfolk, VA, 23502",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "8407.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 385,
+    "customerName": "Barbara F Johnson",
+    "address": "910 Blenheim Ave, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "2331.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 387,
+    "customerName": "Garnett Mcmillan",
+    "address": "11777 Thomas St, 4014, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "21244.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 388,
+    "customerName": "Margaret A Jackson",
+    "address": "745 Orangedale Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "11519.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 389,
+    "customerName": "Patsy Powell",
+    "address": "1303 Oak Hill Drive, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "13785.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 390,
+    "customerName": "Charles Jewell",
+    "address": "1173 Thomas St, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "23347.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 391,
+    "customerName": "Maxine Furr",
+    "address": "6153 Bain Ct, 274, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "6924.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 393,
+    "customerName": "Glenda Shifflett",
+    "address": "955 Quest Ct, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "10472.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 394,
+    "customerName": "Veronica Johnson",
+    "address": "857 W 36th St, 1, Norfolk, VA, 23508",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "9363.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 395,
+    "customerName": "Luke Dahl",
+    "address": "1006 Meridian St, Mc Lean, VA, 22102",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Danilo Mango",
+    "kWh": "8207.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 397,
+    "customerName": "Rolletti White",
+    "address": "6195 Buck Ct, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "28699.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 398,
+    "customerName": "Raheem Davis",
+    "address": "8012 Woodall Rd, Norfolk, VA, 23518",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "24359.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 399,
+    "customerName": "Margaret E Walter",
+    "address": "633 Blenheim Ave, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "27245.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 400,
+    "customerName": "Idalia Guardado",
+    "address": "11868 Scott Cir, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "12238.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 401,
+    "customerName": "Pamela Hughes",
+    "address": "Pamelahughes374@gmail.com, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "15081.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 403,
+    "customerName": "Ana Calderon",
+    "address": "11793 Coffman Cir, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "15455.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 404,
+    "customerName": "Jamie Contreras",
+    "address": "11766 Thomas St, 423, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "22318.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 405,
+    "customerName": "Janie Riggs",
+    "address": "6220 Marsh Run Dr, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "35830.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 407,
+    "customerName": "Jennifer M Warnell",
+    "address": "6133 Buck Ct, Lot 329, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "19357.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 408,
+    "customerName": "Kevin Boyer",
+    "address": "1429 Maymont Ct P/10, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "9904.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 409,
+    "customerName": "James C Brooks",
+    "address": "1203 Oak Hill Dr #d, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "16332.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 410,
+    "customerName": "Chenelle Cottman",
+    "address": "6342 Glenoak Dr, 1, Norfolk, VA, 23513",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "20146.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 411,
+    "customerName": "Ana Calderon",
+    "address": "6203 Buck Ct, 612, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "22640.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 412,
+    "customerName": "Deborah Crone",
+    "address": "11874 Scott Cir, Lot 308, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "16256.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 414,
+    "customerName": "Enrique Campos",
+    "address": "1203 Oak Hill Dr, #f, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "12300.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 415,
+    "customerName": "Brandon R Mcgann",
+    "address": "1131 Oak Hill Dr, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Giavanna Agostini",
+    "kWh": "9912.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 416,
+    "customerName": "Mary Ward",
+    "address": "743 Orangedale Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "11386.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 418,
+    "customerName": "Hans C Banziger",
+    "address": "1106 Blenheim Ave, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Tyler Dessaure",
+    "kWh": "3478.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 421,
+    "customerName": "James Walker",
+    "address": "11910 Scott Cir # 316 Lot 316, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "13763.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 424,
+    "customerName": "Gary L Beverley",
+    "address": "622 Bailey Rd, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Jared DeLong",
+    "kWh": "10921.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 425,
+    "customerName": "Patricia Renderos",
+    "address": "12091 Coffman Cir, Lot 328, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "16262.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 426,
+    "customerName": "Agapito Roman Lopez",
+    "address": "1829 Minor Dr, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "22551.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 427,
+    "customerName": "Felix Lopez",
+    "address": "21961 20 Bain Ct # 270, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Zaytije Mercer",
+    "kWh": "10811.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 429,
+    "customerName": "Debra Greenwalt",
+    "address": "6179 Buck Ct, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Vernon Thomas",
+    "kWh": "16828.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 431,
+    "customerName": "Rocio Perez",
+    "address": "1795 Minor Dr, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Isabella  Cutrie",
+    "kWh": "12320.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 432,
+    "customerName": "Guadalupe Flores",
+    "address": "757 Orangedale Road, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Carli Wittkowski",
+    "kWh": "13046.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 433,
+    "customerName": "Christofer Y Hernandez Reyes",
+    "address": "6231 Buck Ct, Bealeton, VA, 22712",
+    "saleDate": "2026-01-12",
+    "status": "Payable",
+    "repName": "Vernon Thomas",
+    "kWh": "26797.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 436,
+    "customerName": "Marta Juarez",
+    "address": "6321 Cooper Avenue Bealeton Va 22712, 176, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "13444.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 437,
+    "customerName": "Maria Jerez",
+    "address": "6224 Buck Ct, 615, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "30169.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 438,
+    "customerName": "Jose D Alfaro",
+    "address": "6102 Adams Ct, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "22261.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 439,
+    "customerName": "Luis A Juarez",
+    "address": "12008 Coffman Cir, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "21371.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 440,
+    "customerName": "Tammy Henderson",
+    "address": "11880 Scott Cir, 309, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Vernon Thomas",
+    "kWh": "13179.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 442,
+    "customerName": "Pauline 6strother",
+    "address": "6220 Buck Ct, 616, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "10993.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 444,
+    "customerName": "Norman Dunivan",
+    "address": "6224 Long St #185, 185, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "22954.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 445,
+    "customerName": "William Barker",
+    "address": "12043 Coffman Cir, 220, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "11853.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 446,
+    "customerName": "Linda Bland",
+    "address": "3220 Kirkland Ave, Norfolk, VA, 23513",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "15720.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 447,
+    "customerName": "Jose Lemus Orellana",
+    "address": "6228 Buck Ct, Lot 199, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "22411.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 448,
+    "customerName": "Cathy L Jeffries",
+    "address": "6095 Adams Ct, Bealeton, VA, 22712",
+    "saleDate": "2026-01-11",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "21606.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 450,
+    "customerName": "Sylvester Washington",
+    "address": "326 E Little Creek Rd, 3, Norfolk, VA, 23505",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Shibela  Goins",
+    "kWh": "4534.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 451,
+    "customerName": "Charlotte Maiden",
+    "address": "88 Townhouse Ln, 112, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "7311.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 453,
+    "customerName": "Alexsha Christy",
+    "address": "24 September Cir, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Vernon Thomas",
+    "kWh": "6800.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 456,
+    "customerName": "Andrew Lyman",
+    "address": "19 Oak Tree Ln, 101, Stuarts Draft, VA, 24477",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "2333.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 457,
+    "customerName": "Joan Wade Shiflett",
+    "address": "21 Autumn Ln, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "9961.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 459,
+    "customerName": "Willie Sykes",
+    "address": "850 E Virginia Beach Blvd, 403, Norfolk, VA, 23513",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Shibela  Goins",
+    "kWh": "1768.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 460,
+    "customerName": "Yahmii Uhuru",
+    "address": "7 Steep Hill Ln, 105, Stuarts Draft, VA, 24477",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "5943.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 461,
+    "customerName": "Karen Hanger",
+    "address": "12 January Dr, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "10270.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 462,
+    "customerName": "Brooke Mccauley",
+    "address": "11 Oak Tree Ln, 103, Stuarts Draft, VA, 24477",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "7322.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 463,
+    "customerName": "Randy Ward",
+    "address": "55 Parelius Ln, Mineral, VA, 23117",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "20726.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 464,
+    "customerName": "Rodney Wood",
+    "address": "35 Winter Ln 267, Lot 26 Blk 7, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-10",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "12554.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 467,
+    "customerName": "Manuel Tenorio-bedolla",
+    "address": "1315 Ohio St, Trlr 13, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "26041.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 468,
+    "customerName": "Robbi Blackburn",
+    "address": "1021 E Main St Trlr, 16, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "14346.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 469,
+    "customerName": "Earnest Riddick",
+    "address": "7109 Gregory Dr, Norfolk, VA, 23513",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Shibela  Goins",
+    "kWh": "6287.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 470,
+    "customerName": "James Turner",
+    "address": "8040 Woodall Rd, Trlr 18, Norfolk, VA, 23518",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "13121.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 471,
+    "customerName": "Doris Burns",
+    "address": "1315 Ohio St, Trlr 5 Lot 5, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 472,
+    "customerName": "Beatriz Rocha",
+    "address": "1021 E Main St Trlr 21, 21, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "27329.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 475,
+    "customerName": "Anishia Moore",
+    "address": "3044 Sewells Point Rd, 5, Norfolk, VA, 23513",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Shibela  Goins",
+    "kWh": "9231.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 480,
+    "customerName": "Valery Woods",
+    "address": "1648 Wickham Ln, 84, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "2651.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 481,
+    "customerName": "Dorothy Thomas",
+    "address": "1625 Wickham Ln, 125, Waynesboro, VA, 22980",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "4716.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 483,
+    "customerName": "Marlly Paola Pena Fuentes",
+    "address": "975 Eclipse Court, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-09",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "25451.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 485,
+    "customerName": "Janelle Walker",
+    "address": "516 11th St Nw, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-08",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "13981.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 486,
+    "customerName": "Gerald Robinson",
+    "address": "612 11th St, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-08",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "10329.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 487,
+    "customerName": "George Jett",
+    "address": "1034 Grady Ave, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-08",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "8165.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 488,
+    "customerName": "Corean Clement",
+    "address": "9524 21st Bay St, Apt 1a, Norfolk, VA, 23518",
+    "saleDate": "2026-01-08",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "7242.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 491,
+    "customerName": "Jayme Crawford",
+    "address": "504 11t St Nw, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-08",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "4972.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 493,
+    "customerName": "Guillermina Alvarado",
+    "address": "1820 Minor Dr, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "7581.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 496,
+    "customerName": "Renita Fields",
+    "address": "7620 Victory D, 2, Norfolk, VA, 23505",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "10658.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 498,
+    "customerName": "Randall Salzman",
+    "address": "320 11th St Nw, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "33031.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 499,
+    "customerName": "Santiago Hernandez",
+    "address": "1929 Scott Ct Southwood Tr Ct, 1929, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "24931.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 500,
+    "customerName": "Wilbur Daniel\u2019s",
+    "address": "1959 Scott Ct, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "4855.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 502,
+    "customerName": "Raponzal Irving",
+    "address": "744 Java Ct, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "9175.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 503,
+    "customerName": "Bonerges Lopez",
+    "address": "1933 Scott Ct, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "25081.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 504,
+    "customerName": "Jorge A Oseguera",
+    "address": "1754 Minor Dr, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "25659.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 507,
+    "customerName": "Rosa Alvarenga",
+    "address": "844 Post Ct, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "15210.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 508,
+    "customerName": "Sandra Hernandez Espino",
+    "address": "751 Java Ct, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Vernon Thomas",
+    "kWh": "20796.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 509,
+    "customerName": "Janice Harris",
+    "address": "1025 College Pk Blvd, 133, Virginia Beach, VA, 23464",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "6461.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 510,
+    "customerName": "Ramiro Morales",
+    "address": "1252 Jackson Dr Southwood Mob Home Est, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-07",
+    "status": "Payable",
+    "repName": "Parion Martin",
+    "kWh": "7266.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 511,
+    "customerName": "Amalia Garcia Arevalo",
+    "address": "1500 Carlton Ave, Trlr 61, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "23174.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 512,
+    "customerName": "Manuela Antonio",
+    "address": "1500 Carlton Ave Trtr 7, Lot 7, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Vernon Thomas",
+    "kWh": "13274.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 515,
+    "customerName": "Michael Rasnake Jr",
+    "address": "1500 Carlton Ave Trlr 66, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "25989.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 516,
+    "customerName": "Stephanie Jackson",
+    "address": "5835 Curlew Dr, 207, Norfolk, VA, 23502",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "9174.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 519,
+    "customerName": "Cristos Price",
+    "address": "1333 Carlton Ave, 206, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Haseeb Uppal",
+    "kWh": "2498.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 521,
+    "customerName": "Walter G Gutierrez",
+    "address": "1500 Carlton Ave, 43, Charlottesville, VA, 22902",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Jamar Johnson ",
+    "kWh": "27878.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 522,
+    "customerName": "Gloria Muapin",
+    "address": "334 10 1/2 St Nw, 334, Charlottesville, VA, 22903",
+    "saleDate": "2026-01-06",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "10309.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 526,
+    "customerName": "Wanda Gant",
+    "address": "520 Timothy Ave, D, Norfolk, VA, 23505",
+    "saleDate": "2026-01-05",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "7280.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 530,
+    "customerName": "Patricia Stewart",
+    "address": "2217 Sedgwick St, C, Petersburg, VA, 23805",
+    "saleDate": "2026-01-04",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "16507.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 531,
+    "customerName": "Terrell Missouri",
+    "address": "2217 Sedgwick Street, G, Petersburg, VA, 23805",
+    "saleDate": "2026-01-04",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "6758.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 532,
+    "customerName": "Kichara Robinson",
+    "address": "1657 Chenier Arch, 306, Virginia Beach, VA, 23451",
+    "saleDate": "2026-01-04",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "12039.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 533,
+    "customerName": "Natividad Garcia",
+    "address": "2908 Richmond Hwy, 23, Richmond, VA, 23234",
+    "saleDate": "2026-01-04",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "13456.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 535,
+    "customerName": "Asia Rather",
+    "address": "422 Fairfax Ave Colonial Hgts, Va 23834, Colonial Heights, VA, 23834",
+    "saleDate": "2026-01-03",
+    "status": "Payable",
+    "repName": "isolarvapreseed",
+    "kWh": "4009.5",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 537,
+    "customerName": "J\u2019lon Wright",
+    "address": "907 Kensington Ave, Colonial Heights, VA, 23834",
+    "saleDate": "2026-01-03",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "10487.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 538,
+    "customerName": "Rajon Johnson",
+    "address": "5807 W Hastings Ct, Virginia Beach, VA, 23462",
+    "saleDate": "2026-01-02",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "11880.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 539,
+    "customerName": "James Foulks",
+    "address": "1246 Courtney Ave, 2, Norfolk, VA, 23504",
+    "saleDate": "2026-01-02",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "14398.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 540,
+    "customerName": "Tony Moore",
+    "address": "1500 Concord Ave, 16, Colonial Heights, VA, 23834",
+    "saleDate": "2026-01-02",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "7024.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 541,
+    "customerName": "Ray Goode",
+    "address": "2732 Park Ave #13 Premise 786762100 Petersburg, Va 23805, #13, Petersburg, VA, 23805",
+    "saleDate": "2026-01-02",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "8970.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 544,
+    "customerName": "Alexia Kenney",
+    "address": "2206 Halifax Ave Richmond Va 23224-6702, Richmond, VA, 23224",
+    "saleDate": "2026-01-01",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "8233.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 545,
+    "customerName": "Alfonso Mendoza",
+    "address": "2911 Richmond Hwy, Trlr 33a, Richmond, VA, 23234",
+    "saleDate": "2025-12-31",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "12394.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 547,
+    "customerName": "Clemente Arrington",
+    "address": "651 May Ave, 209, Norfolk, VA, 23504",
+    "saleDate": "2025-12-31",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "5541.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 549,
+    "customerName": "Armando Ruiz",
+    "address": "2911 Richmond Hwy, Trlr 4a, Richmond, VA, 23234",
+    "saleDate": "2025-12-31",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "13392.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 554,
+    "customerName": "Mariah Castillo",
+    "address": "651 May Ave, 319, Norfolk, VA, 23504",
+    "saleDate": "2025-12-31",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "6110.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 555,
+    "customerName": "Dymon Booker",
+    "address": "651 May Ave, 412, Norfolk, VA, 23504",
+    "saleDate": "2025-12-31",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "4973.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 557,
+    "customerName": "Avery Mosby",
+    "address": "1802 Everett St, Richmond, VA, 23224",
+    "saleDate": "2025-12-30",
+    "status": "Payable",
+    "repName": "Yusuf  Kamara",
+    "kWh": "6863.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 561,
+    "customerName": "Byron Harris",
+    "address": "3931 Biddeford Place, Apt 6, Henrico, VA, 23238",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "7941.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 562,
+    "customerName": "Wilbert L Smith",
+    "address": "402 Ridgeview Lane, Apt G, Petersburg, VA, 23803",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "9159.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 563,
+    "customerName": "Zahria Mintyre I",
+    "address": "2217 Sedgwick St #e Premise, #e, Petersburg, VA, 23805",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "16367.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 565,
+    "customerName": "Josephine R Taylor",
+    "address": "1700 Johnson Rd # 38d, #38d, Petersburg, VA, 23805",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "12897.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 568,
+    "customerName": "Shaneka M Adams",
+    "address": "1762 Oakland St Petersburg, Va 23805, Petersburg, VA, 23805",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "15548.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 571,
+    "customerName": "Jonea Farmer",
+    "address": "931 Walker Ave, Norfolk, VA, 23523",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "7892.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 572,
+    "customerName": "Wilvasha Lee",
+    "address": "2217 Bedowick St, Apt F, Petersburg, VA, 23805",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Syed Nouman",
+    "kWh": "9473.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 574,
+    "customerName": "Dora Small",
+    "address": "831 Hayes St, 1, Norfolk, VA, 23504",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "2834.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 575,
+    "customerName": "Quashana Smith",
+    "address": "1100 Wilson Rd, 10, Norfolk, VA, 23523",
+    "saleDate": "2025-12-29",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "6959.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 576,
+    "customerName": "Lashawna B Takumba",
+    "address": "200 Cavalier Dr # 1-301 Premise, #1-301, Petersburg, VA, 23805",
+    "saleDate": "2025-12-28",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "10286.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 577,
+    "customerName": "Carolyn Boyd",
+    "address": "1029 College Pk, 362, Virginia Beach, VA, 23464",
+    "saleDate": "2025-12-28",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "10167.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 580,
+    "customerName": "Shawana Fuller",
+    "address": "4112 Ralph Rd S Chesterfld, Va 23803, Petersburg, VA, 23803",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17717.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 581,
+    "customerName": "Miracle Cooper",
+    "address": "1514 Elm Ave, Chesapeake, VA, 23325",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "17778.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 582,
+    "customerName": "Kathrina Davis",
+    "address": "1025 College Pk Blvd, 342, Virginia Beach, VA, 23464",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "4308.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 583,
+    "customerName": "Christina R Powers",
+    "address": "2310 Franklin Ave, Colonial Heights, VA, 23834",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "12104.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 584,
+    "customerName": "Joseph Duck",
+    "address": "300 New Castle Dr Apt 10 Colonial Hgts Va 23834-2464, 10, Colonial Heights, VA, 23834",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "4762.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 585,
+    "customerName": "Corey M Chapman",
+    "address": "417 Harding St Petersburg, Va 23803, Petersburg, VA, 23803",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "18542.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 586,
+    "customerName": "Briana A Grandison Giles",
+    "address": "420 High St #203 Premise, #203, Petersburg, VA, 23803",
+    "saleDate": "2025-12-27",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "5995.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 587,
+    "customerName": "Phyllis Sellers",
+    "address": "1025 College Park Blvd, 117, Virginia Beach, VA, 23464",
+    "saleDate": "2025-12-26",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "3797.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 589,
+    "customerName": "Denetrich Dandridge",
+    "address": "944 Sledd St # 403 Premise, #403, Richmond, VA, 23220",
+    "saleDate": "2025-12-26",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "11095.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 591,
+    "customerName": "Cleola Butler",
+    "address": "1025 College Pk Blvd, 142, Virginia Beach, VA, 23464",
+    "saleDate": "2025-12-26",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "5531.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 596,
+    "customerName": "Marese Francis",
+    "address": "1605 Melon St, 4, Norfolk, VA, 23523",
+    "saleDate": "2025-12-24",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "8641.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 598,
+    "customerName": "Bencia Wood",
+    "address": "1430 Norchester Ave, Norfolk, VA, 23504",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "5570.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 599,
+    "customerName": "Jamesha Y Brown",
+    "address": "3109 Snead Ct, Richmond, VA, 23224",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "9175.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 600,
+    "customerName": "Prudence Malenda",
+    "address": "839 Bancker Rd, 202, Norfolk, VA, 23508",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "4413.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 602,
+    "customerName": "Jaquella Cherry",
+    "address": "944 Sledd St # 205 Premise 20901103 Richmond, Va, #205, Richmond, VA, 23220",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "16247.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 603,
+    "customerName": "Vernone Terry",
+    "address": "3504 Executive Center Dr, 103, Chesapeake, VA, 23321",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "5901.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 606,
+    "customerName": "Catherine Lankford",
+    "address": "2501 West Ave, 1, Norfolk, VA, 23504",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "24643.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 607,
+    "customerName": "Alice Smith",
+    "address": "3508 Excutive Center Dr, 312, Chesapeake, VA, 23321",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "4289.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 608,
+    "customerName": "Tomeca Brown",
+    "address": "Tottles Richmond, Va 23222, Richmond, VA, 23222",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "8529.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 609,
+    "customerName": "Tymeek R Vaughan",
+    "address": "0 Hkrs Richmond, Va 23222, Richmond, VA, 23222",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "15006.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 611,
+    "customerName": "Alicia Denise Brown",
+    "address": "1710 E Broad St Richmond Va 23223-7283, Richmond, VA, 23223",
+    "saleDate": "2025-12-23",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "10070.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 612,
+    "customerName": "Destiny L Jackson",
+    "address": "1961 Greenfield Dr, Richmond, VA, 23235",
+    "saleDate": "2025-12-22",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "15476.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 616,
+    "customerName": "Andrew M Nelson",
+    "address": "512 Beechdale Rd Portsmouth Va 23701-4141, Portsmouth, VA, 23701",
+    "saleDate": "2025-12-22",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "10560.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 617,
+    "customerName": "Natasha L Harrison",
+    "address": "3317 Hanes Ave Richmond Va 23222-2654, Richmond, VA, 23222",
+    "saleDate": "2025-12-22",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "12948.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 618,
+    "customerName": "Destiny L Jackson",
+    "address": "726 Mosby St, #k, Richmond, VA, 23222",
+    "saleDate": "2025-12-22",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "5568.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 619,
+    "customerName": "Katiuska Ramo",
+    "address": "502w Fritz St Richmond Va 23222-5208, Richmond, VA, 23222",
+    "saleDate": "2025-12-22",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "9005.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 621,
+    "customerName": "Keyara Gil",
+    "address": "3057 Parkside Dr, 2, Chesapeake, VA, 23324",
+    "saleDate": "2025-12-21",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "2909.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 622,
+    "customerName": "Micheal Marshall",
+    "address": "116 N Juniper Ave, Henrico, VA, 23075",
+    "saleDate": "2025-12-21",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "12434.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 625,
+    "customerName": "Alexis Caffee",
+    "address": "3057 Parkside Dr, 1, Chesapeake, VA, 23324",
+    "saleDate": "2025-12-21",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "3531.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 628,
+    "customerName": "Mara Felman",
+    "address": "116 N Kalmia Avenue, Henrico, VA, 23075",
+    "saleDate": "2025-12-21",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "14771.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 631,
+    "customerName": "Samel Edward White",
+    "address": "5801 Summertree Ct North Chesterfield Va 23234-5946, Richmond, VA, 23234",
+    "saleDate": "2025-12-20",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "26318.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 634,
+    "customerName": "Safiatou Barry",
+    "address": "6048 Regal Crest Dr Chesterfield, Va 23832, Chesterfield, VA, 23832",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "14530.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 637,
+    "customerName": "Sade Montague",
+    "address": "111 Hioaks Rd, 303, Richmond, VA, 23225",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "3190.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 638,
+    "customerName": "Takeisha Holmes",
+    "address": "3505 Chamberlyne Ave, Richmond, VA, 23227",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "4790.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 643,
+    "customerName": "Imini Deberry",
+    "address": "815 Goff St, 41, Norfolk, VA, 23504",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "11687.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 644,
+    "customerName": "Janet Henderson",
+    "address": "114 Cromwell Pkwy, B305, Norfolk, VA, 23505",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Gaddiel Clayton",
+    "kWh": "7541.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 645,
+    "customerName": "Tatianna M White",
+    "address": "1231 Greystone Ave Richmond Va 23224-4905, Richmond, VA, 23224",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "35672.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 646,
+    "customerName": "Sherika Artis",
+    "address": "220 Green Cove Dr, Richmond, VA, 23225",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "4587.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 650,
+    "customerName": "Candise D Carter",
+    "address": "313 E 10th St Richmond, Va 23224, Chesapeake, VA, 23324",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "11152.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 651,
+    "customerName": "Sheneka Willis",
+    "address": "301 E 12th St Richmond, Va 23224, Richmond, VA, 23224",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17109.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 654,
+    "customerName": "Ashante Redd",
+    "address": "312 Grey Birch Dr Richmond, Va 23225, Richmond, VA, 23225",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "5534.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 658,
+    "customerName": "Rashad Horne",
+    "address": "2016 Dinwiddie Ave Richmond, Va 23224, Richmond, VA, 23224",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "24182.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 659,
+    "customerName": "Lisa M Wood",
+    "address": "21008 Butler Ct S Chesterfld, Va 23803, Hopewell, VA, 23860",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "15726.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 660,
+    "customerName": "Tawana E Deprima",
+    "address": "1701 Winona Blvd # D Glen Allen Va 23060-4239, Glen Allen, VA, 23060",
+    "saleDate": "2025-12-19",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "7034.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 664,
+    "customerName": "Shaquana Ellis",
+    "address": "309 Lake Crest Ct Richmond, Va 23227, Richmond, VA, 23227",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17381.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 666,
+    "customerName": "Lshanae Fife",
+    "address": "5800 Thorndale La, # 3, Richmond, VA, 23225",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "9112.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 670,
+    "customerName": "Dawn Terry",
+    "address": "5804 Thorndale Ln, #1, Richmond, VA, 23225",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "4061.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 671,
+    "customerName": "Alfred Evans",
+    "address": "2735 Corprew Ave, 314, Norfolk, VA, 23504",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "4640.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 672,
+    "customerName": "Juanita L Johnson",
+    "address": "5003 Millers Ln # 5003 Richmond Va 23231-2328, Henrico, VA, 23231",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "12639.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 679,
+    "customerName": "Jasmine Sharp",
+    "address": "1233 N 37th St Richmond, Va 23223, Richmond, VA, 23223",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "9158.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 682,
+    "customerName": "Jasmine Lewis",
+    "address": "237 Erich Rd, Richmond, VA, 23225",
+    "saleDate": "2025-12-18",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "7050.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 695,
+    "customerName": "Jean Delaney",
+    "address": "2425 Caddie Ln, Richmond, VA, 23223",
+    "saleDate": "2025-12-17",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "15308.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 696,
+    "customerName": "Genesis Matute Arguello",
+    "address": "2408 Caddie Ln, Richmond, VA, 23223",
+    "saleDate": "2025-12-17",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "10615.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 697,
+    "customerName": "Velda L Eldridge",
+    "address": "600 S Harrison St # B, #b, Richmond, VA, 23220",
+    "saleDate": "2025-12-17",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "8954.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 698,
+    "customerName": "Bre Houston",
+    "address": "415 E Beal St, Henrico, VA, 23075",
+    "saleDate": "2025-12-17",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "2195.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 699,
+    "customerName": "Erika Battle",
+    "address": "645 Church St, 113, Norfolk, VA, 23510",
+    "saleDate": "2025-12-17",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "17336.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 703,
+    "customerName": "Shawn B Greene",
+    "address": "1608 Bryan St Richmond Va 23223-3810, Richmond, VA, 23223",
+    "saleDate": "2025-12-16",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "10838.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 707,
+    "customerName": "Sean Cook",
+    "address": "3204 Mcdonough St, Richmond, VA, 23225",
+    "saleDate": "2025-12-16",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "28535.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 709,
+    "customerName": "Mona Clary",
+    "address": "6052 Foresttown Dr, Norfolk, VA, 23502",
+    "saleDate": "2025-12-16",
+    "status": "Payable",
+    "repName": "Keiron  Moore ",
+    "kWh": "15078.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 710,
+    "customerName": "Morgan Roberts",
+    "address": "1027 8th St, Petersburg, VA, 23803",
+    "saleDate": "2025-12-15",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "10110.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 712,
+    "customerName": "Juanita Clark",
+    "address": "945 Priam St, Petersburg, VA, 23803",
+    "saleDate": "2025-12-15",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "11476.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 716,
+    "customerName": "Marcus Divers",
+    "address": "1809 Junaluska Ct Richmond, Va 23225, Richmond, VA, 23225",
+    "saleDate": "2025-12-15",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "15426.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 717,
+    "customerName": "Bryce Meriweather",
+    "address": "923 Wills Rd, Petersburg, VA, 23803",
+    "saleDate": "2025-12-15",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "4967.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 718,
+    "customerName": "Cameron Isaac",
+    "address": "1823 Glencove Lane, Richmond, VA, 23225",
+    "saleDate": "2025-12-15",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17587.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 720,
+    "customerName": "Mary Mooreman",
+    "address": "2212 Sinai Rd, South Boston, VA, 24592",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17726.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 722,
+    "customerName": "Tommeia T Small",
+    "address": "319 Valley Dr # 314 Premise, #314, South Boston, VA, 24592",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "18682.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 724,
+    "customerName": "Dwayne L Lawson",
+    "address": "219 West Side Park Dr, South Boston, VA, 24592",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "9578.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 726,
+    "customerName": "Shamekia Wyatt",
+    "address": "360 Poplar Creek St, South Boston, VA, 24592",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "11242.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 729,
+    "customerName": "Cynthia Davenport",
+    "address": "211 Howerton Ct, South Boston, VA, 24592",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "7914.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 730,
+    "customerName": "Beverly D Johnson",
+    "address": "1470 Dry Beard Rd, # F, Emporia, VA, 23847",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "17273.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 732,
+    "customerName": "Sabrina Scoggins",
+    "address": "130 Poplar Creek St, # 101, South Boston, VA, 24592",
+    "saleDate": "2025-12-14",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "28307.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 735,
+    "customerName": "Michael Dunn",
+    "address": "598 Piney Pond Rd, Brodnax, VA, 23920",
+    "saleDate": "2025-12-13",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "22754.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 736,
+    "customerName": "Aileen May",
+    "address": "284 Main St, Brodnax, VA, 23920",
+    "saleDate": "2025-12-13",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "15646.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 739,
+    "customerName": "Laycie Courville",
+    "address": "1601 Freeney Ave, Suffolk, VA, 23434",
+    "saleDate": "2025-12-12",
+    "status": "Payable",
+    "repName": "Malani Lamkin",
+    "kWh": "13214.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 740,
+    "customerName": "Hester M Allen",
+    "address": "510 Washington St Emporia Va 23847-1538, Emporia, VA, 23847",
+    "saleDate": "2025-12-12",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "19475.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 743,
+    "customerName": "Teontae Nijer Crumpler",
+    "address": "712 Carver Cir, #e, Emporia, VA, 23847",
+    "saleDate": "2025-12-12",
+    "status": "Payable",
+    "repName": "Derrick Greene Jr",
+    "kWh": "5130.0",
+    "utility": "DOMINION POWER"
+  },
+  {
+    "id": 744,
+    "customerName": "Shaunta Minor",
+    "address": "1719 Freeney St, Suffolk, VA, 23434",
+    "saleDate": "2025-12-12",
+    "status": "Payable",
+    "repName": "Lowell Moore",
+    "kWh": "16925.0",
+    "utility": "DOMINION POWER"
+  }
+]
