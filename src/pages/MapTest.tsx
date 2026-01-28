@@ -39,8 +39,8 @@ export default function MapTest() {
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
-          attribution='&copy; OpenStreetMap'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; Carto'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         />
         <LocationMarker />
       </MapContainer>
