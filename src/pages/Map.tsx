@@ -80,7 +80,24 @@ export default function MapPage() {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: {
+        version: 8,
+        sources: {
+          'raster-tiles': {
+            type: 'raster',
+            tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+            tileSize: 256,
+            attribution: '© OpenStreetMap'
+          }
+        },
+        layers: [{
+          id: 'simple-tiles',
+          type: 'raster',
+          source: 'raster-tiles',
+          minzoom: 0,
+          maxzoom: 22
+        }]
+      },
       center: [-76.3, 37.05], // Hampton, VA default
       zoom: 15,
       pitch: 0,
@@ -120,8 +137,28 @@ export default function MapPage() {
     
     map.current.setStyle(
       mapStyle === 'satellite'
-        ? 'mapbox://styles/mapbox/satellite-streets-v12'
-        : 'mapbox://styles/mapbox/streets-v12'
+        ? {
+            version: 8,
+            sources: {
+              'satellite-tiles': {
+                type: 'raster',
+                tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+                tileSize: 256
+              }
+            },
+            layers: [{ id: 'satellite', type: 'raster', source: 'satellite-tiles' }]
+          }
+        : {
+            version: 8,
+            sources: {
+              'raster-tiles': {
+                type: 'raster',
+                tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                tileSize: 256
+              }
+            },
+            layers: [{ id: 'simple-tiles', type: 'raster', source: 'raster-tiles' }]
+          }
     )
   }, [mapStyle, mapLoaded])
 
