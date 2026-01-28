@@ -605,21 +605,70 @@ export default function MapPage() {
     return unsubscribe
   }, [])
 
+  // Track map bounds for viewport filtering
+  const [mapBounds, setMapBounds] = useState<{ north: number; south: number; east: number; west: number } | null>(null)
+
+  // Update bounds when map moves
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return
+
+    const updateBounds = () => {
+      const bounds = map.current?.getBounds()
+      if (bounds) {
+        setMapBounds({
+          north: bounds.getNorth(),
+          south: bounds.getSouth(),
+          east: bounds.getEast(),
+          west: bounds.getWest()
+        })
+      }
+    }
+
+    // Initial bounds
+    updateBounds()
+
+    // Update on map move
+    map.current.on('moveend', updateBounds)
+    map.current.on('zoomend', updateBounds)
+
+    return () => {
+      map.current?.off('moveend', updateBounds)
+      map.current?.off('zoomend', updateBounds)
+    }
+  }, [mapLoaded])
+
+  // Helper to check if a point is within current bounds
+  const isInBounds = (lat: number, lng: number) => {
+    if (!mapBounds) return true // Show all if bounds not ready
+    return lat <= mapBounds.north && lat >= mapBounds.south &&
+           lng <= mapBounds.east && lng >= mapBounds.west
+  }
+
   // Add knock markers to map
   useEffect(() => {
     if (!map.current || !mapLoaded) return
 
-    // Remove old markers not in current knocks
+    // Remove old markers not in current knocks OR outside bounds
     knockMarkers.current.forEach((marker, id) => {
-      if (!knocks.find(k => k.id === id)) {
+      const knock = knocks.find(k => k.id === id)
+      if (!knock || !isInBounds(knock.lat, knock.lng)) {
         marker.remove()
         knockMarkers.current.delete(id)
       }
     })
 
-    // Add/update markers
+    // Add/update markers (only within bounds)
     knocks.forEach(knock => {
-      // Filter check
+      // Viewport filter - skip if outside visible area
+      if (!isInBounds(knock.lat, knock.lng)) {
+        if (knockMarkers.current.has(knock.id)) {
+          knockMarkers.current.get(knock.id)?.remove()
+          knockMarkers.current.delete(knock.id)
+        }
+        return
+      }
+
+      // Result filter check
       if (filterResult !== 'all' && knock.result !== filterResult) {
         // Remove marker if filtered out
         if (knockMarkers.current.has(knock.id)) {
@@ -688,7 +737,7 @@ export default function MapPage() {
         knockMarkers.current.set(knock.id, marker)
       }
     })
-  }, [knocks, mapLoaded, filterResult])
+  }, [knocks, mapLoaded, filterResult, mapBounds])
 
   // Add old deal markers to map (historical signed_up deals)
   useEffect(() => {
@@ -701,16 +750,19 @@ export default function MapPage() {
       return
     }
 
-    // Remove markers not in current list
+    // Remove markers not in current list or outside bounds
     oldDealMarkers.current.forEach((marker, id) => {
-      if (!oldDeals.find(d => d.id === id)) {
+      const deal = oldDeals.find(d => d.id === id)
+      if (!deal || !isInBounds(deal.lat, deal.lng)) {
         marker.remove()
         oldDealMarkers.current.delete(id)
       }
     })
 
-    // Add markers for old deals
+    // Add markers for old deals (only within bounds)
     oldDeals.forEach(deal => {
+      // Skip if outside viewport
+      if (!isInBounds(deal.lat, deal.lng)) return
       if (oldDealMarkers.current.has(deal.id)) return
 
       const el = document.createElement('div')
@@ -741,7 +793,7 @@ export default function MapPage() {
 
       oldDealMarkers.current.set(deal.id, marker)
     })
-  }, [oldDeals, mapLoaded, showOldDeals])
+  }, [oldDeals, mapLoaded, showOldDeals, mapBounds])
 
   // Center on user
   const centerOnUser = useCallback(() => {
