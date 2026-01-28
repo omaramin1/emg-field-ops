@@ -7,7 +7,7 @@ import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating,
 import { createKnock, subscribeToKnocks, getTodaysKnocks, getHistoricalDeals, updateKnock, KnockResult } from '../lib/knocks'
 import { useAuthStore } from '../stores/authStore'
 import { getDNKWithCoords } from '../data/doNotKnock'
-import { getRejectedDealsWithCoords, RejectedDeal } from '../data/rejectedDeals'
+// Rejected deals now loaded from JSON
 import zones from '../data/zones.json'
 import { getZoneCentroid } from '../data/zoneCentroids'
 import { getLMIZones } from '../data/lmiAutoQualifyZones'
@@ -152,41 +152,53 @@ export default function MapPage() {
   }, [mapLoaded])
 
   // Add Rejected Deal markers (orange - deals that didn't go through)
+  // Load and display rejected/pending deals from JSON
   useEffect(() => {
     if (!map.current || !mapLoaded) return
 
-    const rejectedDeals = getRejectedDealsWithCoords()
+    const loadRejectedDeals = async () => {
+      try {
+        const response = await fetch('/data/rejected-deals.json')
+        if (!response.ok) return
+        const rejectedDeals = await response.json()
+        
+        console.log(`Loading ${rejectedDeals.length} rejected/pending deals`)
+        
+        rejectedDeals.forEach((deal: any) => {
+          if (!deal.lat || !deal.lng) return
+          
+          const el = document.createElement('div')
+          el.innerHTML = `
+            <div style="
+              width: 14px;
+              height: 14px;
+              background: #f97316;
+              border: 2px solid white;
+              border-radius: 50%;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            "></div>
+          `
+          
+          new mapboxgl.Marker({ element: el })
+            .setLngLat([deal.lng, deal.lat])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+              <div style="padding: 8px; font-family: system-ui;">
+                <strong style="color: #f97316">⚠️ ${deal.status}</strong>
+                <br><small>${deal.customerName}</small>
+                <br><small>${deal.address}</small>
+                ${deal.saleDate ? `<br><small style="color: #888">${deal.saleDate}</small>` : ''}
+                <br><small style="color: #dc2626">${deal.statusReason || ''}</small>
+                <br><small style="color: #666">Rep: ${deal.repName}</small>
+              </div>
+            `))
+            .addTo(map.current!)
+        })
+      } catch (e) {
+        console.error('Failed to load rejected deals:', e)
+      }
+    }
     
-    rejectedDeals.forEach(deal => {
-      if (!deal.lat || !deal.lng) return
-      
-      const el = document.createElement('div')
-      el.innerHTML = `
-        <div style="
-          width: 14px;
-          height: 14px;
-          background: #f97316;
-          border: 2px solid white;
-          border-radius: 50%;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-        "></div>
-      `
-      
-      new mapboxgl.Marker({ element: el })
-        .setLngLat([deal.lng, deal.lat])
-        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-          <div style="padding: 8px; font-family: system-ui;">
-            <strong style="color: #f97316">⚠️ Rejected Deal</strong>
-            <br><small>${deal.customerName}</small>
-            <br><small>${deal.address}</small>
-            <br><small>${deal.city}, ${deal.state} ${deal.zip}</small>
-            <br><small style="color: #888">${deal.saleDate}</small>
-            <br><small style="color: #dc2626">${deal.orderStatusReason || deal.orderStatus}</small>
-            <br><small style="color: #666">Rep: ${deal.repName}</small>
-          </div>
-        `))
-        .addTo(map.current!)
-    })
+    loadRejectedDeals()
   }, [mapLoaded])
 
   // Add NON-LMI overlay (red/gray tint on areas that DON'T auto-qualify)
