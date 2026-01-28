@@ -10,7 +10,7 @@ const RESULT_OPTIONS: { result: KnockResult; label: string; icon: any; color: st
   { result: 'signed_up', label: 'Signed Up!', shortLabel: 'SIGNED UP', icon: CheckCircle, color: '#10b981' },
   { result: 'doesnt_qualify', label: "Doesn't Qualify", shortLabel: 'No Qualify', icon: UserX, color: '#f59e0b' },
   { result: 'callback', label: 'Callback', shortLabel: 'Callback', icon: Phone, color: '#3b82f6' },
-  { result: 'wrong_address', label: 'Wrong Address', shortLabel: 'Wrong Addr', icon: HelpCircle, color: '#8b5cf6' },
+  { result: 'wrong_address', label: 'Pending Enrollment', shortLabel: 'Pending', icon: HelpCircle, color: '#8b5cf6' },
 ]
 
 export default function MapEmbed() {
