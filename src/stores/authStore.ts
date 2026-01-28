@@ -49,6 +49,22 @@ const REP_ROSTER: Omit<Rep, 'created_at'>[] = [
     active: true,
     isAdmin: true
   },
+  {
+    id: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    name: 'Carli',
+    email: 'carli@cmwmarketingsolutions.com',
+    enm_number: 'Enm019',
+    active: true,
+    isAdmin: true
+  },
+  {
+    id: 'dddddddd-dddd-dddd-dddd-dddddddddddd',
+    name: 'Aiman Ibrahim',
+    email: 'aimanibrahimrsm@gmail.com',
+    enm_number: 'Enm090',
+    active: true,
+    isAdmin: true
+  },
   // REPS FROM VIPER
   { id: 'enm115', name: 'Jaydev Solanki', email: 'jayskee1989@gmail.com', enm_number: 'ENM115', active: true },
   { id: 'enm095', name: 'Vernon Thomas', email: 'vernt151@gmail.com', enm_number: 'ENM095', active: true },
