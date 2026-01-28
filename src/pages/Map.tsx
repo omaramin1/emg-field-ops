@@ -66,7 +66,7 @@ export default function MapPage() {
   const [oldDeals, setOldDeals] = useState<KnockRecord[]>([])
   const [showOldDeals, setShowOldDeals] = useState(true)
   const [showZones, setShowZones] = useState(false)
-  const [showCompetitorDeals, setShowCompetitorDeals] = useState(false) // OFF by default for speed
+  const [showCompetitorDeals, setShowCompetitorDeals] = useState(true) // ON by default
   const [competitorDealsLoaded, setCompetitorDealsLoaded] = useState(false)
 
   // Get current rep from auth
@@ -80,7 +80,7 @@ export default function MapPage() {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/light-v11',
       center: [-76.3, 37.05], // Hampton, VA default
       zoom: 15,
       pitch: 0,
@@ -111,9 +111,16 @@ export default function MapPage() {
     }
   }, [])
 
-  // Update map style
+  // Update map style - only when user toggles, not on initial load
+  const initialStyleSet = useRef(false)
   useEffect(() => {
     if (!map.current || !mapLoaded) return
+    
+    // Skip the first run after map loads (style already set in constructor)
+    if (!initialStyleSet.current) {
+      initialStyleSet.current = true
+      return
+    }
     
     map.current.setStyle(
       mapStyle === 'satellite'
@@ -162,7 +169,7 @@ export default function MapPage() {
   }, [mapLoaded])
 
   // Add Rejected Deal markers (orange - deals that didn't go through)
-  // Load and display rejected/pending deals from JSON
+  // DEFERRED: Load after map is visible
   useEffect(() => {
     if (!map.current || !mapLoaded) return
 
@@ -208,7 +215,9 @@ export default function MapPage() {
       }
     }
     
-    loadRejectedDeals()
+    // Defer to let map render first
+    const timeoutId = setTimeout(loadRejectedDeals, 300)
+    return () => clearTimeout(timeoutId)
   }, [mapLoaded])
 
   // Add NON-LMI overlay (red/gray tint on areas that DON'T auto-qualify)
@@ -343,7 +352,7 @@ export default function MapPage() {
 
   }, [mapLoaded, showZones])
 
-  // Add Competitor Deals layer (gray pins - clustered for performance)
+  // Add Competitor Deals layer - DEFERRED loading, viewport-filtered for speed
   useEffect(() => {
     if (!map.current || !mapLoaded) return
 
@@ -364,7 +373,7 @@ export default function MapPage() {
     // Only load once
     if (competitorDealsLoaded && map.current.getSource(sourceId)) return
 
-    // Load competitor deals from JSON
+    // DEFERRED: Load competitor deals AFTER map is interactive (don't block initial render)
     const loadCompetitorDeals = async () => {
       try {
         const response = await fetch('/data/competitor-deals.json')
@@ -372,10 +381,23 @@ export default function MapPage() {
         
         const deals = await response.json()
         
+        // Filter to viewport + buffer for initial load (much faster)
+        const bounds = map.current?.getBounds()
+        let filteredDeals = deals
+        if (bounds) {
+          const buffer = 0.5 // degrees buffer around viewport
+          const sw = bounds.getSouthWest()
+          const ne = bounds.getNorthEast()
+          filteredDeals = deals.filter((d: any) => 
+            d.lat >= sw.lat - buffer && d.lat <= ne.lat + buffer &&
+            d.lng >= sw.lng - buffer && d.lng <= ne.lng + buffer
+          )
+        }
+        
         // Convert to GeoJSON
         const geojson: any = {
           type: 'FeatureCollection',
-          features: deals.map((d: any) => ({
+          features: filteredDeals.map((d: any) => ({
             type: 'Feature',
             geometry: { type: 'Point', coordinates: [d.lng, d.lat] },
             properties: { id: d.id, city: d.city, zip: d.zip }
@@ -437,14 +459,16 @@ export default function MapPage() {
           })
 
           setCompetitorDealsLoaded(true)
-          console.log(`Loaded ${deals.length} competitor deals`)
+          console.log(`Loaded ${filteredDeals.length} competitor deals (viewport filtered from ${deals.length})`)
         }
       } catch (e) {
         console.error('Failed to load competitor deals:', e)
       }
     }
 
-    loadCompetitorDeals()
+    // Defer loading - let map render first, then load pins
+    const timeoutId = setTimeout(loadCompetitorDeals, 500)
+    return () => clearTimeout(timeoutId)
   }, [mapLoaded, showCompetitorDeals, competitorDealsLoaded])
 
   // Track if we've auto-centered yet
