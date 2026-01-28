@@ -5,7 +5,7 @@ import { createKnock, subscribeToKnocks, getTodaysKnocks, KnockResult } from '..
 import { useAuthStore } from '../stores/authStore'
 import { reverseGeocode } from '../lib/gps'
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyA0Bf8ogR-QMUaHnA2SX_q8J9ONknHiuBU'
 
 const RESULT_OPTIONS: { result: KnockResult; label: string; icon: any; color: string; shortLabel: string; markerColor: string }[] = [
   { result: 'not_home', label: 'Not Home', shortLabel: 'Not Home', icon: Home, color: '#6b7280', markerColor: '#9ca3af' },
