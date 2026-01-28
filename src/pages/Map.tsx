@@ -81,8 +81,8 @@ export default function MapPage() {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: mapStyle === 'satellite' 
-        ? 'mapbox://styles/mapbox/satellite-streets-v12'
-        : 'mapbox://styles/mapbox/streets-v12',
+        ? 'mapbox://styles/mapbox/satellite-v9'
+        : 'mapbox://styles/mapbox/light-v11',
       center: [-76.3, 37.05], // Hampton, VA default
       zoom: 15,
       pitch: 0,
@@ -94,9 +94,9 @@ export default function MapPage() {
 
     map.current.on('error', (e) => {
       console.error('Map error:', e)
-      // Try to reload with streets style if satellite fails
+      // Try to reload with light style if satellite fails
       if (mapStyle === 'satellite' && map.current) {
-        map.current.setStyle('mapbox://styles/mapbox/streets-v12')
+        map.current.setStyle('mapbox://styles/mapbox/light-v11')
       }
     })
 
@@ -115,8 +115,8 @@ export default function MapPage() {
     
     map.current.setStyle(
       mapStyle === 'satellite'
-        ? 'mapbox://styles/mapbox/satellite-streets-v12'
-        : 'mapbox://styles/mapbox/streets-v12'
+        ? 'mapbox://styles/mapbox/satellite-v9'
+        : 'mapbox://styles/mapbox/light-v11'
     )
   }, [mapStyle, mapLoaded])
 
