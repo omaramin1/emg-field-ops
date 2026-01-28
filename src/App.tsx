@@ -1,5 +1,5 @@
-import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
-import { Home, Map, Trophy, MapPin, BookOpen } from 'lucide-react'
+import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
+import { Home, Map, Trophy, MapPin, BookOpen, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 // Pages
@@ -13,10 +13,25 @@ import AchievementsPage from './pages/Achievements'
 import AnalyticsPage from './pages/Analytics'
 import ZonesPage from './pages/Zones'
 import LogPage from './pages/Log'
+import { Login } from './pages/Login'
+import { Profile } from './pages/Profile'
+
+// Auth
+import { useAuthStore } from './stores/authStore'
+
+// Protected Route wrapper
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { currentRep } = useAuthStore()
+  if (!currentRep) {
+    return <Navigate to="/login" replace />
+  }
+  return <>{children}</>
+}
 
 export default function App() {
   const location = useLocation()
   const [isOffline, setIsOffline] = useState(!navigator.onLine)
+  const { currentRep } = useAuthStore()
 
   useEffect(() => {
     const handleOnline = () => setIsOffline(false)
@@ -31,8 +46,8 @@ export default function App() {
     }
   }, [])
 
-  // Hide nav on door page for cleaner UX
-  const showNav = !location.pathname.startsWith('/door/')
+  // Hide nav on login, door page
+  const showNav = currentRep && !location.pathname.startsWith('/door/') && location.pathname !== '/login'
 
   return (
     <div className="app">
@@ -44,16 +59,18 @@ export default function App() {
       
       <main className="main">
         <Routes>
-          <Route path="/" element={<TodayPage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/door/:id" element={<DoorPage />} />
-          <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route path="/earnings" element={<EarningsPage />} />
-          <Route path="/reference" element={<ReferencePage />} />
-          <Route path="/achievements" element={<AchievementsPage />} />
-          <Route path="/analytics" element={<AnalyticsPage />} />
-          <Route path="/zones" element={<ZonesPage />} />
-          <Route path="/log" element={<LogPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ProtectedRoute><TodayPage /></ProtectedRoute>} />
+          <Route path="/map" element={<ProtectedRoute><MapPage /></ProtectedRoute>} />
+          <Route path="/door/:id" element={<ProtectedRoute><DoorPage /></ProtectedRoute>} />
+          <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+          <Route path="/earnings" element={<ProtectedRoute><EarningsPage /></ProtectedRoute>} />
+          <Route path="/reference" element={<ProtectedRoute><ReferencePage /></ProtectedRoute>} />
+          <Route path="/achievements" element={<ProtectedRoute><AchievementsPage /></ProtectedRoute>} />
+          <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
+          <Route path="/zones" element={<ProtectedRoute><ZonesPage /></ProtectedRoute>} />
+          <Route path="/log" element={<ProtectedRoute><LogPage /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
       </main>
 
@@ -75,9 +92,18 @@ export default function App() {
             <MapPin />
             <span>Zones</span>
           </NavLink>
-          <NavLink to="/reference" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <BookOpen />
-            <span>Scripts</span>
+          <NavLink to="/profile" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+            {currentRep?.profile_pic ? (
+              <div style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                background: `url(${currentRep.profile_pic}) center/cover`
+              }} />
+            ) : (
+              <User />
+            )}
+            <span>Me</span>
           </NavLink>
         </nav>
       )}

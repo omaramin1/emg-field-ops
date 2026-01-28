@@ -5,6 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating, formatAccuracy, requiresConfirmation, reverseGeocode } from '../lib/gps'
 import { createKnock, subscribeToKnocks, getTodaysKnocks, updateKnock, KnockResult } from '../lib/knocks'
+import { useAuthStore } from '../stores/authStore'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -56,9 +57,10 @@ export default function MapPage() {
   const [editNotes, setEditNotes] = useState('')
   const [isUpdating, setIsUpdating] = useState(false)
 
-  // Demo canvasser UUID - replace with auth
-  const canvasserId = '00000000-0000-0000-0000-000000000001'
-  const canvasserName = 'Demo User'
+  // Get current rep from auth
+  const { currentRep } = useAuthStore()
+  const canvasserId = currentRep?.id || '00000000-0000-0000-0000-000000000001'
+  const canvasserName = currentRep?.name || 'Unknown'
 
   // Initialize map
   useEffect(() => {
