@@ -7,6 +7,7 @@ import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating,
 import { createKnock, subscribeToKnocks, getTodaysKnocks, getHistoricalDeals, updateKnock, KnockResult } from '../lib/knocks'
 import { useAuthStore } from '../stores/authStore'
 import { getDNKWithCoords } from '../data/doNotKnock'
+import { getRejectedDealsWithCoords, RejectedDeal } from '../data/rejectedDeals'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -137,6 +138,44 @@ export default function MapPage() {
             ${dnk.name ? `<br><span>${dnk.name}</span>` : ''}
             <br><small>${dnk.address}</small>
             <br><small>${dnk.city}, ${dnk.state} ${dnk.zip}</small>
+          </div>
+        `))
+        .addTo(map.current!)
+    })
+  }, [mapLoaded])
+
+  // Add Rejected Deal markers (orange - deals that didn't go through)
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return
+
+    const rejectedDeals = getRejectedDealsWithCoords()
+    
+    rejectedDeals.forEach(deal => {
+      if (!deal.lat || !deal.lng) return
+      
+      const el = document.createElement('div')
+      el.innerHTML = `
+        <div style="
+          width: 14px;
+          height: 14px;
+          background: #f97316;
+          border: 2px solid white;
+          border-radius: 50%;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        "></div>
+      `
+      
+      new mapboxgl.Marker({ element: el })
+        .setLngLat([deal.lng, deal.lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+          <div style="padding: 8px; font-family: system-ui;">
+            <strong style="color: #f97316">⚠️ Rejected Deal</strong>
+            <br><small>${deal.customerName}</small>
+            <br><small>${deal.address}</small>
+            <br><small>${deal.city}, ${deal.state} ${deal.zip}</small>
+            <br><small style="color: #888">${deal.saleDate}</small>
+            <br><small style="color: #dc2626">${deal.orderStatusReason || deal.orderStatus}</small>
+            <br><small style="color: #666">Rep: ${deal.repName}</small>
           </div>
         `))
         .addTo(map.current!)
@@ -935,7 +974,16 @@ export default function MapPage() {
           }} />
           <span style={{ color: 'var(--text-secondary)' }}>Old Deal</span>
         </div>
-        {Object.entries(RESULT_COLORS).filter(([r]) => r !== 'signed_up').slice(0, 3).map(([result, color]) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.65rem' }}>
+          <div style={{ 
+            width: '8px', 
+            height: '8px', 
+            borderRadius: '50%', 
+            background: '#f97316' 
+          }} />
+          <span style={{ color: 'var(--text-secondary)' }}>Rejected</span>
+        </div>
+        {Object.entries(RESULT_COLORS).filter(([r]) => r !== 'signed_up').slice(0, 2).map(([result, color]) => (
           <div key={result} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.65rem' }}>
             <div style={{ 
               width: '8px', 
