@@ -339,9 +339,9 @@ export default function MapPage() {
         <div style="
           width: 14px;
           height: 14px;
-          background: #06b6d4;
+          background: #eab308;
           border: 2px solid white;
-          border-radius: 3px;
+          border-radius: 50%;
           box-shadow: 0 2px 6px rgba(0,0,0,0.4);
           cursor: pointer;
         "></div>
@@ -352,7 +352,7 @@ export default function MapPage() {
         .setLngLat([deal.lng, deal.lat])
         .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
           <div style="padding: 8px; font-family: system-ui;">
-            <strong style="color: #06b6d4">📋 Old Deal</strong>
+            <strong style="color: #eab308">📋 Old Deal</strong>
             ${deal.address ? `<br><small>${deal.address}</small>` : ''}
             <br><small style="color: #888">${dealDate}</small>
             ${deal.canvasser_name ? `<br><small style="color: #666">by ${deal.canvasser_name}</small>` : ''}
@@ -491,11 +491,11 @@ export default function MapPage() {
               onClick={() => setShowOldDeals(!showOldDeals)}
               title={showOldDeals ? 'Hide old deals' : 'Show old deals'}
               style={{
-                background: showOldDeals ? '#06b6d4' : 'var(--bg-secondary)',
+                background: showOldDeals ? '#eab308' : 'var(--bg-secondary)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 padding: '0.5rem 0.625rem',
-                color: 'white',
+                color: showOldDeals ? 'black' : 'white',
                 fontSize: '0.7rem',
                 fontWeight: 600
               }}
@@ -930,8 +930,8 @@ export default function MapPage() {
           <div style={{ 
             width: '8px', 
             height: '8px', 
-            borderRadius: '2px', 
-            background: '#06b6d4' 
+            borderRadius: '50%', 
+            background: '#eab308' 
           }} />
           <span style={{ color: 'var(--text-secondary)' }}>Old Deal</span>
         </div>
