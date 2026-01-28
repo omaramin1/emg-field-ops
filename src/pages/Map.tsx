@@ -80,12 +80,14 @@ export default function MapPage() {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: mapStyle === 'satellite' 
-        ? 'mapbox://styles/mapbox/satellite-v9'
-        : 'mapbox://styles/mapbox/light-v11',
+      style: 'mapbox://styles/mapbox/streets-v11',
       center: [-76.3, 37.05], // Hampton, VA default
       zoom: 15,
       pitch: 0,
+      antialias: false,
+      fadeDuration: 0,
+      preserveDrawingBuffer: true,
+      trackResize: true,
     })
 
     map.current.on('load', () => {
