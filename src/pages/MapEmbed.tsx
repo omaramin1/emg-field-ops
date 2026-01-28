@@ -188,8 +188,8 @@ export default function MapEmbed() {
           </div>
         </>
       ) : (
-        /* KNOCK MODE - Full screen, one-handed */
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0f172a' }}>
+        /* KNOCK MODE - Full screen, one-handed, fits viewport */
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0f172a', overflow: 'hidden' }}>
           {/* Header with address & close */}
           <div style={{ 
             padding: '1rem', 
@@ -229,14 +229,12 @@ export default function MapEmbed() {
             </div>
           </div>
 
-          {/* Result buttons - BIG, easy to tap with thumb */}
+          {/* Result buttons - compact grid that fits on screen */}
           <div style={{ 
-            flex: 1, 
-            padding: '1rem',
+            padding: '0.75rem',
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '0.75rem',
-            alignContent: 'center'
+            gap: '0.5rem',
           }}>
             {RESULT_OPTIONS.map(({ result, shortLabel, icon: Icon, color }) => (
               <button
@@ -245,22 +243,21 @@ export default function MapEmbed() {
                 disabled={isSubmitting}
                 style={{
                   background: selectedResult === result ? color : 'var(--bg-card)',
-                  border: `3px solid ${color}`,
-                  borderRadius: '1rem',
-                  padding: '1.5rem 1rem',
+                  border: `2px solid ${color}`,
+                  borderRadius: '0.75rem',
+                  padding: '0.875rem 0.5rem',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
+                  gap: '0.25rem',
                   color: 'white',
-                  fontSize: '0.9rem',
+                  fontSize: '0.8rem',
                   fontWeight: 600,
                   opacity: isSubmitting ? 0.5 : 1,
-                  minHeight: '100px'
                 }}
               >
-                <Icon size={32} color={selectedResult === result ? 'white' : color} />
+                <Icon size={24} color={selectedResult === result ? 'white' : color} />
                 <span style={{ color: selectedResult === result ? 'white' : color }}>
                   {shortLabel}
                 </span>
@@ -268,8 +265,8 @@ export default function MapEmbed() {
             ))}
           </div>
 
-          {/* Optional notes - collapsible */}
-          <div style={{ padding: '1rem', background: 'var(--bg-secondary)' }}>
+          {/* Optional notes - compact */}
+          <div style={{ padding: '0.5rem 0.75rem 0.75rem', background: 'var(--bg-secondary)' }}>
             <input
               type="text"
               value={knockNotes}
@@ -279,10 +276,10 @@ export default function MapEmbed() {
                 width: '100%',
                 background: 'var(--bg-card)',
                 border: '2px solid var(--bg-card)',
-                borderRadius: '0.75rem',
-                padding: '1rem',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
                 color: 'var(--text-primary)',
-                fontSize: '1rem',
+                fontSize: '0.875rem',
                 textAlign: 'center'
               }}
             />
