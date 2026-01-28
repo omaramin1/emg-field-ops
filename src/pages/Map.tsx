@@ -45,7 +45,7 @@ export default function MapPage() {
 
   // State
   const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('satellite')
+  const [mapStyle, setMapStyle] = useState<'streets' | 'satellite'>('streets')
   const [userPosition, setUserPosition] = useState<GPSPosition | null>(null)
   const [gpsStatus, setGpsStatus] = useState<'acquiring' | 'locked' | 'error'>('acquiring')
   const [knocks, setKnocks] = useState<KnockRecord[]>([])
@@ -83,19 +83,23 @@ export default function MapPage() {
       style: {
         version: 8,
         sources: {
-          'esri-satellite': {
+          'carto-tiles': {
             type: 'raster',
-            tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+            tiles: [
+              'https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png',
+              'https://b.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png',
+              'https://c.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
+            ],
             tileSize: 256,
-            attribution: '© Esri'
+            attribution: '© CARTO'
           }
         },
         layers: [{
-          id: 'satellite-tiles',
+          id: 'carto-layer',
           type: 'raster',
-          source: 'esri-satellite',
+          source: 'carto-tiles',
           minzoom: 0,
-          maxzoom: 19
+          maxzoom: 20
         }]
       },
       center: [-77.436, 37.541], // Richmond, VA default
