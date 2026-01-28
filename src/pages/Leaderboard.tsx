@@ -1,40 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Zap, FileCheck, DollarSign, RefreshCw } from 'lucide-react'
-import { fetchActiveReps, getDealsLeaderboard, getPayrollLeaderboard, getLastSyncDate, hitTripQualifier, subscribeToLeaderboard, RepData } from '../services/leaderboard'
+import { Zap, FileCheck, DollarSign } from 'lucide-react'
+import { getDealsLeaderboard, getPayrollLeaderboard, getLastSyncDate, hitTripQualifier, RepData } from '../services/leaderboard'
 
 type BoardType = 'deals' | 'payroll'
 
 export default function LeaderboardPage() {
   const [board, setBoard] = useState<BoardType>('deals')
-  const [isLoading, setIsLoading] = useState(true)
-  const [leaderboardData, setLeaderboardData] = useState<RepData[]>([])
-  const [lastSync, setLastSync] = useState('Loading...')
   
-  // Fetch active reps on mount
-  useEffect(() => {
-    loadLeaderboard()
-  }, [])
-
-  // Subscribe to real-time updates
-  useEffect(() => {
-    const unsubscribe = subscribeToLeaderboard(() => {
-      loadLeaderboard()
-    })
-    return unsubscribe
-  }, [])
-
-  const loadLeaderboard = async () => {
-    setIsLoading(true)
-    await fetchActiveReps()
-    setLeaderboardData(board === 'deals' ? getDealsLeaderboard() : getPayrollLeaderboard())
-    setLastSync(getLastSyncDate())
-    setIsLoading(false)
-  }
-
-  // Update data when board changes
-  useEffect(() => {
-    setLeaderboardData(board === 'deals' ? getDealsLeaderboard() : getPayrollLeaderboard())
-  }, [board])
+  // Get Viper data
+  const leaderboardData = board === 'deals' ? getDealsLeaderboard() : getPayrollLeaderboard()
+  const lastSync = getLastSyncDate()
 
   const getRankEmoji = (rank: number) => {
     if (rank === 1) return '🥇'
@@ -61,39 +36,15 @@ export default function LeaderboardPage() {
         <div style={{ fontSize: '1.5rem', fontWeight: 600 }}>
           🏆 Leaderboard
         </div>
-        <button
-          onClick={loadLeaderboard}
-          disabled={isLoading}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.375rem',
-            background: 'var(--bg-secondary)',
-            border: 'none',
-            borderRadius: '1rem',
-            padding: '0.375rem 0.75rem',
-            color: 'var(--text-secondary)',
-            fontSize: '0.75rem',
-            fontWeight: 500,
-            cursor: 'pointer'
-          }}
-        >
-          <RefreshCw size={14} style={{ animation: isLoading ? 'spin 1s linear infinite' : 'none' }} />
-          Refresh
-        </button>
-      </div>
-
-      {/* Active Reps Notice */}
-      <div style={{
-        background: 'rgba(59, 130, 246, 0.1)',
-        border: '1px solid rgba(59, 130, 246, 0.2)',
-        borderRadius: '0.5rem',
-        padding: '0.5rem 0.75rem',
-        marginBottom: '1rem',
-        fontSize: '0.75rem',
-        color: 'var(--text-secondary)'
-      }}>
-        📊 Showing reps with deals in past 90 days ({leaderboardData.length} active)
+        <div style={{
+          background: 'var(--bg-secondary)',
+          borderRadius: '1rem',
+          padding: '0.375rem 0.75rem',
+          color: 'var(--text-secondary)',
+          fontSize: '0.7rem'
+        }}>
+          Viper Data
+        </div>
       </div>
 
       {/* Team Stats */}
@@ -204,74 +155,61 @@ export default function LeaderboardPage() {
 
       {/* Rankings */}
       <div className="card">
-        {isLoading ? (
-          <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
-            Loading leaderboard...
-          </div>
-        ) : leaderboardData.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
-            No active reps with deals yet
-          </div>
-        ) : (
-          leaderboardData.map((rep, index) => {
-            const onTripPace = hitTripQualifier(rep.payrollKwh)
-            
-            return (
-              <div 
-                key={rep.id} 
-                className="leaderboard-item"
-                style={{ padding: '0.875rem 0' }}
-              >
-                <div className={`leaderboard-rank ${getRankStyle(index + 1)}`}>
-                  {getRankEmoji(index + 1)}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div className="leaderboard-name" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    {rep.name}
-                    {onTripPace && (
-                      <span style={{ 
-                        background: 'rgba(168, 85, 247, 0.2)', 
-                        color: '#a855f7',
-                        fontSize: '0.6rem',
-                        padding: '0.125rem 0.375rem',
-                        borderRadius: '0.25rem',
-                        fontWeight: 600
-                      }}>
-                        🎯 TRIP
-                      </span>
-                    )}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                    {rep.totalDeals90Days} deals (90 days)
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div className="leaderboard-value" style={{ 
-                    color: board === 'deals' ? 'var(--accent)' : 'var(--warning)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    gap: '0.25rem'
-                  }}>
-                    {board === 'deals' ? (
-                      <>
-                        {rep.weeklyDeals} deals
-                      </>
-                    ) : (
-                      <>
-                        <Zap size={14} />
-                        {rep.payrollKwh}k
-                      </>
-                    )}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                    {board === 'deals' ? `~${rep.payrollKwh}k kWh` : `${rep.weeklyDeals} deals`}
-                  </div>
+        {leaderboardData.map((rep, index) => {
+          const onTripPace = hitTripQualifier(rep.payrollKwh)
+          
+          return (
+            <div 
+              key={rep.id} 
+              className="leaderboard-item"
+              style={{ padding: '0.875rem 0' }}
+            >
+              <div className={`leaderboard-rank ${getRankStyle(index + 1)}`}>
+                {getRankEmoji(index + 1)}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div className="leaderboard-name" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  {rep.name}
+                  {onTripPace && (
+                    <span style={{ 
+                      background: 'rgba(168, 85, 247, 0.2)', 
+                      color: '#a855f7',
+                      fontSize: '0.6rem',
+                      padding: '0.125rem 0.375rem',
+                      borderRadius: '0.25rem',
+                      fontWeight: 600
+                    }}>
+                      🎯 TRIP
+                    </span>
+                  )}
                 </div>
               </div>
-            )
-          })
-        )}
+              <div style={{ textAlign: 'right' }}>
+                <div className="leaderboard-value" style={{ 
+                  color: board === 'deals' ? 'var(--accent)' : 'var(--warning)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  gap: '0.25rem'
+                }}>
+                  {board === 'deals' ? (
+                    <>
+                      {rep.weeklyDeals} deals
+                    </>
+                  ) : (
+                    <>
+                      <Zap size={14} />
+                      {rep.payrollKwh}k
+                    </>
+                  )}
+                </div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+                  {board === 'deals' ? `${rep.payrollKwh}k kWh` : `${rep.weeklyDeals} deals`}
+                </div>
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       {/* Last Updated */}
