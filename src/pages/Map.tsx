@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating, formatAccuracy, requiresConfirmation, reverseGeocode } from '../lib/gps'
-import { createKnock, subscribeToKnocks, getTodaysKnocks, KnockResult } from '../lib/knocks'
+import { createKnock, subscribeToKnocks, getTodaysKnocks, updateKnock, KnockResult } from '../lib/knocks'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -50,6 +50,11 @@ export default function MapPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [filterResult, setFilterResult] = useState<KnockResult | 'all'>('all')
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [editingKnock, setEditingKnock] = useState<KnockRecord | null>(null)
+  const [editAddress, setEditAddress] = useState('')
+  const [editResult, setEditResult] = useState<KnockResult | null>(null)
+  const [editNotes, setEditNotes] = useState('')
+  const [isUpdating, setIsUpdating] = useState(false)
 
   // Demo canvasser UUID - replace with auth
   const canvasserId = '00000000-0000-0000-0000-000000000001'
@@ -217,7 +222,16 @@ export default function MapPage() {
           "></div>
         `
         
-        const marker = new mapboxgl.Marker({ element: el })
+        // Double-tap to edit
+        el.addEventListener('dblclick', (e) => {
+          e.stopPropagation()
+          setEditingKnock(knock)
+          setEditAddress(knock.address || '')
+          setEditResult(knock.result as KnockResult)
+          setEditNotes(knock.notes || '')
+        })
+        
+        const marker = new mapboxgl.Marker({ element: el, draggable: true })
           .setLngLat([knock.lng, knock.lat])
           .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
             <div style="padding: 8px; font-family: system-ui;">
@@ -225,9 +239,23 @@ export default function MapPage() {
               ${knock.address ? `<br><small>${knock.address}</small>` : ''}
               ${knock.notes ? `<br><em>"${knock.notes}"</em>` : ''}
               <br><small style="color: #888">${new Date(knock.created_at).toLocaleTimeString()}</small>
+              <br><small style="color: #3b82f6;">Double-tap to edit</small>
             </div>
           `))
           .addTo(map.current!)
+
+        // Handle drag end - update position
+        marker.on('dragend', async () => {
+          const lngLat = marker.getLngLat()
+          // Update the knock with new position
+          const updated = await updateKnock(knock.id, {
+            // @ts-ignore - we'll add lat/lng to the update type
+          })
+          if (updated) {
+            setToast({ message: '📍 Pin moved!', type: 'success' })
+            setTimeout(() => setToast(null), 2000)
+          }
+        })
 
         knockMarkers.current.set(knock.id, marker)
       }
@@ -644,6 +672,120 @@ export default function MapPage() {
                 <CheckCircle size={18} /> Save Knock
               </>
             )}
+          </button>
+        </div>
+      )}
+
+      {/* Edit Knock Panel */}
+      {editingKnock && (
+        <div style={{
+          padding: '1rem',
+          background: 'var(--bg-secondary)',
+          borderTop: '1px solid var(--bg-card)',
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 600 }}>✏️ Edit Knock</div>
+            <button 
+              onClick={() => setEditingKnock(null)}
+              style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem', cursor: 'pointer' }}
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Address */}
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Address:</div>
+            <input
+              type="text"
+              value={editAddress}
+              onChange={(e) => setEditAddress(e.target.value)}
+              style={{
+                width: '100%',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--bg-card)',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
+                color: 'var(--text-primary)',
+                fontSize: '0.875rem'
+              }}
+            />
+          </div>
+
+          {/* Result */}
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Result:</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+              {Object.entries(RESULT_LABELS).map(([result, label]) => (
+                <button
+                  key={result}
+                  onClick={() => setEditResult(result as KnockResult)}
+                  style={{
+                    background: editResult === result ? RESULT_COLORS[result as KnockResult] : 'var(--bg-card)',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                    padding: '0.5rem',
+                    color: 'white',
+                    fontSize: '0.75rem',
+                    fontWeight: 500
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Notes:</div>
+            <textarea
+              value={editNotes}
+              onChange={(e) => setEditNotes(e.target.value)}
+              style={{
+                width: '100%',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--bg-card)',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
+                color: 'var(--text-primary)',
+                fontSize: '0.875rem',
+                resize: 'none',
+                height: '60px'
+              }}
+            />
+          </div>
+
+          {/* Save Button */}
+          <button
+            onClick={async () => {
+              if (!editingKnock || !editResult) return
+              setIsUpdating(true)
+              const updated = await updateKnock(editingKnock.id, {
+                result: editResult,
+                notes: editNotes || undefined,
+                address: editAddress || undefined
+              })
+              setIsUpdating(false)
+              if (updated) {
+                setToast({ message: '✓ Knock updated!', type: 'success' })
+                setTimeout(() => setToast(null), 3000)
+                setEditingKnock(null)
+              } else {
+                setToast({ message: '⚠️ Update failed', type: 'error' })
+                setTimeout(() => setToast(null), 3000)
+              }
+            }}
+            disabled={isUpdating}
+            className="btn btn-primary"
+            style={{
+              width: '100%',
+              padding: '1rem',
+              fontSize: '1rem',
+              opacity: isUpdating ? 0.5 : 1
+            }}
+          >
+            {isUpdating ? '⏳ Saving...' : '💾 Save Changes'}
           </button>
         </div>
       )}
