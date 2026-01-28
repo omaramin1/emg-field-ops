@@ -11,7 +11,7 @@ import { getDNKWithCoords } from '../data/doNotKnock'
 import zones from '../data/zones.json'
 import { getZoneCentroid } from '../data/zoneCentroids'
 import { getLMIZones } from '../data/lmiAutoQualifyZones'
-import { ACTIVE_DEALS, ActiveDeal } from '../data/activeDeals'
+// Active deals loaded from JSON for faster initial load
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -66,7 +66,7 @@ export default function MapPage() {
   const [oldDeals, setOldDeals] = useState<KnockRecord[]>([])
   const [showOldDeals, setShowOldDeals] = useState(true)
   const [showZones, setShowZones] = useState(false)
-  const [showCompetitorDeals, setShowCompetitorDeals] = useState(true)
+  const [showCompetitorDeals, setShowCompetitorDeals] = useState(false) // OFF by default for speed
   const [competitorDealsLoaded, setCompetitorDealsLoaded] = useState(false)
 
   // Get current rep from auth
@@ -505,19 +505,26 @@ export default function MapPage() {
       const todaysKnocks = await getTodaysKnocks()
       setKnocks(todaysKnocks)
       
-      // Load Omar's deals from static data (converted from weekly_sales.csv)
-      // These show as yellow pins for approved deals
-      const convertedDeals = ACTIVE_DEALS.map(deal => ({
-        id: `active-${deal.id}`,
-        lat: deal.lat,
-        lng: deal.lng,
-        address: deal.address,
-        created_at: deal.saleDate || '2026-01-01',
-        canvasser_name: deal.repName,
-        result: 'signed_up',
-        notes: deal.status === 'Payable' ? '✓ Approved' : '⏳ Pending',
-      })) as any[]
-      setOldDeals(convertedDeals)
+      // Load deals from JSON (deferred for speed)
+      try {
+        const response = await fetch('/data/active-deals.json')
+        if (response.ok) {
+          const activeDeals = await response.json()
+          const convertedDeals = activeDeals.map((deal: any) => ({
+            id: `active-${deal.id}`,
+            lat: deal.lat,
+            lng: deal.lng,
+            address: deal.address,
+            created_at: deal.saleDate || '2026-01-01',
+            canvasser_name: deal.repName,
+            result: 'signed_up',
+            notes: deal.status === 'Payable' ? '✓ Approved' : '⏳ Pending',
+          })) as any[]
+          setOldDeals(convertedDeals)
+        }
+      } catch (e) {
+        console.error('Failed to load active deals:', e)
+      }
     }
     loadKnocks()
   }, [])
