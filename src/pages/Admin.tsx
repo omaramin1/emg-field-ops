@@ -7,12 +7,12 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/authStore'
 import { supabase, KnockRecord } from '../lib/supabase'
-import { MapPin, List, Users, Clock, Filter, RefreshCw } from 'lucide-react'
+import { MapPin, List, Users, Clock, Filter, RefreshCw, TrendingUp, AlertTriangle, Zap, Activity } from 'lucide-react'
 import mapboxgl from 'mapbox-gl'
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoib21hcmFtaW4xIiwiYSI6ImNtNmQ3NXBxOTA4OWoya3B2dHRwYWVrdjQifQ.p7dGFEBoNOLWMfKMSJEFEw'
 
-type ViewMode = 'map' | 'log'
+type ViewMode = 'dashboard' | 'map' | 'log'
 
 const RESULT_COLORS: Record<string, string> = {
   'signed_up': '#10b981',
@@ -32,14 +32,26 @@ const RESULT_LABELS: Record<string, string> = {
   'wrong_address': '📍 Wrong Address'
 }
 
+interface RepStats {
+  id: string
+  name: string
+  totalKnocks: number
+  deals: number
+  conversionRate: number
+  lastActivity: Date | null
+  todayKnocks: number
+  status: 'crushing' | 'good' | 'needs_help' | 'idle'
+}
+
 export function Admin() {
   const navigate = useNavigate()
   const { currentRep } = useAuthStore()
-  const [viewMode, setViewMode] = useState<ViewMode>('map')
+  const [viewMode, setViewMode] = useState<ViewMode>('dashboard')
   const [knocks, setKnocks] = useState<KnockRecord[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [filterResult, setFilterResult] = useState<string>('all')
   const [filterRep, setFilterRep] = useState<string>('all')
+  const [repStats, setRepStats] = useState<RepStats[]>([])
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
   const markers = useRef<mapboxgl.Marker[]>([])
@@ -154,9 +166,86 @@ export function Admin() {
 
     if (!error && data) {
       setKnocks(data as KnockRecord[])
+      calculateRepStats(data as KnockRecord[])
     }
     
     setIsLoading(false)
+  }
+
+  const calculateRepStats = (knockData: KnockRecord[]) => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000)
+
+    const repMap = new Map<string, RepStats>()
+
+    knockData.forEach(knock => {
+      const id = knock.canvasser_id
+      const knockDate = new Date(knock.created_at)
+      
+      if (!repMap.has(id)) {
+        repMap.set(id, {
+          id,
+          name: knock.canvasser_name || 'Unknown',
+          totalKnocks: 0,
+          deals: 0,
+          conversionRate: 0,
+          lastActivity: null,
+          todayKnocks: 0,
+          status: 'idle'
+        })
+      }
+
+      const stats = repMap.get(id)!
+      stats.totalKnocks++
+      
+      if (knock.result === 'signed_up') {
+        stats.deals++
+      }
+      
+      if (knockDate >= today) {
+        stats.todayKnocks++
+      }
+      
+      if (!stats.lastActivity || knockDate > stats.lastActivity) {
+        stats.lastActivity = knockDate
+      }
+    })
+
+    // Calculate status for each rep
+    repMap.forEach(stats => {
+      stats.conversionRate = stats.totalKnocks > 0 
+        ? Math.round((stats.deals / stats.totalKnocks) * 100) 
+        : 0
+
+      // Determine status
+      if (!stats.lastActivity || stats.lastActivity < twoHoursAgo) {
+        stats.status = 'idle' // No activity in 2+ hours
+      } else if (stats.todayKnocks >= 20 && stats.conversionRate >= 10) {
+        stats.status = 'crushing' // High volume + good conversion
+      } else if (stats.todayKnocks >= 10 || stats.conversionRate >= 5) {
+        stats.status = 'good' // Decent activity
+      } else if (stats.todayKnocks < 5 && stats.lastActivity > twoHoursAgo) {
+        stats.status = 'needs_help' // Active but struggling
+      } else {
+        stats.status = 'good'
+      }
+    })
+
+    // Sort by today's knocks descending
+    const sorted = Array.from(repMap.values())
+      .sort((a, b) => b.todayKnocks - a.todayKnocks)
+
+    setRepStats(sorted)
+  }
+
+  const formatTimeAgo = (date: Date) => {
+    const mins = Math.floor((Date.now() - date.getTime()) / 60000)
+    if (mins < 1) return 'Just now'
+    if (mins < 60) return `${mins}m ago`
+    const hours = Math.floor(mins / 60)
+    if (hours < 24) return `${hours}h ago`
+    return `${Math.floor(hours / 24)}d ago`
   }
 
   // Get unique reps from knocks
@@ -197,11 +286,27 @@ export function Admin() {
           <Users size={20} color="var(--accent)" />
           <span style={{ fontWeight: 600 }}>Admin</span>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.25rem' }}>
+          <button
+            onClick={() => setViewMode('dashboard')}
+            style={{
+              padding: '0.4rem 0.6rem',
+              background: viewMode === 'dashboard' ? 'var(--accent)' : 'var(--bg-card)',
+              border: 'none',
+              borderRadius: '0.5rem',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+              fontSize: '0.75rem'
+            }}
+          >
+            <Activity size={12} /> Team
+          </button>
           <button
             onClick={() => setViewMode('map')}
             style={{
-              padding: '0.5rem 0.75rem',
+              padding: '0.4rem 0.6rem',
               background: viewMode === 'map' ? 'var(--accent)' : 'var(--bg-card)',
               border: 'none',
               borderRadius: '0.5rem',
@@ -209,15 +314,15 @@ export function Admin() {
               display: 'flex',
               alignItems: 'center',
               gap: '0.25rem',
-              fontSize: '0.8rem'
+              fontSize: '0.75rem'
             }}
           >
-            <MapPin size={14} /> Map
+            <MapPin size={12} /> Map
           </button>
           <button
             onClick={() => setViewMode('log')}
             style={{
-              padding: '0.5rem 0.75rem',
+              padding: '0.4rem 0.6rem',
               background: viewMode === 'log' ? 'var(--accent)' : 'var(--bg-card)',
               border: 'none',
               borderRadius: '0.5rem',
@@ -225,10 +330,10 @@ export function Admin() {
               display: 'flex',
               alignItems: 'center',
               gap: '0.25rem',
-              fontSize: '0.8rem'
+              fontSize: '0.75rem'
             }}
           >
-            <List size={14} /> Log
+            <List size={12} /> Log
           </button>
         </div>
       </div>
@@ -299,7 +404,89 @@ export function Admin() {
       </div>
 
       {/* Content */}
-      {viewMode === 'map' ? (
+      {viewMode === 'dashboard' ? (
+        <div style={{ flex: 1, overflow: 'auto', padding: '0.75rem' }}>
+          {/* Summary Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem', marginBottom: '1rem' }}>
+            <div style={{ background: '#10b981', borderRadius: '0.5rem', padding: '0.75rem', textAlign: 'center' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{repStats.filter(r => r.status === 'crushing').length}</div>
+              <div style={{ fontSize: '0.65rem', opacity: 0.9 }}>🔥 Crushing</div>
+            </div>
+            <div style={{ background: '#3b82f6', borderRadius: '0.5rem', padding: '0.75rem', textAlign: 'center' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{repStats.filter(r => r.status === 'good').length}</div>
+              <div style={{ fontSize: '0.65rem', opacity: 0.9 }}>👍 Good</div>
+            </div>
+            <div style={{ background: '#f59e0b', borderRadius: '0.5rem', padding: '0.75rem', textAlign: 'center' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{repStats.filter(r => r.status === 'needs_help').length}</div>
+              <div style={{ fontSize: '0.65rem', opacity: 0.9 }}>⚠️ Needs Help</div>
+            </div>
+            <div style={{ background: '#6b7280', borderRadius: '0.5rem', padding: '0.75rem', textAlign: 'center' }}>
+              <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{repStats.filter(r => r.status === 'idle').length}</div>
+              <div style={{ fontSize: '0.65rem', opacity: 0.9 }}>💤 Idle</div>
+            </div>
+          </div>
+
+          {/* Rep List by Status */}
+          {['crushing', 'good', 'needs_help', 'idle'].map(status => {
+            const reps = repStats.filter(r => r.status === status)
+            if (reps.length === 0) return null
+            
+            const statusConfig = {
+              crushing: { label: '🔥 Crushing It', color: '#10b981', bg: 'rgba(16,185,129,0.1)' },
+              good: { label: '👍 Doing Good', color: '#3b82f6', bg: 'rgba(59,130,246,0.1)' },
+              needs_help: { label: '⚠️ Needs Help', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' },
+              idle: { label: '💤 Not Moving', color: '#6b7280', bg: 'rgba(107,114,128,0.1)' }
+            }[status]!
+
+            return (
+              <div key={status} style={{ marginBottom: '1rem' }}>
+                <div style={{ 
+                  fontSize: '0.8rem', 
+                  fontWeight: 600, 
+                  color: statusConfig.color,
+                  marginBottom: '0.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}>
+                  {statusConfig.label}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {reps.map(rep => (
+                    <div
+                      key={rep.id}
+                      style={{
+                        background: statusConfig.bg,
+                        borderLeft: `3px solid ${statusConfig.color}`,
+                        borderRadius: '0.5rem',
+                        padding: '0.75rem',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{rep.name}</div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+                          Last: {rep.lastActivity ? formatTimeAgo(rep.lastActivity) : 'Never'}
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: '0.9rem', fontWeight: 600 }}>
+                          {rep.todayKnocks} <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>today</span>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: statusConfig.color }}>
+                          {rep.deals} deals ({rep.conversionRate}%)
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ) : viewMode === 'map' ? (
         <div ref={mapContainer} style={{ flex: 1 }} />
       ) : (
         <div style={{ flex: 1, overflow: 'auto', padding: '0.5rem' }}>
