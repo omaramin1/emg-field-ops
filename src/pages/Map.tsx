@@ -99,7 +99,7 @@ export default function MapPage() {
         }]
       },
       center: [-77.436, 37.541], // Richmond, VA default
-      zoom: 15,
+      zoom: 10,
       pitch: 0,
     })
 
