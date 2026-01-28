@@ -592,7 +592,8 @@ export default function MapPage() {
               ${knock.address ? `<br><small>${knock.address}</small>` : ''}
               ${knock.notes ? `<br><em>"${knock.notes}"</em>` : ''}
               <br><small style="color: #888">${new Date(knock.created_at).toLocaleTimeString()}</small>
-              <br><small style="color: #3b82f6;">Double-tap to edit</small>
+              ${knock.canvasser_name ? `<br><small style="color: #666;">by ${knock.canvasser_name}</small>` : ''}
+              <br><small style="color: #3b82f6;">Double-tap to edit/follow up</small>
             </div>
           `))
           .addTo(map.current!)
@@ -1134,8 +1135,8 @@ export default function MapPage() {
           background: 'var(--bg-secondary)',
           borderTop: '1px solid var(--bg-card)',
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <div style={{ fontSize: '1rem', fontWeight: 600 }}>✏️ Edit Knock</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 600 }}>✏️ Edit / Follow Up</div>
             <button 
               onClick={() => setEditingKnock(null)}
               style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem', cursor: 'pointer' }}
@@ -1143,6 +1144,11 @@ export default function MapPage() {
               ×
             </button>
           </div>
+          {editingKnock.canvasser_name && (
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+              Originally logged by: <strong>{editingKnock.canvasser_name}</strong>
+            </div>
+          )}
 
           {/* Address */}
           <div style={{ marginBottom: '1rem' }}>
