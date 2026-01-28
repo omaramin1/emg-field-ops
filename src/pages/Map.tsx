@@ -189,23 +189,64 @@ export default function MapPage() {
     })
   }, [mapLoaded])
 
-  // Add LMI Auto-Qualify Zone overlay (Opportunity Zones in Dominion territory)
+  // Add NON-LMI overlay (red/gray tint on areas that DON'T auto-qualify)
+  // LMI zones stay clear - those are the good areas
   useEffect(() => {
     if (!map.current || !mapLoaded) return
 
-    const sourceId = 'lmi-zones-source'
-    const layerId = 'lmi-zones-layer'
+    const overlaySourceId = 'non-lmi-overlay-source'
+    const overlayLayerId = 'non-lmi-overlay-layer'
+    const lmiSourceId = 'lmi-clear-zones-source'
+    const lmiLayerId = 'lmi-clear-zones-layer'
+    const lmiBorderLayerId = 'lmi-border-layer'
 
-    // Remove existing layer/source if toggling off
+    // Remove existing layers if toggling off
     if (!showZones) {
-      if (map.current.getLayer(layerId)) map.current.removeLayer(layerId)
-      if (map.current.getSource(sourceId)) map.current.removeSource(sourceId)
+      if (map.current.getLayer(overlayLayerId)) map.current.removeLayer(overlayLayerId)
+      if (map.current.getLayer(lmiLayerId)) map.current.removeLayer(lmiLayerId)
+      if (map.current.getLayer(lmiBorderLayerId)) map.current.removeLayer(lmiBorderLayerId)
+      if (map.current.getSource(overlaySourceId)) map.current.removeSource(overlaySourceId)
+      if (map.current.getSource(lmiSourceId)) map.current.removeSource(lmiSourceId)
       return
     }
 
-    // Build GeoJSON features for LMI zones
+    // Get LMI zones
     const lmiZones = getLMIZones()
-    const features: any[] = lmiZones.map(zone => ({
+
+    // 1. Add a full-state red/gray overlay polygon (covers all of VA)
+    if (!map.current.getSource(overlaySourceId)) {
+      map.current.addSource(overlaySourceId, {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [-83.5, 36.5], // SW Virginia
+              [-75.0, 36.5], // SE Virginia  
+              [-75.0, 39.5], // NE Virginia
+              [-83.5, 39.5], // NW Virginia
+              [-83.5, 36.5]  // Close polygon
+            ]]
+          }
+        }
+      })
+
+      // Semi-transparent red overlay on non-qualifying areas
+      map.current.addLayer({
+        id: overlayLayerId,
+        type: 'fill',
+        source: overlaySourceId,
+        paint: {
+          'fill-color': '#ef4444', // Red tint
+          'fill-opacity': 0.15    // Light overlay
+        }
+      }, 'waterway-label')
+    }
+
+    // 2. Add LMI zone circles that "punch through" as clear zones
+    const lmiFeatures: any[] = lmiZones.map(zone => ({
       type: 'Feature',
       properties: {
         tractId: zone.tractId,
@@ -218,48 +259,61 @@ export default function MapPage() {
       }
     }))
 
-    // Add source
-    if (!map.current.getSource(sourceId)) {
-      map.current.addSource(sourceId, {
+    if (!map.current.getSource(lmiSourceId)) {
+      map.current.addSource(lmiSourceId, {
         type: 'geojson',
-        data: { type: 'FeatureCollection', features }
+        data: { type: 'FeatureCollection', features: lmiFeatures }
       })
-    }
 
-    // Add circle layer - purple for LMI auto-qualify zones
-    if (!map.current.getLayer(layerId)) {
+      // Clear circles that visually "cut through" the red overlay
       map.current.addLayer({
-        id: layerId,
+        id: lmiLayerId,
         type: 'circle',
-        source: sourceId,
+        source: lmiSourceId,
         paint: {
           'circle-radius': [
             'interpolate', ['linear'], ['zoom'],
-            8, 8,
-            12, 25,
-            16, 50
+            8, 12,
+            12, 35,
+            16, 70
           ],
-          'circle-color': '#8b5cf6', // Purple for OZ
-          'circle-opacity': 0.2,
-          'circle-stroke-color': '#8b5cf6',
-          'circle-stroke-width': 2,
-          'circle-stroke-opacity': 0.7
+          'circle-color': '#ffffff',
+          'circle-opacity': 0.9  // Nearly opaque white to "clear" the area
         }
-      }, 'waterway-label') // Insert below labels
+      }, overlayLayerId) // Insert BELOW the red overlay so it shows through
+
+      // Green border around LMI zones to mark them as good
+      map.current.addLayer({
+        id: lmiBorderLayerId,
+        type: 'circle',
+        source: lmiSourceId,
+        paint: {
+          'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            8, 12,
+            12, 35,
+            16, 70
+          ],
+          'circle-color': 'transparent',
+          'circle-stroke-color': '#10b981', // Green border
+          'circle-stroke-width': 3,
+          'circle-stroke-opacity': 0.8
+        }
+      })
     }
 
-    // Add click handler for zone info
-    map.current.on('click', layerId, (e: any) => {
+    // Click handler for zone info
+    map.current.on('click', lmiBorderLayerId, (e: any) => {
       const props = e.features[0].properties
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(`
           <div style="padding: 8px; font-family: system-ui;">
-            <strong style="color: #8b5cf6">🏠 LMI Auto-Qualify Zone</strong>
+            <strong style="color: #10b981">✅ LMI Auto-Qualify Zone</strong>
             <br><strong>${props.name}</strong>
             <br>${props.city}
             <br><small style="color: #888">Tract: ${props.tractId}</small>
-            <br><small style="color: #10b981">✓ Customers here auto-qualify!</small>
+            <br><small style="color: #10b981">Customers here auto-qualify!</small>
           </div>
         `)
         .addTo(map.current!)
@@ -742,9 +796,9 @@ export default function MapPage() {
             </button>
             <button 
               onClick={() => setShowZones(!showZones)}
-              title={showZones ? 'Hide LMI zones' : 'Show LMI auto-qualify zones'}
+              title={showZones ? 'Hide zone overlay' : 'Show non-qualifying areas (red)'}
               style={{
-                background: showZones ? '#8b5cf6' : 'var(--bg-secondary)',
+                background: showZones ? '#10b981' : 'var(--bg-secondary)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 padding: '0.5rem 0.625rem',
