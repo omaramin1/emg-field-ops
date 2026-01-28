@@ -15,7 +15,7 @@ import { getLMIZones } from '../data/lmiAutoQualifyZones'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
-mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZW1nIiwiYSI6ImNta3g2cTFnODA3ZDIzZXBvYmw4OTFlbDAifQ.w0lybYlDpyRPBdCx5VOy2Q'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZW1nIiwiYSI6ImNta3k1M21nOTAzbXIzZHByeWc4d3A0eWoifQ.4OfOinQh7OfQ7jLjf3AbzA'
 
 // Result colors
 const RESULT_COLORS: Record<KnockResult, string> = {
