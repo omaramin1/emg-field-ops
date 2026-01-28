@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 // Pages
 import TodayPage from './pages/Today'
-import MapPage from './pages/MapEmbed'
+import MapPage from './pages/Map'
 import LeaderboardPage from './pages/Leaderboard'
 import EarningsPage from './pages/Earnings'
 import ReferencePage from './pages/Reference'
