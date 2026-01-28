@@ -8,6 +8,8 @@ import { createKnock, subscribeToKnocks, getTodaysKnocks, getHistoricalDeals, up
 import { useAuthStore } from '../stores/authStore'
 import { getDNKWithCoords } from '../data/doNotKnock'
 import { getRejectedDealsWithCoords, RejectedDeal } from '../data/rejectedDeals'
+import zones from '../data/zones.json'
+import { getZoneCentroid } from '../data/zoneCentroids'
 import { KnockRecord } from '../lib/supabase'
 
 // Mapbox token
@@ -61,6 +63,7 @@ export default function MapPage() {
   const [isUpdating, setIsUpdating] = useState(false)
   const [oldDeals, setOldDeals] = useState<KnockRecord[]>([])
   const [showOldDeals, setShowOldDeals] = useState(true)
+  const [showZones, setShowZones] = useState(false)
 
   // Get current rep from auth
   const { currentRep } = useAuthStore()
@@ -181,6 +184,96 @@ export default function MapPage() {
         .addTo(map.current!)
     })
   }, [mapLoaded])
+
+  // Add Zone overlay circles
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return
+
+    const sourceId = 'zones-source'
+    const layerId = 'zones-layer'
+
+    // Remove existing layer/source if toggling off
+    if (!showZones) {
+      if (map.current.getLayer(layerId)) map.current.removeLayer(layerId)
+      if (map.current.getSource(sourceId)) map.current.removeSource(sourceId)
+      return
+    }
+
+    // Build GeoJSON features for zones
+    const features: any[] = []
+    zones.forEach((zone: any) => {
+      const centroid = getZoneCentroid(zone.zip)
+      if (!centroid) return
+
+      // Color by tier
+      const color = zone.tier === '2-HIGH-OPP' ? '#3b82f6' : 
+                   zone.tier === '3-GROWTH' ? '#10b981' : '#f59e0b'
+
+      features.push({
+        type: 'Feature',
+        properties: {
+          zip: zone.zip,
+          city: zone.city,
+          tier: zone.tier,
+          score: zone.score,
+          gap: zone.gap,
+          color
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [centroid.lng, centroid.lat]
+        }
+      })
+    })
+
+    // Add source
+    if (!map.current.getSource(sourceId)) {
+      map.current.addSource(sourceId, {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features }
+      })
+    }
+
+    // Add circle layer
+    if (!map.current.getLayer(layerId)) {
+      map.current.addLayer({
+        id: layerId,
+        type: 'circle',
+        source: sourceId,
+        paint: {
+          'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            8, 15,
+            12, 40,
+            16, 80
+          ],
+          'circle-color': ['get', 'color'],
+          'circle-opacity': 0.25,
+          'circle-stroke-color': ['get', 'color'],
+          'circle-stroke-width': 2,
+          'circle-stroke-opacity': 0.8
+        }
+      }, 'waterway-label') // Insert below labels
+    }
+
+    // Add click handler for zone info
+    map.current.on('click', layerId, (e: any) => {
+      const props = e.features[0].properties
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`
+          <div style="padding: 8px; font-family: system-ui;">
+            <strong>${props.city}</strong>
+            <br>ZIP: ${props.zip}
+            <br>Tier: ${props.tier}
+            <br>Score: ${props.score}
+            <br>Gap: ${props.gap} deals
+          </div>
+        `)
+        .addTo(map.current!)
+    })
+
+  }, [mapLoaded, showZones])
 
   // Track if we've auto-centered yet
   const hasAutoCentered = useRef(false)
@@ -526,6 +619,21 @@ export default function MapPage() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button 
+              onClick={() => setShowZones(!showZones)}
+              title={showZones ? 'Hide zones' : 'Show zones'}
+              style={{
+                background: showZones ? '#3b82f6' : 'var(--bg-secondary)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.5rem 0.625rem',
+                color: 'white',
+                fontSize: '0.7rem',
+                fontWeight: 600
+              }}
+            >
+              🎯
+            </button>
             <button 
               onClick={() => setShowOldDeals(!showOldDeals)}
               title={showOldDeals ? 'Hide old deals' : 'Show old deals'}
