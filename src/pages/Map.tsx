@@ -98,7 +98,7 @@ export default function MapPage() {
           maxzoom: 19
         }]
       },
-      center: [-76.3, 37.05], // Hampton, VA default
+      center: [-77.436, 37.541], // Richmond, VA default
       zoom: 15,
       pitch: 0,
     })
