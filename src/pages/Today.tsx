@@ -28,11 +28,6 @@ export default function TodayPage() {
   const projectedAllocated = projectedApproved * ALLOCATION_RATE
   const projectedKwh = projectedAllocated * KWH_PER_DEAL
   const projectedEarnings = projectedKwh * COMMISSION_PER_KWH
-  
-  const territory = {
-    name: 'Langley Mobile Home Village',
-    address: '2 Collier Dr, Hampton, VA 23666'
-  }
 
   const handleRefresh = useCallback(async () => {
     // Simulate API refresh
@@ -99,21 +94,20 @@ export default function TodayPage() {
         </div>
       </div>
 
-      {/* Territory Card */}
-      <div className="card territory-card">
-        <div className="card-title">Your Territory</div>
-        <div className="territory-name">{territory.name}</div>
-        <div className="territory-address">{territory.address}</div>
-        <div className="territory-actions">
-          <button className="btn btn-secondary" onClick={() => navigate('/map')}>
-            <MapPin size={18} />
-            View Map
-          </button>
-          <button className="btn btn-primary" onClick={() => navigate('/door/next')}>
-            <Play size={18} />
-            Start
-          </button>
-        </div>
+      {/* Quick Actions */}
+      <div className="card" style={{ display: 'flex', gap: '0.75rem' }}>
+        <button className="btn btn-secondary" style={{ flex: 1 }} onClick={() => navigate('/map')}>
+          <MapPin size={18} />
+          Map
+        </button>
+        <button className="btn btn-secondary" style={{ flex: 1 }} onClick={() => navigate('/log')}>
+          <ClipboardList size={18} />
+          View Log
+        </button>
+        <button className="btn btn-primary" style={{ flex: 1 }} onClick={() => navigate('/door/next')}>
+          <Play size={18} />
+          Start
+        </button>
       </div>
 
       {/* Progress Card */}
