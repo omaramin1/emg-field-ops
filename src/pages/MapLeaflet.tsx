@@ -72,6 +72,9 @@ export default function MapLeaflet() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
   const mapRef = useRef<L.Map | null>(null)
+  // Capture position when user opens knock panel - prevents delay issues
+  const [capturedPosition, setCapturedPosition] = useState<{ lat: number; lng: number; accuracy: number } | null>(null)
+  const [capturedAddress, setCapturedAddress] = useState<string>('')
 
   // Watch GPS
   useEffect(() => {
@@ -111,16 +114,36 @@ export default function MapLeaflet() {
     return unsubscribe
   }, [])
 
-  // Submit knock
+  // Capture position & address when user clicks "Log Door Knock"
+  const openKnockPanel = async () => {
+    if (!position) return
+    // Freeze the position at this exact moment
+    setCapturedPosition({ lat: position[0], lng: position[1], accuracy })
+    setShowKnockPanel(true)
+    
+    // Get address in background
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${position[0]}&lon=${position[1]}&format=json`
+      )
+      const data = await response.json()
+      setCapturedAddress(data.display_name?.split(',').slice(0, 3).join(',') || '')
+    } catch (e) {
+      console.error('Address lookup failed:', e)
+    }
+  }
+
+  // Submit knock using CAPTURED position (not current)
   const submitKnock = async () => {
-    if (!position || !selectedResult || !currentRep) return
+    if (!capturedPosition || !selectedResult || !currentRep) return
     setIsSubmitting(true)
 
     const knock = await createKnock({
-      position: { lat: position[0], lng: position[1], accuracy, timestamp: Date.now() },
+      position: { lat: capturedPosition.lat, lng: capturedPosition.lng, accuracy: capturedPosition.accuracy, timestamp: Date.now() },
       result: selectedResult,
       canvasserId: currentRep.id,
       canvasserName: currentRep.name,
+      address: capturedAddress || undefined,
     })
 
     setIsSubmitting(false)
@@ -129,6 +152,8 @@ export default function MapLeaflet() {
       setTimeout(() => setToast(null), 2000)
       setShowKnockPanel(false)
       setSelectedResult(null)
+      setCapturedPosition(null)
+      setCapturedAddress('')
     }
   }
 
@@ -235,7 +260,7 @@ export default function MapLeaflet() {
       {!showKnockPanel && (
         <div style={{ padding: '1rem', background: 'var(--bg-primary)' }}>
           <button
-            onClick={() => setShowKnockPanel(true)}
+            onClick={openKnockPanel}
             disabled={gpsStatus !== 'locked'}
             className="btn btn-primary"
             style={{ width: '100%', padding: '1rem', fontSize: '1rem', opacity: gpsStatus !== 'locked' ? 0.5 : 1 }}
@@ -248,10 +273,15 @@ export default function MapLeaflet() {
       {/* Knock Panel */}
       {showKnockPanel && (
         <div style={{ padding: '1rem', background: 'var(--bg-secondary)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
             <div style={{ fontWeight: 600 }}>Log This Door</div>
-            <button onClick={() => { setShowKnockPanel(false); setSelectedResult(null) }} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem' }}>×</button>
+            <button onClick={() => { setShowKnockPanel(false); setSelectedResult(null); setCapturedPosition(null); setCapturedAddress('') }} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem' }}>×</button>
           </div>
+          {capturedAddress && (
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+              📍 {capturedAddress}
+            </div>
+          )}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', marginBottom: '1rem' }}>
             {Object.entries(RESULT_LABELS).map(([result, label]) => (
               <button
