@@ -1,7 +1,7 @@
 {
-  "name": "EMG Field",
+  "name": "EMG",
   "short_name": "EMG",
-  "description": "Field rep app for EMG canvassing team",
+  "description": "EMG canvassing team app",
   "theme_color": "#10b981",
   "background_color": "#0f172a",
   "display": "standalone",

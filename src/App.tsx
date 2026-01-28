@@ -1,5 +1,5 @@
 import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
-import { Home, Map, Trophy, MapPin, MessageCircle, User } from 'lucide-react'
+import { Home, Map, Trophy, MessageCircle, User, Shield } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 // Pages
@@ -16,6 +16,7 @@ import LogPage from './pages/Log'
 import { Login } from './pages/Login'
 import { Profile } from './pages/Profile'
 import { Feed } from './pages/Feed'
+import { Admin } from './pages/Admin'
 
 // Auth
 import { useAuthStore } from './stores/authStore'
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="/zones" element={<ProtectedRoute><ZonesPage /></ProtectedRoute>} />
           <Route path="/log" element={<ProtectedRoute><LogPage /></ProtectedRoute>} />
           <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
       </main>
@@ -94,6 +96,12 @@ export default function App() {
             <MessageCircle />
             <span>Feed</span>
           </NavLink>
+          {currentRep?.isAdmin && (
+            <NavLink to="/admin" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+              <Shield />
+              <span>Admin</span>
+            </NavLink>
+          )}
           <NavLink to="/profile" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
             {currentRep?.profile_pic ? (
               <div style={{

@@ -52,10 +52,10 @@ export function Login() {
         </div>
         <div>
           <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-            EMG Field
+            EMG
           </div>
           <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-            Canvassing App
+            Field App
           </div>
         </div>
       </div>

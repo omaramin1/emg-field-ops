@@ -16,6 +16,7 @@ export interface Rep {
   profile_pic?: string
   active: boolean
   created_at: string
+  isAdmin?: boolean
 }
 
 interface AuthState {
@@ -32,6 +33,14 @@ interface AuthState {
 // Email as username, ENM number as password
 const REP_ROSTER: Omit<Rep, 'created_at'>[] = [
   {
+    id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    name: 'Omar',
+    email: 'omar.amin.jem@gmail.com',
+    enm_number: 'Enm058',
+    active: true,
+    isAdmin: true
+  },
+  {
     id: '00000000-0000-0000-0000-000000000001',
     name: 'Demo User',
     email: 'demo@emg.com',
@@ -45,14 +54,7 @@ const REP_ROSTER: Omit<Rep, 'created_at'>[] = [
     enm_number: '1001',
     active: true
   },
-  // Add more reps here:
-  // {
-  //   id: 'uuid-here',
-  //   name: 'Rep Name',
-  //   email: 'rep@emg.com',
-  //   enm_number: '1234',
-  //   active: true
-  // },
+  // Add more reps here
 ]
 
 export const useAuthStore = create<AuthState>()(
