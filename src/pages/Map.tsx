@@ -64,7 +64,7 @@ export default function MapPage() {
   const [editNotes, setEditNotes] = useState('')
   const [isUpdating, setIsUpdating] = useState(false)
   const [oldDeals, setOldDeals] = useState<KnockRecord[]>([])
-  const [showOldDeals, setShowOldDeals] = useState(true)
+  const [showOldDeals, setShowOldDeals] = useState(false)
   const [showZones, setShowZones] = useState(false)
   const [showCompetitorDeals, setShowCompetitorDeals] = useState(true) // ON by default
   const [competitorDealsLoaded, setCompetitorDealsLoaded] = useState(false)
