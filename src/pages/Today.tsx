@@ -173,11 +173,6 @@ export default function TodayPage() {
         </div>
       </div>
 
-      {/* Quick Action */}
-      <button className="btn btn-primary btn-large" onClick={() => navigate('/log')}>
-        <ClipboardList size={20} />
-        View Log
-      </button>
     </div>
     </PullToRefresh>
   )
