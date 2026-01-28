@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Lightbulb, Shield, MapPin } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { supabase, KnockRecord } from '../lib/supabase'
+import { useAuthStore } from '../stores/authStore'
 
 type DoorOutcome = 'no_answer' | 'no' | 'yes' | 'callback' | 'skip'
 type Objection = 'not_interested' | 'scam' | 'spouse' | 'no_time' | 'already_have' | 'other'
@@ -9,6 +10,7 @@ type Objection = 'not_interested' | 'scam' | 'spouse' | 'no_time' | 'already_hav
 export default function DoorPage() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const { currentRep } = useAuthStore()
   const [showSignup, setShowSignup] = useState(false)
   const [showObjection, setShowObjection] = useState(false)
   const [selectedObjection, setSelectedObjection] = useState<Objection | null>(null)
@@ -91,8 +93,8 @@ export default function DoorPage() {
       address: door.address,
       result: outcomeMap[outcome],
       notes: objection ? `Objection: ${objection}` : undefined,
-      canvasser_id: '00000000-0000-0000-0000-000000000001', // Demo UUID - TODO: Get from auth
-      canvasser_name: 'Demo User',
+      canvasser_id: currentRep?.id || '00000000-0000-0000-0000-000000000001',
+      canvasser_name: currentRep?.name || 'Unknown',
     }
 
     try {
