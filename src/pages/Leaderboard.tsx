@@ -1,54 +1,40 @@
 import { useState, useEffect } from 'react'
-import { Zap, FileCheck, Activity, DollarSign } from 'lucide-react'
-import { getDealsLeaderboard, getPayrollLeaderboard, getLastSyncDate, TRIP_QUALIFIER, hitTripQualifier } from '../services/leaderboard'
+import { Zap, FileCheck, DollarSign, RefreshCw } from 'lucide-react'
+import { fetchActiveReps, getDealsLeaderboard, getPayrollLeaderboard, getLastSyncDate, hitTripQualifier, subscribeToLeaderboard, RepData } from '../services/leaderboard'
 
 type BoardType = 'deals' | 'payroll'
 
-interface LiveActivity {
-  id: string
-  repName: string
-  action: 'deal' | 'door' | 'callback'
-  address?: string
-  timestamp: Date
-}
-
 export default function LeaderboardPage() {
   const [board, setBoard] = useState<BoardType>('deals')
-  const [showLive, setShowLive] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+  const [leaderboardData, setLeaderboardData] = useState<RepData[]>([])
+  const [lastSync, setLastSync] = useState('Loading...')
   
-  // Get data based on selected board
-  const dealsData = getDealsLeaderboard()
-  const payrollData = getPayrollLeaderboard()
-  const currentData = board === 'deals' ? dealsData : payrollData
-  const lastSync = getLastSyncDate()
-  
-  // Live activity feed - simulated for now
-  const [liveActivity, setLiveActivity] = useState<LiveActivity[]>([
-    { id: '1', repName: 'Yusuf K.', action: 'deal', address: '142 Oak St', timestamp: new Date(Date.now() - 2 * 60000) },
-    { id: '2', repName: 'Syed N.', action: 'door', timestamp: new Date(Date.now() - 5 * 60000) },
-    { id: '3', repName: 'Jamar J.', action: 'deal', address: '88 Pine Ave', timestamp: new Date(Date.now() - 8 * 60000) },
-    { id: '4', repName: 'Vernon T.', action: 'callback', address: '23 Elm Dr', timestamp: new Date(Date.now() - 12 * 60000) },
-    { id: '5', repName: 'Parion M.', action: 'deal', address: '156 Oak St', timestamp: new Date(Date.now() - 15 * 60000) },
-  ])
-
-  // Simulate live updates
+  // Fetch active reps on mount
   useEffect(() => {
-    const names = dealsData.map(r => r.name)
-    const actions: ('deal' | 'door' | 'callback')[] = ['deal', 'door', 'door', 'door', 'callback']
-    
-    const interval = setInterval(() => {
-      const newActivity: LiveActivity = {
-        id: Date.now().toString(),
-        repName: names[Math.floor(Math.random() * names.length)],
-        action: actions[Math.floor(Math.random() * actions.length)],
-        address: Math.random() > 0.5 ? `${Math.floor(Math.random() * 200)} ${['Oak', 'Pine', 'Elm', 'Maple'][Math.floor(Math.random() * 4)]} St` : undefined,
-        timestamp: new Date()
-      }
-      setLiveActivity(prev => [newActivity, ...prev.slice(0, 9)])
-    }, 15000)
+    loadLeaderboard()
+  }, [])
 
-    return () => clearInterval(interval)
-  }, [dealsData])
+  // Subscribe to real-time updates
+  useEffect(() => {
+    const unsubscribe = subscribeToLeaderboard(() => {
+      loadLeaderboard()
+    })
+    return unsubscribe
+  }, [])
+
+  const loadLeaderboard = async () => {
+    setIsLoading(true)
+    await fetchActiveReps()
+    setLeaderboardData(board === 'deals' ? getDealsLeaderboard() : getPayrollLeaderboard())
+    setLastSync(getLastSyncDate())
+    setIsLoading(false)
+  }
+
+  // Update data when board changes
+  useEffect(() => {
+    setLeaderboardData(board === 'deals' ? getDealsLeaderboard() : getPayrollLeaderboard())
+  }, [board])
 
   const getRankEmoji = (rank: number) => {
     if (rank === 1) return '🥇'
@@ -64,33 +50,10 @@ export default function LeaderboardPage() {
     return ''
   }
 
-  const getTimeAgo = (date: Date) => {
-    const mins = Math.floor((Date.now() - date.getTime()) / 60000)
-    if (mins < 1) return 'just now'
-    if (mins === 1) return '1m ago'
-    return `${mins}m ago`
-  }
-
-  const getActivityIcon = (action: string) => {
-    switch (action) {
-      case 'deal': return '🎉'
-      case 'callback': return '📅'
-      default: return '🚪'
-    }
-  }
-
-  const getActivityText = (activity: LiveActivity) => {
-    switch (activity.action) {
-      case 'deal': return `closed a deal${activity.address ? ` at ${activity.address}` : ''}!`
-      case 'callback': return `scheduled callback${activity.address ? ` at ${activity.address}` : ''}`
-      default: return 'knocked a door'
-    }
-  }
-
   // Team totals
-  const teamTotalDeals = dealsData.reduce((sum, r) => sum + r.weeklyDeals, 0)
-  const teamTotalKwh = payrollData.reduce((sum, r) => sum + r.payrollKwh, 0)
-  const tripQualifiers = payrollData.filter(r => hitTripQualifier(r.payrollKwh)).length
+  const teamTotalDeals = leaderboardData.reduce((sum, r) => sum + r.weeklyDeals, 0)
+  const teamTotalKwh = leaderboardData.reduce((sum, r) => sum + r.payrollKwh, 0)
+  const tripQualifiers = leaderboardData.filter(r => hitTripQualifier(r.payrollKwh)).length
 
   return (
     <div className="page">
@@ -99,85 +62,39 @@ export default function LeaderboardPage() {
           🏆 Leaderboard
         </div>
         <button
-          onClick={() => setShowLive(!showLive)}
+          onClick={loadLeaderboard}
+          disabled={isLoading}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.375rem',
-            background: showLive ? 'rgba(239, 68, 68, 0.2)' : 'var(--bg-secondary)',
+            background: 'var(--bg-secondary)',
             border: 'none',
             borderRadius: '1rem',
             padding: '0.375rem 0.75rem',
-            color: showLive ? '#ef4444' : 'var(--text-secondary)',
+            color: 'var(--text-secondary)',
             fontSize: '0.75rem',
-            fontWeight: 500
+            fontWeight: 500,
+            cursor: 'pointer'
           }}
         >
-          <span style={{ 
-            width: '8px', 
-            height: '8px', 
-            borderRadius: '50%', 
-            background: showLive ? '#ef4444' : 'var(--text-secondary)',
-            animation: showLive ? 'pulse 1.5s infinite' : 'none'
-          }} />
-          LIVE
+          <RefreshCw size={14} style={{ animation: isLoading ? 'spin 1s linear infinite' : 'none' }} />
+          Refresh
         </button>
       </div>
 
-      {/* Live Activity Feed */}
-      {showLive && (
-        <div className="card" style={{ 
-          marginBottom: '1rem',
-          background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, var(--bg-secondary) 100%)',
-          border: '1px solid rgba(239, 68, 68, 0.2)',
-          maxHeight: '180px',
-          overflow: 'hidden'
-        }}>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '0.5rem', 
-            marginBottom: '0.75rem',
-            color: '#ef4444',
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em'
-          }}>
-            <Activity size={14} />
-            Live Activity
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {liveActivity.slice(0, 4).map((activity, idx) => (
-              <div 
-                key={activity.id}
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.75rem',
-                  padding: '0.5rem',
-                  background: idx === 0 ? 'rgba(255,255,255,0.05)' : 'transparent',
-                  borderRadius: '0.5rem',
-                  animation: idx === 0 ? 'slideInRight 0.3s ease' : 'none'
-                }}
-              >
-                <span style={{ fontSize: '1.25rem' }}>{getActivityIcon(activity.action)}</span>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <span style={{ fontWeight: 600, color: activity.action === 'deal' ? 'var(--accent)' : 'var(--text-primary)' }}>
-                    {activity.repName}
-                  </span>
-                  <span style={{ color: 'var(--text-secondary)', marginLeft: '0.375rem', fontSize: '0.875rem' }}>
-                    {getActivityText(activity)}
-                  </span>
-                </div>
-                <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
-                  {getTimeAgo(activity.timestamp)}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Active Reps Notice */}
+      <div style={{
+        background: 'rgba(59, 130, 246, 0.1)',
+        border: '1px solid rgba(59, 130, 246, 0.2)',
+        borderRadius: '0.5rem',
+        padding: '0.5rem 0.75rem',
+        marginBottom: '1rem',
+        fontSize: '0.75rem',
+        color: 'var(--text-secondary)'
+      }}>
+        📊 Showing reps with deals in past 90 days ({leaderboardData.length} active)
+      </div>
 
       {/* Team Stats */}
       <div style={{
@@ -287,61 +204,74 @@ export default function LeaderboardPage() {
 
       {/* Rankings */}
       <div className="card">
-        {currentData.map((rep, index) => {
-          const onTripPace = hitTripQualifier(rep.payrollKwh)
-          
-          return (
-            <div 
-              key={rep.id} 
-              className="leaderboard-item"
-              style={{ padding: '0.875rem 0' }}
-            >
-              <div className={`leaderboard-rank ${getRankStyle(index + 1)}`}>
-                {getRankEmoji(index + 1)}
-              </div>
-              <div style={{ flex: 1 }}>
-                <div className="leaderboard-name" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  {rep.name}
-                  {onTripPace && (
-                    <span style={{ 
-                      background: 'rgba(168, 85, 247, 0.2)', 
-                      color: '#a855f7',
-                      fontSize: '0.6rem',
-                      padding: '0.125rem 0.375rem',
-                      borderRadius: '0.25rem',
-                      fontWeight: 600
-                    }}>
-                      🎯 TRIP
-                    </span>
-                  )}
+        {isLoading ? (
+          <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
+            Loading leaderboard...
+          </div>
+        ) : leaderboardData.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
+            No active reps with deals yet
+          </div>
+        ) : (
+          leaderboardData.map((rep, index) => {
+            const onTripPace = hitTripQualifier(rep.payrollKwh)
+            
+            return (
+              <div 
+                key={rep.id} 
+                className="leaderboard-item"
+                style={{ padding: '0.875rem 0' }}
+              >
+                <div className={`leaderboard-rank ${getRankStyle(index + 1)}`}>
+                  {getRankEmoji(index + 1)}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div className="leaderboard-name" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {rep.name}
+                    {onTripPace && (
+                      <span style={{ 
+                        background: 'rgba(168, 85, 247, 0.2)', 
+                        color: '#a855f7',
+                        fontSize: '0.6rem',
+                        padding: '0.125rem 0.375rem',
+                        borderRadius: '0.25rem',
+                        fontWeight: 600
+                      }}>
+                        🎯 TRIP
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+                    {rep.totalDeals90Days} deals (90 days)
+                  </div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div className="leaderboard-value" style={{ 
+                    color: board === 'deals' ? 'var(--accent)' : 'var(--warning)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    gap: '0.25rem'
+                  }}>
+                    {board === 'deals' ? (
+                      <>
+                        {rep.weeklyDeals} deals
+                      </>
+                    ) : (
+                      <>
+                        <Zap size={14} />
+                        {rep.payrollKwh}k
+                      </>
+                    )}
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+                    {board === 'deals' ? `~${rep.payrollKwh}k kWh` : `${rep.weeklyDeals} deals`}
+                  </div>
                 </div>
               </div>
-              <div style={{ textAlign: 'right' }}>
-                <div className="leaderboard-value" style={{ 
-                  color: board === 'deals' ? 'var(--accent)' : 'var(--warning)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  gap: '0.25rem'
-                }}>
-                  {board === 'deals' ? (
-                    <>
-                      {rep.weeklyDeals} deals
-                    </>
-                  ) : (
-                    <>
-                      <Zap size={14} />
-                      {rep.payrollKwh}k
-                    </>
-                  )}
-                </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                  {board === 'deals' ? `${rep.payrollKwh}k kWh` : `${rep.weeklyDeals} deals`}
-                </div>
-              </div>
-            </div>
-          )
-        })}
+            )
+          })
+        )}
       </div>
 
       {/* Last Updated */}
