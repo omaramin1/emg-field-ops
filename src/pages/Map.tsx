@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating, formatAccuracy, requiresConfirmation, reverseGeocode } from '../lib/gps'
-import { createKnock, subscribeToKnocks, getTodaysKnocks, updateKnock, KnockResult } from '../lib/knocks'
+import { createKnock, subscribeToKnocks, getTodaysKnocks, getHistoricalDeals, updateKnock, KnockResult } from '../lib/knocks'
 import { useAuthStore } from '../stores/authStore'
 import { getDNKWithCoords } from '../data/doNotKnock'
 import { KnockRecord } from '../lib/supabase'
@@ -36,6 +36,7 @@ export default function MapPage() {
   const map = useRef<mapboxgl.Map | null>(null)
   const userMarker = useRef<mapboxgl.Marker | null>(null)
   const knockMarkers = useRef<Map<string, mapboxgl.Marker>>(new Map())
+  const oldDealMarkers = useRef<Map<string, mapboxgl.Marker>>(new Map())
 
   // State
   const [mapLoaded, setMapLoaded] = useState(false)
@@ -57,6 +58,8 @@ export default function MapPage() {
   const [editResult, setEditResult] = useState<KnockResult | null>(null)
   const [editNotes, setEditNotes] = useState('')
   const [isUpdating, setIsUpdating] = useState(false)
+  const [oldDeals, setOldDeals] = useState<KnockRecord[]>([])
+  const [showOldDeals, setShowOldDeals] = useState(true)
 
   // Get current rep from auth
   const { currentRep } = useAuthStore()
@@ -194,11 +197,15 @@ export default function MapPage() {
     return stopWatching
   }, [])
 
-  // Load existing knocks
+  // Load existing knocks and historical deals
   useEffect(() => {
     const loadKnocks = async () => {
-      const todaysKnocks = await getTodaysKnocks()
+      const [todaysKnocks, historicalDeals] = await Promise.all([
+        getTodaysKnocks(),
+        getHistoricalDeals()
+      ])
       setKnocks(todaysKnocks)
+      setOldDeals(historicalDeals)
     }
     loadKnocks()
   }, [])
@@ -303,6 +310,59 @@ export default function MapPage() {
       }
     })
   }, [knocks, mapLoaded, filterResult])
+
+  // Add old deal markers to map (historical signed_up deals)
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return
+
+    // Clear old markers if toggle is off
+    if (!showOldDeals) {
+      oldDealMarkers.current.forEach((marker) => marker.remove())
+      oldDealMarkers.current.clear()
+      return
+    }
+
+    // Remove markers not in current list
+    oldDealMarkers.current.forEach((marker, id) => {
+      if (!oldDeals.find(d => d.id === id)) {
+        marker.remove()
+        oldDealMarkers.current.delete(id)
+      }
+    })
+
+    // Add markers for old deals
+    oldDeals.forEach(deal => {
+      if (oldDealMarkers.current.has(deal.id)) return
+
+      const el = document.createElement('div')
+      el.innerHTML = `
+        <div style="
+          width: 14px;
+          height: 14px;
+          background: #06b6d4;
+          border: 2px solid white;
+          border-radius: 3px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+          cursor: pointer;
+        "></div>
+      `
+      
+      const dealDate = new Date(deal.created_at).toLocaleDateString()
+      const marker = new mapboxgl.Marker({ element: el })
+        .setLngLat([deal.lng, deal.lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+          <div style="padding: 8px; font-family: system-ui;">
+            <strong style="color: #06b6d4">📋 Old Deal</strong>
+            ${deal.address ? `<br><small>${deal.address}</small>` : ''}
+            <br><small style="color: #888">${dealDate}</small>
+            ${deal.canvasser_name ? `<br><small style="color: #666">by ${deal.canvasser_name}</small>` : ''}
+          </div>
+        `))
+        .addTo(map.current!)
+
+      oldDealMarkers.current.set(deal.id, marker)
+    })
+  }, [oldDeals, mapLoaded, showOldDeals])
 
   // Center on user
   const centerOnUser = useCallback(() => {
@@ -427,6 +487,21 @@ export default function MapPage() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button 
+              onClick={() => setShowOldDeals(!showOldDeals)}
+              title={showOldDeals ? 'Hide old deals' : 'Show old deals'}
+              style={{
+                background: showOldDeals ? '#06b6d4' : 'var(--bg-secondary)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.5rem 0.625rem',
+                color: 'white',
+                fontSize: '0.7rem',
+                fontWeight: 600
+              }}
+            >
+              📋 {oldDeals.length}
+            </button>
             <button 
               onClick={() => setShowFilters(!showFilters)}
               style={{
@@ -842,7 +917,25 @@ export default function MapPage() {
         flexWrap: 'wrap',
         gap: '0.5rem'
       }}>
-        {Object.entries(RESULT_COLORS).slice(0, 4).map(([result, color]) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.65rem' }}>
+          <div style={{ 
+            width: '8px', 
+            height: '8px', 
+            borderRadius: '50%', 
+            background: '#10b981' 
+          }} />
+          <span style={{ color: 'var(--text-secondary)' }}>New Deal</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.65rem' }}>
+          <div style={{ 
+            width: '8px', 
+            height: '8px', 
+            borderRadius: '2px', 
+            background: '#06b6d4' 
+          }} />
+          <span style={{ color: 'var(--text-secondary)' }}>Old Deal</span>
+        </div>
+        {Object.entries(RESULT_COLORS).filter(([r]) => r !== 'signed_up').slice(0, 3).map(([result, color]) => (
           <div key={result} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.65rem' }}>
             <div style={{ 
               width: '8px', 

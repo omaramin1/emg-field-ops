@@ -141,6 +141,35 @@ export async function getTodaysKnocks(): Promise<KnockRecord[]> {
 }
 
 /**
+ * Get historical signed_up deals (before today) for map display
+ * These are "old deals" that should be marked differently
+ */
+export async function getHistoricalDeals(limit: number = 500): Promise<KnockRecord[]> {
+  try {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const { data, error } = await supabase
+      .from('knocks')
+      .select('*')
+      .eq('result', 'signed_up')
+      .lt('created_at', today.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(limit)
+
+    if (error) {
+      console.error('Error fetching historical deals:', error)
+      return []
+    }
+
+    return data as KnockRecord[]
+  } catch (e) {
+    console.error('Get historical deals error:', e)
+    return []
+  }
+}
+
+/**
  * Update a knock record
  */
 export async function updateKnock(
