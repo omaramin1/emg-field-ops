@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating, formatAccuracy, requiresConfirmation } from '../lib/gps'
+import { GPSPosition, getHighAccuracyPosition, watchPosition, getAccuracyRating, formatAccuracy, requiresConfirmation, reverseGeocode } from '../lib/gps'
 import { createKnock, subscribeToKnocks, getTodaysKnocks, KnockResult } from '../lib/knocks'
 import { KnockRecord } from '../lib/supabase'
 
@@ -45,6 +45,8 @@ export default function MapPage() {
   const [selectedResult, setSelectedResult] = useState<KnockResult | null>(null)
   const [knockNotes, setKnockNotes] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [detectedAddress, setDetectedAddress] = useState<string>('')
+  const [isLoadingAddress, setIsLoadingAddress] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [filterResult, setFilterResult] = useState<KnockResult | 'all'>('all')
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
@@ -243,6 +245,24 @@ export default function MapPage() {
     }
   }, [userPosition])
 
+  // Fetch address when opening knock panel
+  const openKnockPanel = useCallback(async () => {
+    setShowAddKnock(true)
+    setDetectedAddress('')
+    
+    if (userPosition) {
+      setIsLoadingAddress(true)
+      try {
+        const address = await reverseGeocode(userPosition.lat, userPosition.lng)
+        setDetectedAddress(address || '')
+      } catch (e) {
+        console.error('Failed to get address:', e)
+      } finally {
+        setIsLoadingAddress(false)
+      }
+    }
+  }, [userPosition])
+
   // Submit knock
   const submitKnock = async () => {
     if (!userPosition || !selectedResult) return
@@ -258,7 +278,8 @@ export default function MapPage() {
         result: selectedResult,
         notes: knockNotes || undefined,
         canvasserId,
-        canvasserName
+        canvasserName,
+        address: detectedAddress || undefined
       })
 
       if (knock) {
@@ -464,7 +485,7 @@ export default function MapPage() {
       {!showAddKnock && (
         <div style={{ padding: '1rem', background: 'var(--bg-primary)', borderTop: '1px solid var(--bg-card)' }}>
           <button
-            onClick={() => setShowAddKnock(true)}
+            onClick={openKnockPanel}
             disabled={gpsStatus !== 'locked'}
             className="btn btn-primary"
             style={{ 
@@ -493,11 +514,46 @@ export default function MapPage() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <div style={{ fontSize: '1rem', fontWeight: 600 }}>Log This Door</div>
             <button 
-              onClick={() => { setShowAddKnock(false); setSelectedResult(null); setKnockNotes('') }}
+              onClick={() => { setShowAddKnock(false); setSelectedResult(null); setKnockNotes(''); setDetectedAddress('') }}
               style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem', cursor: 'pointer' }}
             >
               ×
             </button>
+          </div>
+
+          {/* Detected Address */}
+          <div style={{ marginBottom: '1rem' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+              📍 Address (edit if needed):
+            </div>
+            {isLoadingAddress ? (
+              <div style={{
+                background: 'var(--bg-card)',
+                borderRadius: '0.5rem',
+                padding: '0.75rem',
+                color: 'var(--text-secondary)',
+                fontSize: '0.875rem'
+              }}>
+                <Loader2 size={14} className="animate-spin" style={{ display: 'inline', marginRight: '0.5rem' }} />
+                Detecting address...
+              </div>
+            ) : (
+              <input
+                type="text"
+                value={detectedAddress}
+                onChange={(e) => setDetectedAddress(e.target.value)}
+                placeholder="Enter address..."
+                style={{
+                  width: '100%',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--bg-card)',
+                  borderRadius: '0.5rem',
+                  padding: '0.75rem',
+                  color: 'var(--text-primary)',
+                  fontSize: '0.875rem'
+                }}
+              />
+            )}
           </div>
 
           {/* GPS Warning */}
