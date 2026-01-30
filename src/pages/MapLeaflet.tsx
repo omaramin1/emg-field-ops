@@ -167,11 +167,12 @@ export default function MapLeaflet() {
 
   return (
     <div style={{ 
-      height: '100dvh', 
+      height: 'calc(100dvh - 4.5rem)', 
+      maxHeight: 'calc(100dvh - 4.5rem)',
       display: 'flex', 
       flexDirection: 'column',
       background: 'var(--bg-primary)',
-      paddingBottom: 'env(safe-area-inset-bottom)'
+      overflow: 'hidden'
     }}>
       {/* Toast */}
       {toast && (

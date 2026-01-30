@@ -875,7 +875,7 @@ export default function MapPage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 5rem)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100dvh - 4.5rem)', maxHeight: 'calc(100dvh - 4.5rem)', overflow: 'hidden' }}>
       {/* Toast Notification */}
       {toast && (
         <div style={{
