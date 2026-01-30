@@ -166,44 +166,65 @@ export default function MapLeaflet() {
   }
 
   return (
-    <div style={{ height: 'calc(100vh - 5rem)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ 
+      height: '100dvh', 
+      display: 'flex', 
+      flexDirection: 'column',
+      background: 'var(--bg-primary)',
+      paddingBottom: 'env(safe-area-inset-bottom)'
+    }}>
       {/* Toast */}
       {toast && (
         <div style={{
           position: 'fixed', top: '1rem', left: '50%', transform: 'translateX(-50%)',
-          background: '#10b981', color: 'white', padding: '1rem 1.5rem',
-          borderRadius: '0.75rem', zIndex: 1000, fontWeight: 600
+          background: '#10b981', color: 'white', padding: '0.75rem 1.25rem',
+          borderRadius: '0.75rem', zIndex: 1000, fontWeight: 600,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          fontSize: '0.875rem'
         }}>{toast}</div>
       )}
 
-      {/* Header */}
-      <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--bg-card)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <div style={{ fontSize: '0.875rem', fontWeight: 600 }}>
-              Today: {stats.total} knocks · {stats.signed} signed
-            </div>
-            <div style={{ 
-              fontSize: '0.75rem', 
-              color: gpsStatus === 'locked' ? 'var(--success)' : gpsStatus === 'error' ? 'var(--danger)' : 'var(--text-secondary)',
-              display: 'flex', alignItems: 'center', gap: '0.25rem'
-            }}>
-              {gpsStatus === 'acquiring' && <><Loader2 size={12} className="animate-spin" /> Acquiring GPS...</>}
-              {gpsStatus === 'locked' && <><CheckCircle size={12} /> GPS: ±{accuracy.toFixed(0)}m</>}
-              {gpsStatus === 'error' && <><AlertCircle size={12} /> GPS Error</>}
-            </div>
+      {/* Advanced Header with better spacing */}
+      <div style={{ 
+        padding: '0.75rem 1rem', 
+        background: 'var(--bg-secondary)', 
+        borderBottom: '1px solid var(--border)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        minHeight: '60px'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+          <div style={{ fontSize: '0.875rem', fontWeight: 600, letterSpacing: '-0.01em' }}>
+            Today: {stats.total} knocks · {stats.signed} signed
+          </div>
+          <div style={{ 
+            fontSize: '0.75rem', 
+            color: gpsStatus === 'locked' ? 'var(--success)' : gpsStatus === 'error' ? 'var(--danger)' : 'var(--text-secondary)',
+            display: 'flex', alignItems: 'center', gap: '0.25rem',
+            fontWeight: 500
+          }}>
+            {gpsStatus === 'acquiring' && <><Loader2 size={12} className="animate-spin" /> Acquiring GPS...</>}
+            {gpsStatus === 'locked' && <><CheckCircle size={12} /> GPS: ±{accuracy.toFixed(0)}m</>}
+            {gpsStatus === 'error' && <><AlertCircle size={12} /> GPS Error</>}
           </div>
         </div>
       </div>
 
-      {/* Map */}
-      <div style={{ flex: 1, position: 'relative' }}>
+      {/* Optimized Map Container */}
+      <div style={{ 
+        flex: 1, 
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
         <MapContainer
           center={position || [37.541, -77.436]}
           zoom={position ? 17 : 10}
           style={{ height: '100%', width: '100%' }}
           ref={mapRef}
           zoomControl={false}
+          attributionControl={false}
         >
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
@@ -239,42 +260,117 @@ export default function MapLeaflet() {
           ))}
         </MapContainer>
 
-        {/* Center button */}
-        <button
-          onClick={centerOnUser}
-          disabled={!position}
-          style={{
-            position: 'absolute', bottom: '5rem', right: '1rem', zIndex: 1000,
-            background: 'var(--bg-secondary)', border: 'none', borderRadius: '0.5rem',
-            padding: '0.75rem', boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
-          }}
-        >
-          <Target size={20} color={position ? 'var(--text-primary)' : 'var(--text-secondary)'} />
-        </button>
+        {/* Optimized Control Buttons */}
+        <div style={{
+          position: 'absolute', 
+          bottom: 'max(1rem, env(safe-area-inset-bottom))', 
+          right: '1rem', 
+          zIndex: 1000,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.75rem'
+        }}>
+          <button
+            onClick={centerOnUser}
+            disabled={!position}
+            style={{
+              background: 'var(--bg-secondary)', 
+              border: 'none', 
+              borderRadius: '0.75rem',
+              padding: '0.875rem', 
+              boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+              minWidth: '48px',
+              minHeight: '48px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.2s ease',
+              transform: !position ? 'scale(0.95)' : 'scale(1)',
+              opacity: !position ? 0.6 : 1
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = position ? 'scale(1)' : 'scale(0.95)'}
+          >
+            <Target size={20} color={position ? 'var(--text-primary)' : 'var(--text-secondary)'} />
+          </button>
+        </div>
       </div>
 
-      {/* Log Knock Button */}
+      {/* Advanced Log Knock Button */}
       {!showKnockPanel && (
-        <div style={{ padding: '1rem', background: 'var(--bg-primary)' }}>
+        <div style={{ 
+          padding: '1rem', 
+          background: 'var(--bg-primary)',
+          borderTop: '1px solid var(--border)',
+          paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
+        }}>
           <button
             onClick={() => setShowKnockPanel(true)}
             disabled={gpsStatus !== 'locked'}
             className="btn btn-primary"
-            style={{ width: '100%', padding: '1rem', fontSize: '1rem', opacity: gpsStatus !== 'locked' ? 0.5 : 1 }}
+            style={{ 
+              width: '100%', 
+              padding: '1rem', 
+              fontSize: '1rem', 
+              fontWeight: 600,
+              minHeight: '56px',
+              borderRadius: '0.75rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              opacity: gpsStatus !== 'locked' ? 0.5 : 1,
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+            }}
           >
             <Plus size={20} /> Log Door Knock
           </button>
         </div>
       )}
 
-      {/* Knock Panel - One tap to log */}
+      {/* Advanced Knock Panel */}
       {showKnockPanel && (
-        <div style={{ padding: '1rem', background: 'var(--bg-secondary)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-            <div style={{ fontWeight: 600 }}>Tap to Log</div>
-            <button onClick={() => { setShowKnockPanel(false); setSelectedResult(null) }} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem' }}>×</button>
+        <div style={{ 
+          padding: '1rem', 
+          background: 'var(--bg-secondary)',
+          borderTop: '1px solid var(--border)',
+          paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            marginBottom: '1rem'
+          }}>
+            <div style={{ 
+              fontWeight: 600, 
+              fontSize: '1rem',
+              letterSpacing: '-0.01em'
+            }}>Tap to Log</div>
+            <button 
+              onClick={() => { setShowKnockPanel(false); setSelectedResult(null) }} 
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: 'var(--text-secondary)', 
+                fontSize: '1.5rem',
+                padding: '0.5rem',
+                cursor: 'pointer',
+                minWidth: '44px',
+                minHeight: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >×</button>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gap: '0.75rem'
+          }}>
             {Object.entries(RESULT_LABELS).map(([result, label]) => (
               <button
                 key={result}
@@ -283,8 +379,19 @@ export default function MapLeaflet() {
                 style={{
                   background: selectedResult === result ? RESULT_COLORS[result] : 'var(--bg-card)',
                   border: `2px solid ${RESULT_COLORS[result]}`,
-                  borderRadius: '0.5rem', padding: '1rem', color: 'white', fontSize: '0.875rem', fontWeight: 600,
-                  opacity: isSubmitting ? 0.5 : 1
+                  borderRadius: '0.75rem', 
+                  padding: '1rem', 
+                  color: 'white', 
+                  fontSize: '0.875rem', 
+                  fontWeight: 600,
+                  opacity: isSubmitting ? 0.5 : 1,
+                  minHeight: '56px',
+                  cursor: isSubmitting ? 'wait' : 'pointer',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center'
                 }}
               >{isSubmitting && selectedResult === result ? '...' : label}</button>
             ))}
