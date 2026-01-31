@@ -447,8 +447,8 @@ export default function MapPage() {
             type: 'geojson',
             data: geojson,
             cluster: true,
-            clusterMaxZoom: 14,
-            clusterRadius: 50
+            clusterMaxZoom: 12,
+            clusterRadius: 40
           })
 
           // Cluster circles - gray
